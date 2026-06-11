@@ -1,0 +1,1351 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Captains Film</title>
+  <meta name="description" content="Captains Film cinematic production showcase.">
+  <link rel="icon" type="image/x-icon" href="assets/captains/favicon_io/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/captains/favicon_io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/captains/favicon_io/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="assets/captains/favicon_io/apple-touch-icon.png">
+  <link rel="manifest" href="assets/captains/favicon_io/site.webmanifest">
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800;900&display=swap");
+
+    :root {
+      --mint: #3EFFA3;
+      --black: #0C0705;
+      --white: #fff;
+      --soft: rgba(194, 255, 224, .74);
+      --faint: rgba(62, 255, 163, .16);
+      --panel: rgba(12, 7, 5, .42);
+      --ease: cubic-bezier(.19, 1, .22, 1);
+      --latin: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+      --arabic: "DIN Next LT Arabic", "DINNextLTArabic", "DIN Next Arabic", Tahoma, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--latin);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100svh;
+      overflow: hidden;
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--latin);
+      letter-spacing: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    :lang(ar),
+    .arabic {
+      font-family: var(--arabic);
+      letter-spacing: 0;
+    }
+
+    body.ready { overflow: hidden; }
+    body.menu-open,
+    body.modal-open { overflow: hidden; }
+    button, input, textarea { font: inherit; }
+    button { border: 0; color: inherit; cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+
+    .intro {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background: var(--black);
+      transform: translateY(0);
+    }
+
+    .intro::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: var(--mint);
+      transform: translateY(100%);
+    }
+
+    .intro span {
+      display: inline-block;
+      margin: 0 .35rem;
+      color: var(--mint);
+      font-size: clamp(30px, 4vw, 52px);
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      filter: blur(10px);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: introWords 1s .25s var(--ease) forwards;
+    }
+
+    .intro span + span { animation-delay: .42s; }
+    body.ready .intro {
+      animation: introExit .72s 1.55s cubic-bezier(.77, 0, .175, 1) forwards;
+    }
+    body.ready .intro::after {
+      animation: whiteWipe .74s 1.5s cubic-bezier(.77, 0, .175, 1) forwards;
+    }
+
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 50;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      padding: 1rem;
+      pointer-events: none;
+    }
+
+    .nav {
+      pointer-events: auto;
+      width: min(100%, 1280px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1rem;
+      padding: .5rem 2.5rem;
+      border: 1px solid rgba(62, 255, 163, .18);
+      border-radius: 6px;
+      background: var(--panel);
+      backdrop-filter: blur(12px);
+      opacity: 0;
+      transform: translateY(-16px);
+      transition: opacity .8s var(--ease), transform .8s var(--ease), background .25s ease;
+    }
+
+    body.ready .nav {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 1.9s;
+    }
+
+    .nav-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      min-height: 70px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      width: clamp(134px, 13vw, 186px);
+      height: 70px;
+      line-height: 0;
+      transition: transform .45s var(--ease), filter .45s var(--ease);
+    }
+
+    .brand:hover,
+    .brand:focus-visible {
+      filter: drop-shadow(0 0 18px rgba(62, 255, 163, .35));
+      transform: scale(1.025);
+    }
+
+    .brand img {
+      display: block;
+      width: 100%;
+      height: auto;
+      transform: translateY(-1px);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--mint);
+      font-size: .875rem;
+      transition: color .2s ease;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+
+    .lang-toggle {
+      min-height: 38px;
+      padding: .45rem .75rem;
+      border: 1px solid rgba(62,255,163,.38);
+      border-radius: 999px;
+      background: rgba(12,7,5,.38);
+      color: var(--mint);
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      transition: background .25s ease, color .25s ease;
+    }
+
+    .lang-toggle:hover {
+      background: var(--mint);
+      color: var(--black);
+    }
+
+    html[dir="rtl"] body {
+      direction: rtl;
+      text-align: right;
+      font-family: var(--arabic);
+    }
+
+    html[dir="rtl"] .social-rail {
+      right: 0;
+      left: auto;
+    }
+
+    html[dir="rtl"] .modal {
+      justify-content: flex-start;
+    }
+
+    html[dir="rtl"] .modal-panel {
+      border-left: 0;
+      border-right: 1px solid rgba(62,255,163,.18);
+    }
+
+    .project-button {
+      position: relative;
+      overflow: hidden;
+      padding: .55rem 1rem;
+      border: 1px solid var(--mint);
+      border-radius: 6px;
+      background: transparent;
+      color: var(--mint);
+      font-size: .875rem;
+      text-transform: uppercase;
+    }
+
+    .project-button span {
+      position: relative;
+      z-index: 1;
+      transition: color .3s ease;
+    }
+
+    .project-button::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--mint);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform .3s ease-out;
+    }
+
+    .project-button:hover::before { transform: scaleY(1); }
+    .project-button:hover span { color: var(--black); }
+
+    .hamburger {
+      display: none;
+      width: 2rem;
+      height: 1.5rem;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+    }
+
+    .hamburger i,
+    .hamburger i::after {
+      display: block;
+      width: 1.5rem;
+      height: 1px;
+      background: var(--mint);
+      transition: transform .3s ease;
+      content: "";
+    }
+
+    .hamburger i { transform: translateY(-4px); }
+    .hamburger i::after { transform: translateY(8px); }
+    body.menu-open .hamburger i { transform: rotate(45deg); }
+    body.menu-open .hamburger i::after { transform: rotate(90deg); }
+
+    .mobile-menu {
+      display: none;
+      width: 100%;
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height .45s var(--ease), padding .45s var(--ease);
+    }
+
+    body.menu-open .mobile-menu {
+      max-height: 310px;
+      padding: 1rem 0 .75rem;
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding: .45rem 0;
+      text-align: center;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+    }
+
+    .social-rail {
+      position: fixed;
+      top: 50%;
+      left: 0;
+      z-index: 45;
+      width: 53px;
+      min-height: 210px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      padding: 1rem .2rem;
+      background: var(--black);
+      color: var(--mint);
+      transform: translateY(-50%);
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .social-rail a {
+      transition: color .2s ease, transform .2s ease;
+    }
+
+    .social-rail a:hover {
+      color: var(--white);
+      transform: translateX(1px);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      overflow: hidden;
+      cursor: pointer;
+      user-select: none;
+      touch-action: none;
+      background: var(--black);
+    }
+
+    .stage,
+    .project-image,
+    .project-image::before,
+    .project-image::after,
+    .noise,
+    .shade {
+      position: absolute;
+      inset: 0;
+    }
+
+    .project-image {
+      background-position: center;
+      background-size: cover;
+      transform: scale(1.02);
+      filter: saturate(.9) contrast(1.04);
+      transition: opacity .8s ease, transform 8s linear, clip-path 1s var(--ease);
+      will-change: transform, opacity, clip-path;
+    }
+
+    .project-image iframe {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: max(100vw, 177.78vh);
+      height: max(100vh, 56.25vw);
+      border: 0;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: opacity 1s ease;
+    }
+
+    .project-image.video-ready iframe {
+      opacity: 1;
+    }
+
+    .project-image.current {
+      opacity: 1;
+      transform: scale(1.09);
+      z-index: 1;
+    }
+
+    .project-image.next {
+      z-index: 2;
+      opacity: 0;
+      clip-path: polygon(-18% -18%, -18% -18%, -18% 118%, -18% 118%);
+    }
+
+    .project-image.next.revealing {
+      opacity: 1;
+      animation: diagonalReveal 1s var(--ease) forwards;
+    }
+
+    .project-image.warping {
+      animation: warpPulse 1s ease-in-out;
+    }
+
+    .project-image::before {
+      content: "";
+      z-index: 2;
+      background:
+        linear-gradient(90deg, rgba(12,7,5,.68), transparent 38%, rgba(12,7,5,.48)),
+        linear-gradient(0deg, rgba(12,7,5,.58), transparent 45%, rgba(12,7,5,.2));
+      pointer-events: none;
+    }
+
+    .project-image::after {
+      content: "";
+      z-index: 3;
+      opacity: .18;
+      mix-blend-mode: screen;
+      background:
+        repeating-linear-gradient(90deg, transparent 0 24px, rgba(62,255,163,.12) 25px 26px, transparent 27px 48px);
+      transform: translateX(-20px) skewX(-12deg);
+      animation: filmScan 7s linear infinite;
+      pointer-events: none;
+    }
+
+    .noise {
+      z-index: 4;
+      opacity: .08;
+      background-image:
+        radial-gradient(circle at 10% 20%, var(--mint) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 80% 30%, var(--mint) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 45% 75%, var(--mint) 0 1px, transparent 1.5px);
+      background-size: 90px 90px, 130px 130px, 170px 170px;
+      animation: noiseDrift .55s steps(2) infinite;
+      pointer-events: none;
+    }
+
+    .shade {
+      z-index: 5;
+      background: rgba(0, 0, 0, .1);
+      pointer-events: none;
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      padding: 8rem 3rem 3rem;
+      opacity: 0;
+      transform: translateY(18px);
+    }
+
+    body.ready .content {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity .9s 2s var(--ease), transform .9s 2s var(--ease);
+    }
+
+    body.settled .intro {
+      visibility: hidden;
+      transform: translateY(-100%);
+    }
+
+    body.settled .nav,
+    body.settled .content {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+      transition-delay: 0s;
+    }
+
+    .content-spacer { flex: 1; }
+
+    .copy {
+      max-width: min(900px, 78vw);
+      margin-bottom: clamp(1rem, 6vh, 3rem);
+    }
+
+    h1 {
+      margin: 0 0 1rem;
+      color: var(--mint);
+      font-size: clamp(42px, 6vw, 104px);
+      font-weight: 900;
+      line-height: .92;
+      text-transform: uppercase;
+      letter-spacing: -.025em;
+    }
+
+    .project-meta {
+      min-height: 1.6em;
+      color: var(--soft);
+      font-size: clamp(13px, 1.35vw, 16px);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .scroll-word {
+      position: absolute;
+      top: 5rem;
+      right: 5rem;
+      color: rgba(194,255,224,.68);
+      font-size: clamp(10px, .95vw, 12px);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .controls {
+      position: absolute;
+      right: 3rem;
+      bottom: 3rem;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: .55rem;
+    }
+
+    .counter {
+      font-size: clamp(24px, 3vw, 34px);
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .dots {
+      display: flex;
+      gap: .5rem;
+    }
+
+    .dot {
+      width: .5rem;
+      height: .5rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,.52);
+      transition: width .3s ease, background .3s ease;
+    }
+
+    .dot:hover { background: rgba(255,255,255,.78); }
+    .dot.active {
+      width: 2rem;
+      background: var(--mint);
+    }
+
+    .progress {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      z-index: 30;
+      width: 100%;
+      height: 2px;
+      background: rgba(62,255,163,.16);
+    }
+
+    .progress span {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: var(--mint);
+      transform: scaleX(0);
+      transform-origin: left;
+    }
+
+    .cursor {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      pointer-events: none;
+      opacity: 0;
+      transform: translate3d(-30px, -30px, 0);
+      transition: opacity .2s ease;
+    }
+
+    .cursor i {
+      width: .75rem;
+      height: .75rem;
+      border-radius: 999px;
+      background: var(--mint);
+    }
+
+    .cursor span {
+      font-size: .75rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: none;
+      align-items: stretch;
+      justify-content: flex-end;
+      background: rgba(0,0,0,.62);
+      backdrop-filter: blur(10px);
+    }
+
+    .modal.open { display: flex; }
+
+    .modal-panel {
+      width: min(650px, 100%);
+      min-height: 100%;
+      padding: clamp(24px, 4vw, 54px);
+      overflow-y: auto;
+      background: var(--black);
+      border-left: 1px solid rgba(62,255,163,.18);
+      transform: translateX(100%);
+      animation: modalIn .55s var(--ease) forwards;
+    }
+
+    .modal-close {
+      display: block;
+      margin-left: auto;
+      padding: .65rem .85rem;
+      border: 1px solid rgba(62,255,163,.34);
+      border-radius: 6px;
+      background: transparent;
+      text-transform: uppercase;
+      font-size: .8rem;
+      letter-spacing: .08em;
+    }
+
+    .modal h2 {
+      margin: 3rem 0 1rem;
+      font-size: clamp(38px, 6vw, 72px);
+      line-height: .95;
+      text-transform: uppercase;
+    }
+
+    .modal p {
+      max-width: 42rem;
+      color: var(--soft);
+      font-family: var(--latin);
+      font-size: 1.15rem;
+      line-height: 1.65;
+    }
+
+    .contact-details {
+      display: grid;
+      gap: .75rem;
+      margin: 1.5rem 0 0;
+      padding: 1rem 0 0;
+      border-top: 1px solid rgba(62,255,163,.18);
+      color: var(--soft);
+      font-size: .95rem;
+      line-height: 1.6;
+    }
+
+    .contact-details a {
+      color: var(--mint);
+      transition: color .2s ease;
+    }
+
+    .contact-details a:hover {
+      color: var(--white);
+    }
+
+    .contact-details strong {
+      color: var(--mint);
+      font-weight: 700;
+    }
+
+    .contact-phones {
+      display: grid;
+      gap: .45rem;
+      margin-top: 1rem;
+    }
+
+    .contact-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      margin-top: 2rem;
+      min-height: 44px;
+      padding: .75rem 1.1rem;
+      border: 1px solid var(--mint);
+      border-radius: 999px;
+      color: var(--mint);
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transition: background .25s ease, color .25s ease, transform .25s var(--ease);
+    }
+
+    .contact-whatsapp:hover {
+      background: var(--mint);
+      color: var(--black);
+      transform: translateY(-2px);
+    }
+
+    .modal img {
+      width: 100%;
+      margin: 1.4rem 0;
+      border-radius: 6px;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin: 1.6rem 0 0;
+      background: rgba(62,255,163,.18);
+      border: 1px solid rgba(62,255,163,.18);
+    }
+
+    .facts div {
+      padding: 1rem;
+      background: var(--black);
+    }
+
+    .facts small {
+      display: block;
+      color: rgba(194,255,224,.55);
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .facts strong {
+      display: block;
+      margin-top: .35rem;
+      font-size: .9rem;
+      text-transform: uppercase;
+    }
+
+    .contact-fields {
+      display: grid;
+      gap: .8rem;
+      margin-top: 2rem;
+    }
+
+    .contact-fields input,
+    .contact-fields textarea {
+      width: 100%;
+      padding: .95rem 1rem;
+      border: 1px solid rgba(62,255,163,.22);
+      border-radius: 6px;
+      outline: 0;
+      background: rgba(62,255,163,.06);
+      color: var(--white);
+    }
+
+    .contact-fields textarea { min-height: 120px; resize: vertical; }
+
+    .toast {
+      min-height: 1.5rem;
+      color: var(--soft);
+      font-size: .9rem;
+    }
+
+    @keyframes introWords {
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+
+    @keyframes introExit {
+      to { transform: translateY(-100%); visibility: hidden; }
+    }
+
+    @keyframes whiteWipe {
+      0% { transform: translateY(100%); }
+      55% { transform: translateY(0); }
+      100% { transform: translateY(-100%); }
+    }
+
+    @keyframes diagonalReveal {
+      0% { clip-path: polygon(-18% -18%, -18% -18%, -18% 118%, -18% 118%); filter: saturate(.8) contrast(1.2) hue-rotate(-5deg); }
+      45% { filter: saturate(1.05) contrast(1.08) hue-rotate(2deg); }
+      100% { clip-path: polygon(-18% -18%, 118% -18%, 118% 118%, -18% 118%); filter: saturate(.9) contrast(1.04); }
+    }
+
+    @keyframes warpPulse {
+      0% { transform: scale(1.04) skewX(0); }
+      50% { transform: scale(1.13) skewX(-1.5deg); }
+      100% { transform: scale(1.09) skewX(0); }
+    }
+
+    @keyframes filmScan {
+      to { transform: translateX(20px) skewX(-12deg); }
+    }
+
+    @keyframes noiseDrift {
+      to { background-position: 90px 40px, -70px 80px, 30px -120px; }
+    }
+
+    @keyframes pulse {
+      50% { opacity: .45; }
+    }
+
+    @keyframes modalIn {
+      to { transform: translateX(0); }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        padding: .6rem 1rem;
+      }
+
+      .nav-links,
+      .nav .nav-actions.desktop {
+        display: none;
+      }
+
+      .hamburger,
+      .mobile-menu {
+        display: flex;
+      }
+
+      .mobile-menu {
+        flex-direction: column;
+      }
+
+      .mobile-menu .project-button,
+      .mobile-menu .lang-toggle {
+        align-self: center;
+        margin-top: 1rem;
+      }
+
+      .mobile-menu .project-button {
+        background: var(--mint);
+        color: var(--black);
+      }
+
+      .brand { width: 168px; }
+      .social-rail { display: none; }
+      .content {
+        padding: 7rem 1.5rem 7rem;
+      }
+
+      .copy {
+        max-width: 100%;
+        margin-bottom: 0;
+      }
+
+      h1 { font-size: clamp(40px, 12vw, 68px); }
+      .scroll-word {
+        top: 7rem;
+        right: 1.5rem;
+      }
+
+      .controls {
+        right: 1.5rem;
+        bottom: 2rem;
+      }
+
+      .facts { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .001ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="intro" aria-hidden="true"><div><span>Captains</span><span>Film</span></div></div>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary navigation">
+      <div class="nav-row">
+        <a class="brand" href="index.html" aria-label="Captains Film home">
+          <img src="assets/captains/logo-green-web.png" alt="Captains Film">
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html" data-go="home" data-i18n="nav.home">Home</a></li>
+          <li><a href="projects.html" data-go="projects" data-i18n="nav.projects">Projects</a></li>
+          <li><a href="services.html" data-i18n="nav.services">Services</a></li>
+        </ul>
+        <div class="nav-actions desktop">
+          <button class="lang-toggle" type="button" data-lang-toggle aria-label="Switch language">عربي</button>
+          <button class="project-button" type="button" data-contact><span data-i18n="cta.start">Start a project</span></button>
+        </div>
+        <button class="hamburger" type="button" aria-label="Toggle mobile menu" aria-expanded="false"><i></i></button>
+      </div>
+      <div class="mobile-menu" aria-hidden="true">
+        <a href="index.html" data-go="home" data-i18n="nav.home">Home</a>
+        <a href="projects.html" data-go="projects" data-i18n="nav.projects">Projects</a>
+        <a href="services.html" data-i18n="nav.services">Services</a>
+        <button class="lang-toggle" type="button" data-lang-toggle aria-label="Switch language">عربي</button>
+        <button class="project-button" type="button" data-contact><span data-i18n="cta.start">Start a project</span></button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="social-rail" aria-label="Captains social links">
+    <a href="https://vimeo.com/user257545587" target="_blank" rel="noopener noreferrer" data-i18n="social.vimeo">Vimeo</a>
+    <a href="https://www.linkedin.com/company/121454007" target="_blank" rel="noopener noreferrer" data-i18n="social.linkedin">LinkedIn</a>
+    <a href="https://www.instagram.com/captains_film/" target="_blank" rel="noopener noreferrer" data-i18n="social.instagram">Instagram</a>
+  </div>
+
+  <main class="hero" id="home" role="button" tabindex="0" aria-label="Open current project">
+    <div class="stage" aria-hidden="true">
+      <div class="project-image current"></div>
+      <div class="project-image next"></div>
+      <div class="noise"></div>
+      <div class="shade"></div>
+    </div>
+    <section class="content" aria-live="polite">
+      <div class="content-spacer"></div>
+      <div class="copy">
+        <h1 data-i18n="brand">Captains Film</h1>
+        <p class="project-meta"></p>
+        <div class="scroll-word" data-i18n="hero.scroll">Scroll</div>
+      </div>
+    </section>
+    <div class="controls" aria-label="Project controls">
+      <div class="counter"></div>
+      <div class="dots"></div>
+    </div>
+    <div class="cursor" aria-hidden="true"><i></i><span data-i18n="hero.play">Play</span></div>
+    <div class="progress" aria-hidden="true"><span></span></div>
+  </main>
+
+  <aside class="modal" id="projectModal" aria-hidden="true" aria-modal="true" role="dialog">
+    <div class="modal-panel">
+      <button class="modal-close" type="button" data-close data-i18n="common.close">Close</button>
+      <h2></h2>
+      <img alt="">
+      <p></p>
+      <div class="facts">
+        <div><small data-i18n="common.client">Client</small><strong data-client></strong></div>
+        <div><small data-i18n="common.category">Category</small><strong data-category></strong></div>
+        <div><small data-i18n="common.year">Year</small><strong data-year></strong></div>
+      </div>
+    </div>
+  </aside>
+
+  <aside class="modal" id="contactModal" aria-hidden="true" aria-modal="true" role="dialog">
+    <div class="modal-panel">
+      <button class="modal-close" type="button" data-close data-i18n="common.close">Close</button>
+      <h2 data-i18n="cta.start">Start a project</h2>
+      <p data-i18n="contact.copy">Captains Film crafts cinematic stories, commercials, and branded films with a sharp visual voice. نحوّل الأفكار إلى أفلام مؤثرة وواضحة.</p>
+      <div class="contact-details">
+        <div><strong data-i18n="contact.email">Email:</strong> <a href="mailto:ahoy@captains.film">ahoy@captains.film</a></div>
+        <div><strong data-i18n="contact.addressLabel">Address:</strong> <span data-i18n="contact.address">7272 Al Thumamah St., Al Sahafah District, Riyadh, Kingdom of Saudi Arabia</span></div>
+        <div class="contact-phones">
+          <div><strong data-i18n="contact.phone">Phone:</strong> <a href="tel:+966567614818">+966567614818</a></div>
+          <div><strong data-i18n="contact.phone">Phone:</strong> <a href="tel:+966558432482">+966558432482</a></div>
+        </div>
+      </div>
+      <a class="contact-whatsapp" href="https://wa.me/966567614818" target="_blank" rel="noopener noreferrer" data-i18n="contact.whatsapp">WhatsApp</a>
+    </div>
+  </aside>
+
+  <script>
+    const translations = {
+      en: {
+        "brand": "Captains Film",
+        "nav.home": "Home",
+        "nav.projects": "Projects",
+        "nav.services": "Services",
+        "cta.start": "Start a project",
+        "common.close": "Close",
+        "common.client": "Client",
+        "common.category": "Category",
+        "common.year": "Year",
+        "contact.copy": "Captains Film crafts cinematic stories, commercials, and branded films with a sharp visual voice. نحوّل الأفكار إلى أفلام مؤثرة وواضحة.",
+        "contact.email": "Email:",
+        "contact.addressLabel": "Address:",
+        "contact.address": "7272 Al Thumamah St., Al Sahafah District, Riyadh, Kingdom of Saudi Arabia",
+        "contact.phone": "Phone:",
+        "contact.whatsapp": "WhatsApp",
+        "social.vimeo": "Vimeo",
+        "social.linkedin": "LinkedIn",
+        "social.instagram": "Instagram",
+        "hero.scroll": "Scroll",
+        "hero.play": "Play",
+        "hero.project": "Project",
+        "hero.showProject": "Show project"
+      },
+      ar: {
+        "brand": "كابتينز",
+        "nav.home": "الرئيسية",
+        "nav.projects": "أعمالنا",
+        "nav.services": "الخدمات",
+        "cta.start": "ابدأ مشروعًا",
+        "common.close": "إغلاق",
+        "common.client": "العميل",
+        "common.category": "التصنيف",
+        "common.year": "السنة",
+        "contact.copy": "تقدم كابتينز أفلامًا سينمائية وإعلانات وأفلامًا للعلامات التجارية بصوت بصري واضح ومؤثر.",
+        "contact.email": "البريد الإلكتروني:",
+        "contact.addressLabel": "العنوان:",
+        "contact.address": "7272 شارع الثمامة، حي الصحافة، الرياض، المملكة العربية السعودية",
+        "contact.phone": "الهاتف:",
+        "contact.whatsapp": "واتساب",
+        "social.vimeo": "فيميو",
+        "social.linkedin": "لينكدإن",
+        "social.instagram": "إنستغرام",
+        "hero.scroll": "مرّر",
+        "hero.play": "تشغيل",
+        "hero.project": "مشروع",
+        "hero.showProject": "عرض المشروع"
+      }
+    };
+
+    const projects = [
+      {
+        title: "Captains Film Showreel",
+        titleAr: "شوريل كابتينز",
+        client: "Captains Film",
+        year: "2025",
+        category: "Showreel",
+        categoryAr: "شوريل",
+        videoId: "1192999749",
+        videoUrl: "https://vimeo.com/1192999749",
+        image: "assets/captains/slides/sl1.jpg",
+        description: "A cinematic brand piece built around atmosphere, motion, and a clear narrative arc. Captains Film shapes every frame to feel intentional, bold, and memorable.",
+        descriptionAr: "قطعة سينمائية للعلامة مبنية على الإحساس والحركة ومسار سردي واضح. تصنع كابتينز كل إطار ليكون مقصودًا وجريئًا ولا يُنسى."
+      },
+      {
+        title: "Sound Storm 2026",
+        titleAr: "ساوند ستورم 2026",
+        client: "Captains Film",
+        year: "2026",
+        category: "Event Film",
+        categoryAr: "فيلم فعالية",
+        videoId: "1186729154",
+        videoUrl: "https://vimeo.com/1186729154",
+        image: "assets/captains/slides/sl2.jpg",
+        description: "A human-led film language for interviews, stories, and campaigns that need emotional clarity without losing visual punch.",
+        descriptionAr: "لغة فيلم إنسانية للمقابلات والقصص والحملات التي تحتاج وضوحًا عاطفيًا من دون فقدان القوة البصرية."
+      },
+      {
+        title: "YO PRO 2025",
+        titleAr: "يو برو 2025",
+        client: "Captains Film",
+        year: "2025",
+        category: "Commercial",
+        categoryAr: "إعلان",
+        videoId: "1186731172",
+        videoUrl: "https://vimeo.com/1186731172",
+        image: "assets/captains/slides/sl3.jpg",
+        description: "Designed for launches and campaign assets, this format combines sharp detail, controlled lighting, and a pace that makes products feel premium.",
+        descriptionAr: "مصمم للإطلاقات ومواد الحملات، يجمع بين التفاصيل الحادة والإضاءة المتحكم بها وإيقاع يجعل المنتج يبدو أكثر تميزًا."
+      },
+      {
+        title: "Digital Receipt",
+        titleAr: "الإيصال الرقمي",
+        client: "Captains Film",
+        year: "2025",
+        category: "Brand Film",
+        categoryAr: "فيلم علامة تجارية",
+        videoId: "1186866209",
+        videoUrl: "https://vimeo.com/1186866209",
+        image: "assets/captains/slides/sl4.jpg",
+        description: "Fast, polished campaign films made to travel across Instagram, LinkedIn, Vimeo, and paid media while staying true to the brand.",
+        descriptionAr: "أفلام حملات سريعة ومصقولة صُممت للانتشار عبر إنستغرام ولينكدإن وفيميو والإعلانات المدفوعة مع الحفاظ على روح العلامة."
+      }
+    ];
+
+    const body = document.body;
+    const hero = document.querySelector(".hero");
+    const currentLayer = document.querySelector(".project-image.current");
+    const nextLayer = document.querySelector(".project-image.next");
+    const meta = document.querySelector(".project-meta");
+    const counter = document.querySelector(".counter");
+    const dots = document.querySelector(".dots");
+    const progress = document.querySelector(".progress span");
+    const cursor = document.querySelector(".cursor");
+    const hamburger = document.querySelector(".hamburger");
+    const mobileMenu = document.querySelector(".mobile-menu");
+    const projectModal = document.querySelector("#projectModal");
+    const contactModal = document.querySelector("#contactModal");
+    let index = 0;
+    let busy = false;
+    let startY = 0;
+    let progressRaf = 0;
+    let startedAt = performance.now();
+    const duration = 8500;
+    const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let currentLang = localStorage.getItem("captainsLang") || "en";
+
+    function t(key) {
+      return translations[currentLang][key] || translations.en[key] || key;
+    }
+
+    function projectTitle(project) {
+      return currentLang === "ar" ? project.titleAr : project.title;
+    }
+
+    function projectCategory(project) {
+      return currentLang === "ar" ? project.categoryAr : project.category;
+    }
+
+    function projectDescription(project) {
+      return currentLang === "ar" ? project.descriptionAr : project.description;
+    }
+
+    function applyLanguage() {
+      document.documentElement.lang = currentLang;
+      document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
+      document.title = currentLang === "ar" ? "كابتينز" : "Captains Film";
+      document.querySelectorAll("[data-i18n]").forEach((node) => {
+        node.textContent = t(node.dataset.i18n);
+      });
+      document.querySelectorAll("[data-lang-toggle]").forEach((button) => {
+        button.textContent = currentLang === "ar" ? "EN" : "عربي";
+        button.setAttribute("aria-label", currentLang === "ar" ? "Switch to English" : "التبديل إلى العربية");
+      });
+      paintStatic();
+      if (projectModal.classList.contains("open")) {
+        const project = projects[index];
+        projectModal.querySelector("h2").textContent = projectTitle(project);
+        projectModal.querySelector("img").alt = projectTitle(project);
+        projectModal.querySelector("p").textContent = projectDescription(project);
+        projectModal.querySelector("[data-category]").textContent = projectCategory(project);
+      }
+      [...dots.children].forEach((dot, dotIndex) => {
+        dot.setAttribute("aria-label", `${t("hero.showProject")} ${dotIndex + 1}`);
+      });
+    }
+
+    projects.forEach((project) => {
+      const img = new Image();
+      img.src = project.image;
+    });
+
+    function vimeoEmbedUrl(project) {
+      return `https://player.vimeo.com/video/${project.videoId}?background=1&autoplay=1&muted=1&loop=1&autopause=0&controls=0&playsinline=1&dnt=1`;
+    }
+
+    function setSlideMedia(layer, project, loading = "lazy") {
+      layer.style.backgroundImage = `url("${project.image}")`;
+      if (!project.videoId) {
+        layer.innerHTML = "";
+        layer.classList.remove("video-ready");
+        delete layer.dataset.videoId;
+        return;
+      }
+      if (layer.dataset.videoId === project.videoId) return;
+      layer.classList.remove("video-ready");
+      layer.dataset.videoId = project.videoId;
+      layer.innerHTML = "";
+      const frame = document.createElement("iframe");
+      frame.src = vimeoEmbedUrl(project);
+      frame.title = `${project.title} background video`;
+      frame.loading = loading;
+      frame.allow = "autoplay; fullscreen; picture-in-picture";
+      frame.referrerPolicy = "strict-origin-when-cross-origin";
+      frame.addEventListener("load", () => {
+        window.setTimeout(() => {
+          if (layer.dataset.videoId === project.videoId) layer.classList.add("video-ready");
+        }, 4500);
+      }, { once: true });
+      layer.append(frame);
+    }
+
+    function projectLabel(project) {
+      return `${t("hero.project")}: ${projectTitle(project)} | ${project.client} | ${project.year}`;
+    }
+
+    function paintStatic() {
+      const project = projects[index];
+      setSlideMedia(currentLayer, project, "eager");
+      meta.textContent = projectLabel(project);
+      counter.textContent = `${String(index + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}`;
+      [...dots.children].forEach((dot, dotIndex) => dot.classList.toggle("active", dotIndex === index));
+      progress.style.transform = "scaleX(0)";
+      startedAt = performance.now();
+    }
+
+    function buildDots() {
+      projects.forEach((_, dotIndex) => {
+        const button = document.createElement("button");
+        button.className = "dot";
+        button.type = "button";
+        button.setAttribute("aria-label", `${t("hero.showProject")} ${dotIndex + 1}`);
+        button.addEventListener("click", (event) => {
+          event.stopPropagation();
+          goTo(dotIndex, dotIndex > index ? 1 : -1);
+        });
+        dots.append(button);
+      });
+    }
+
+    function goTo(nextIndex, direction = 1) {
+      if (busy || nextIndex === index) return;
+      busy = true;
+      const target = (nextIndex + projects.length) % projects.length;
+      const project = projects[target];
+      setSlideMedia(nextLayer, project, "eager");
+      nextLayer.classList.remove("revealing");
+      currentLayer.classList.add("warping");
+      requestAnimationFrame(() => nextLayer.classList.add("revealing"));
+
+      setTimeout(() => {
+        index = target;
+        setSlideMedia(currentLayer, project, "eager");
+        currentLayer.classList.remove("warping");
+        nextLayer.classList.remove("revealing");
+        nextLayer.innerHTML = "";
+        nextLayer.classList.remove("video-ready");
+        delete nextLayer.dataset.videoId;
+        meta.textContent = projectLabel(project);
+        counter.textContent = `${String(index + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}`;
+        [...dots.children].forEach((dot, dotIndex) => dot.classList.toggle("active", dotIndex === index));
+        progress.style.transform = "scaleX(0)";
+        startedAt = performance.now();
+        setTimeout(() => { busy = false; }, 450);
+      }, reducedMotion ? 40 : 980);
+    }
+
+    function advance(direction = 1) {
+      goTo(index + direction, direction);
+    }
+
+    function tick(now) {
+      const ratio = Math.min((now - startedAt) / duration, 1);
+      progress.style.transform = `scaleX(${ratio})`;
+      if (ratio >= .985 && !busy) advance(1);
+      progressRaf = requestAnimationFrame(tick);
+    }
+
+    function openProject() {
+      const project = projects[index];
+      projectModal.querySelector("h2").textContent = projectTitle(project);
+      projectModal.querySelector("img").src = project.image;
+      projectModal.querySelector("img").alt = projectTitle(project);
+      projectModal.querySelector("p").textContent = projectDescription(project);
+      projectModal.querySelector("[data-client]").textContent = project.client;
+      projectModal.querySelector("[data-category]").textContent = projectCategory(project);
+      projectModal.querySelector("[data-year]").textContent = project.year;
+      openModal(projectModal);
+    }
+
+    function openModal(modal) {
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      body.classList.add("modal-open");
+    }
+
+    function closeModals() {
+      document.querySelectorAll(".modal.open").forEach((modal) => {
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+      });
+      body.classList.remove("modal-open");
+    }
+
+    buildDots();
+    applyLanguage();
+    paintStatic();
+    setTimeout(() => body.classList.add("ready"), 80);
+    setTimeout(() => {
+      body.classList.add("settled");
+      document.querySelector(".nav").style.cssText += ";opacity:1;transform:translateY(0);";
+      document.querySelector(".content").style.cssText += ";opacity:1;transform:translateY(0);";
+      document.querySelector(".intro").style.cssText += ";visibility:hidden;transform:translateY(-100%);";
+    }, 2350);
+    progressRaf = requestAnimationFrame(tick);
+
+    window.addEventListener("wheel", (event) => {
+      if (body.classList.contains("modal-open")) return;
+      event.preventDefault();
+      if (Math.abs(event.deltaY) < 10) return;
+      advance(event.deltaY > 0 ? 1 : -1);
+    }, { passive: false });
+
+    hero.addEventListener("touchstart", (event) => {
+      startY = event.touches[0].clientY;
+    }, { passive: true });
+
+    hero.addEventListener("touchend", (event) => {
+      const delta = startY - event.changedTouches[0].clientY;
+      if (Math.abs(delta) > 50) advance(delta > 0 ? 1 : -1);
+    });
+
+    hero.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") openProject();
+      if (event.key === "ArrowDown" || event.key === "ArrowRight") advance(1);
+      if (event.key === "ArrowUp" || event.key === "ArrowLeft") advance(-1);
+    });
+
+    hero.addEventListener("click", (event) => {
+      if (event.target.closest(".controls")) return;
+      openProject();
+    });
+
+    hero.addEventListener("mousemove", (event) => {
+      if (matchMedia("(pointer: coarse)").matches) return;
+      const rect = hero.getBoundingClientRect();
+      cursor.style.opacity = "1";
+      cursor.style.transform = `translate3d(${event.clientX - rect.left - 6}px, ${event.clientY - rect.top - 6}px, 0)`;
+    });
+
+    hero.addEventListener("mouseleave", () => {
+      cursor.style.opacity = "0";
+    });
+
+    hamburger.addEventListener("click", () => {
+      const isOpen = body.classList.toggle("menu-open");
+      hamburger.setAttribute("aria-expanded", String(isOpen));
+      mobileMenu.setAttribute("aria-hidden", String(!isOpen));
+    });
+
+    document.querySelectorAll("[data-contact]").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.stopPropagation();
+        body.classList.remove("menu-open");
+        openModal(contactModal);
+      });
+    });
+
+    document.querySelectorAll("[data-go]").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        body.classList.remove("menu-open");
+        if (link.dataset.go === "home" || link.dataset.go === "projects") return;
+        event.preventDefault();
+        if (link.dataset.go === "studio") {
+          const studio = projects.findIndex((project) => project.client === "Captains Film");
+          if (studio > -1) goTo(studio, 1);
+          openModal(contactModal);
+        }
+      });
+    });
+
+    document.querySelectorAll("[data-close]").forEach((button) => button.addEventListener("click", closeModals));
+    document.querySelectorAll(".modal").forEach((modal) => {
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal) closeModals();
+      });
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeModals();
+    });
+
+    document.querySelectorAll("[data-lang-toggle]").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.stopPropagation();
+        currentLang = currentLang === "ar" ? "en" : "ar";
+        localStorage.setItem("captainsLang", currentLang);
+        applyLanguage();
+      });
+    });
+
+    window.addEventListener("beforeunload", () => cancelAnimationFrame(progressRaf));
+  </script>
+</body>
+</html>

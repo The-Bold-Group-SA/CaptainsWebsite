@@ -1,0 +1,1044 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projects | Captains Film</title>
+  <meta name="description" content="Captains Film projects and showreel work.">
+  <link rel="icon" type="image/x-icon" href="assets/captains/favicon_io/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/captains/favicon_io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/captains/favicon_io/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="assets/captains/favicon_io/apple-touch-icon.png">
+  <link rel="manifest" href="assets/captains/favicon_io/site.webmanifest">
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800;900&display=swap");
+
+    :root {
+      --mint: #3EFFA3;
+      --black: #0C0705;
+      --white: #fff;
+      --soft: rgba(194, 255, 224, .74);
+      --panel: rgba(12, 7, 5, .5);
+      --line: rgba(62, 255, 163, .2);
+      --ease: cubic-bezier(.19, 1, .22, 1);
+      --latin: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+      --arabic: "DIN Next LT Arabic", "DINNextLTArabic", "DIN Next Arabic", Tahoma, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--latin);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100svh;
+      overflow-x: hidden;
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--latin);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body.menu-open,
+    body.modal-open { overflow: hidden; }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
+    button { border: 0; color: inherit; cursor: pointer; }
+    :lang(ar), .arabic { font-family: var(--arabic); letter-spacing: 0; }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 60;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      padding: 1rem;
+      pointer-events: none;
+    }
+
+    .nav {
+      pointer-events: auto;
+      width: min(100%, 1280px);
+      display: flex;
+      flex-direction: column;
+      margin-top: 1rem;
+      padding: .5rem 2.5rem;
+      border: 1px solid rgba(62, 255, 163, .18);
+      border-radius: 6px;
+      background: var(--panel);
+      backdrop-filter: blur(12px);
+      opacity: 0;
+      transform: translateY(-16px);
+      transition: opacity .8s var(--ease), transform .8s var(--ease), background .25s ease;
+    }
+
+    body.ready .nav {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .nav-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      min-height: 70px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      width: clamp(134px, 13vw, 186px);
+      height: 70px;
+      line-height: 0;
+      transition: transform .45s var(--ease), filter .45s var(--ease);
+    }
+
+    .brand:hover,
+    .brand:focus-visible {
+      filter: drop-shadow(0 0 18px rgba(62, 255, 163, .35));
+      transform: scale(1.025);
+    }
+
+    .brand img {
+      display: block;
+      width: 100%;
+      height: auto;
+      transform: translateY(-1px);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--mint);
+      font-size: .875rem;
+      transition: color .2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--white); }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+
+    .lang-toggle {
+      min-height: 38px;
+      padding: .45rem .75rem;
+      border: 1px solid rgba(62,255,163,.38);
+      border-radius: 999px;
+      background: rgba(12,7,5,.38);
+      color: var(--mint);
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      transition: background .25s ease, color .25s ease;
+    }
+
+    .lang-toggle:hover {
+      background: var(--mint);
+      color: var(--black);
+    }
+
+    html[dir="rtl"] body {
+      direction: rtl;
+      text-align: right;
+      font-family: var(--arabic);
+    }
+
+    html[dir="rtl"] .social-rail {
+      right: 0;
+      left: auto;
+    }
+
+    html[dir="rtl"] .modal {
+      justify-content: flex-start;
+    }
+
+    html[dir="rtl"] .modal-panel {
+      border-left: 0;
+      border-right: 1px solid rgba(62,255,163,.18);
+    }
+
+    .project-button {
+      position: relative;
+      overflow: hidden;
+      padding: .55rem 1rem;
+      border: 1px solid var(--mint);
+      border-radius: 6px;
+      background: transparent;
+      color: var(--mint);
+      font-size: .875rem;
+      text-transform: uppercase;
+    }
+
+    .project-button span {
+      position: relative;
+      z-index: 1;
+      transition: color .3s ease;
+    }
+
+    .project-button::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--mint);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform .3s ease-out;
+    }
+
+    .project-button:hover::before { transform: scaleY(1); }
+    .project-button:hover span { color: var(--black); }
+
+    .hamburger {
+      display: none;
+      width: 2rem;
+      height: 1.5rem;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+    }
+
+    .hamburger i,
+    .hamburger i::after {
+      display: block;
+      width: 1.5rem;
+      height: 1px;
+      background: var(--mint);
+      transition: transform .3s ease;
+      content: "";
+    }
+
+    .hamburger i { transform: translateY(-4px); }
+    .hamburger i::after { transform: translateY(8px); }
+    body.menu-open .hamburger i { transform: rotate(45deg); }
+    body.menu-open .hamburger i::after { transform: rotate(90deg); }
+
+    .mobile-menu {
+      display: none;
+      width: 100%;
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height .45s var(--ease), padding .45s var(--ease);
+    }
+
+    body.menu-open .mobile-menu {
+      max-height: 310px;
+      padding: 1rem 0 .75rem;
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding: .45rem 0;
+      text-align: center;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+    }
+
+    .social-rail {
+      position: fixed;
+      top: 50%;
+      left: 0;
+      z-index: 45;
+      width: 53px;
+      min-height: 210px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      padding: 1rem .2rem;
+      background: var(--black);
+      color: var(--mint);
+      transform: translateY(-50%);
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .social-rail a { transition: color .2s ease, transform .2s ease; }
+    .social-rail a:hover { color: var(--white); transform: translateX(1px); }
+
+    .project-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 20%, rgba(62,255,163,.08), transparent 35%), var(--black);
+      pointer-events: none;
+    }
+
+    .project-bg::after,
+    .noise {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .project-bg::after {
+      background:
+        linear-gradient(90deg, rgba(12,7,5,.72), rgba(12,7,5,.34), rgba(12,7,5,.82)),
+        linear-gradient(0deg, rgba(12,7,5,.76), rgba(12,7,5,.2), rgba(12,7,5,.52));
+    }
+
+    .noise {
+      z-index: 4;
+      opacity: .08;
+      background-image:
+        radial-gradient(circle at 10% 20%, var(--mint) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 80% 30%, var(--mint) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 45% 75%, var(--mint) 0 1px, transparent 1.5px);
+      background-size: 90px 90px, 130px 130px, 170px 170px;
+      animation: noiseDrift .55s steps(2) infinite;
+    }
+
+    .bg-media {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      background-position: center;
+      background-size: cover;
+      filter: saturate(.9) contrast(1.05);
+      transform: scale(1.04);
+      transition: opacity .55s ease, transform 4s linear;
+    }
+
+    .bg-media.active {
+      opacity: .66;
+      transform: scale(1.1);
+    }
+
+    .bg-media iframe {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: max(100vw, 177.78vh);
+      height: max(100vh, 56.25vw);
+      border: 0;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: opacity .8s ease;
+    }
+
+    .bg-media.video-ready iframe { opacity: 1; }
+
+    .projects-page {
+      position: relative;
+      z-index: 10;
+      min-height: 100svh;
+      padding: clamp(150px, 16vw, 210px) clamp(20px, 4vw, 54px) 90px;
+    }
+
+    .page-title {
+      margin: 0 0 clamp(42px, 7vw, 90px);
+      color: var(--mint);
+      font-size: clamp(58px, 11vw, 160px);
+      font-weight: 900;
+      line-height: .85;
+      letter-spacing: -.05em;
+      text-transform: uppercase;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      gap: 24px;
+      margin-bottom: 34px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: clamp(12px, 2vw, 26px);
+    }
+
+    .filters button {
+      background: transparent;
+      color: rgba(194,255,224,.55);
+      font-size: clamp(14px, 1.5vw, 19px);
+      font-weight: 600;
+      text-transform: uppercase;
+      transition: color .2s ease;
+    }
+
+    .filters button.active,
+    .filters button:hover { color: var(--mint); }
+
+    .filters span {
+      margin-left: .2rem;
+      font-size: .72em;
+      color: rgba(194,255,224,.55);
+    }
+
+    .grid-view {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(18px, 2.3vw, 32px);
+    }
+
+    .project-card {
+      display: block;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: rise .75s var(--ease) forwards;
+    }
+
+    .thumb {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border: 1px solid rgba(62,255,163,.2);
+      border-radius: 6px;
+      background: rgba(62,255,163,.06);
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(.92) contrast(1.05);
+      transform: scale(1);
+      transition: transform .5s var(--ease), opacity .4s ease;
+    }
+
+    .project-card:hover .thumb img { transform: scale(1.06); }
+
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin-top: .85rem;
+      color: var(--soft);
+      font-size: .8rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .card-title {
+      margin: .25rem 0 0;
+      color: var(--mint);
+      font-size: clamp(18px, 1.8vw, 28px);
+      font-weight: 800;
+      line-height: 1.04;
+      text-transform: uppercase;
+    }
+
+    .hidden { display: none !important; }
+    .empty { padding: 42px 0; color: var(--soft); text-align: center; }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      display: none;
+      align-items: stretch;
+      justify-content: flex-end;
+      background: rgba(0,0,0,.62);
+      backdrop-filter: blur(10px);
+    }
+
+    .modal.open { display: flex; }
+
+    .modal-panel {
+      width: min(650px, 100%);
+      min-height: 100%;
+      padding: clamp(24px, 4vw, 54px);
+      overflow-y: auto;
+      background: var(--black);
+      border-left: 1px solid rgba(62,255,163,.18);
+      transform: translateX(100%);
+      animation: modalIn .55s var(--ease) forwards;
+    }
+
+    .modal-close {
+      display: block;
+      margin-left: auto;
+      padding: .65rem .85rem;
+      border: 1px solid rgba(62,255,163,.34);
+      border-radius: 6px;
+      background: transparent;
+      text-transform: uppercase;
+      font-size: .8rem;
+      letter-spacing: .08em;
+    }
+
+    .modal h2 {
+      margin: 3rem 0 1rem;
+      color: var(--mint);
+      font-size: clamp(38px, 6vw, 72px);
+      line-height: .95;
+      text-transform: uppercase;
+    }
+
+    .modal p {
+      max-width: 42rem;
+      color: var(--soft);
+      font-size: 1.05rem;
+      line-height: 1.65;
+    }
+
+    .modal-player {
+      position: relative;
+      width: 100%;
+      margin: 1.4rem 0;
+      border-radius: 6px;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border: 1px solid rgba(62,255,163,.18);
+      background: rgba(62,255,163,.06);
+    }
+
+    .modal-player iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin: 1.6rem 0 0;
+      background: rgba(62,255,163,.18);
+      border: 1px solid rgba(62,255,163,.18);
+    }
+
+    .facts div {
+      padding: 1rem;
+      background: var(--black);
+    }
+
+    .facts small {
+      display: block;
+      color: rgba(194,255,224,.55);
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .facts strong {
+      display: block;
+      margin-top: .35rem;
+      font-size: .9rem;
+      text-transform: uppercase;
+    }
+
+    .contact-details {
+      display: grid;
+      gap: .75rem;
+      margin: 1.5rem 0 0;
+      padding: 1rem 0 0;
+      border-top: 1px solid rgba(62,255,163,.18);
+      color: var(--soft);
+      font-size: .95rem;
+      line-height: 1.6;
+    }
+
+    .contact-details a { color: var(--mint); }
+    .contact-details strong { color: var(--mint); font-weight: 700; }
+
+    .contact-phones {
+      display: grid;
+      gap: .45rem;
+      margin-top: 1rem;
+    }
+
+    .contact-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      margin-top: 2rem;
+      min-height: 44px;
+      padding: .75rem 1.1rem;
+      border: 1px solid var(--mint);
+      border-radius: 999px;
+      color: var(--mint);
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transition: background .25s ease, color .25s ease, transform .25s var(--ease);
+    }
+
+    .contact-whatsapp:hover {
+      background: var(--mint);
+      color: var(--black);
+      transform: translateY(-2px);
+    }
+
+    .contact-fields {
+      display: grid;
+      gap: .8rem;
+      margin-top: 2rem;
+    }
+
+    .contact-fields input,
+    .contact-fields textarea {
+      width: 100%;
+      padding: .95rem 1rem;
+      border: 1px solid rgba(62,255,163,.22);
+      border-radius: 6px;
+      outline: 0;
+      background: rgba(62,255,163,.06);
+      color: var(--white);
+    }
+
+    .contact-fields textarea { min-height: 120px; resize: vertical; }
+    .toast { min-height: 1.5rem; color: var(--soft); font-size: .9rem; }
+
+    @keyframes modalIn { to { transform: translateX(0); } }
+    @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+    @keyframes noiseDrift { to { background-position: 90px 40px, -70px 80px, 30px -120px; } }
+
+    @media (max-width: 900px) {
+      .grid-view { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .toolbar { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (max-width: 760px) {
+      .nav { padding: .6rem 1rem; }
+      .nav-links,
+      .nav .nav-actions.desktop { display: none; }
+      .hamburger,
+      .mobile-menu { display: flex; }
+      .mobile-menu { flex-direction: column; }
+      .mobile-menu .project-button,
+      .mobile-menu .lang-toggle {
+        align-self: center;
+        margin-top: 1rem;
+      }
+      .mobile-menu .project-button {
+        background: var(--mint);
+        color: var(--black);
+      }
+      .brand { width: 168px; }
+      .social-rail { display: none; }
+      .projects-page { padding: 138px 1.25rem 86px; }
+      .page-title { font-size: clamp(54px, 17vw, 78px); margin-bottom: 42px; }
+      .grid-view { grid-template-columns: 1fr; }
+      .facts { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .001ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary navigation">
+      <div class="nav-row">
+        <a class="brand" href="index.html" aria-label="Captains Film home">
+          <img src="assets/captains/logo-green-web.png" alt="Captains Film">
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+          <li><a class="active" href="projects.html" data-i18n="nav.projects">Projects</a></li>
+          <li><a href="services.html" data-i18n="nav.services">Services</a></li>
+        </ul>
+        <div class="nav-actions desktop">
+          <button class="lang-toggle" type="button" data-lang-toggle aria-label="Switch language">عربي</button>
+          <button class="project-button" type="button" data-contact><span data-i18n="cta.start">Start a project</span></button>
+        </div>
+        <button class="hamburger" type="button" aria-label="Toggle mobile menu" aria-expanded="false"><i></i></button>
+      </div>
+      <div class="mobile-menu" aria-hidden="true">
+        <a href="index.html" data-i18n="nav.home">Home</a>
+        <a href="projects.html" data-i18n="nav.projects">Projects</a>
+        <a href="services.html" data-i18n="nav.services">Services</a>
+        <button class="lang-toggle" type="button" data-lang-toggle aria-label="Switch language">عربي</button>
+        <button class="project-button" type="button" data-contact><span data-i18n="cta.start">Start a project</span></button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="social-rail" aria-label="Captains social links">
+    <a href="https://vimeo.com/user257545587" target="_blank" rel="noopener noreferrer" data-i18n="social.vimeo">Vimeo</a>
+    <a href="https://www.linkedin.com/company/121454007" target="_blank" rel="noopener noreferrer" data-i18n="social.linkedin">LinkedIn</a>
+    <a href="https://www.instagram.com/captains_film/" target="_blank" rel="noopener noreferrer" data-i18n="social.instagram">Instagram</a>
+  </div>
+
+  <div class="project-bg" aria-hidden="true">
+    <div class="bg-media"></div>
+    <div class="noise"></div>
+  </div>
+
+  <main class="projects-page">
+    <h1 class="page-title" data-i18n="nav.projects">Projects</h1>
+    <section class="toolbar" aria-label="Project controls">
+      <div class="filters" aria-label="Project filters"></div>
+    </section>
+    <section class="grid-view" aria-label="Project grid"></section>
+  </main>
+
+  <aside class="modal" id="projectModal" aria-hidden="true" aria-modal="true" role="dialog">
+    <div class="modal-panel">
+      <button class="modal-close" type="button" data-close data-i18n="common.close">Close</button>
+      <h2></h2>
+      <div class="modal-player"></div>
+      <p></p>
+      <div class="facts">
+        <div><small data-i18n="common.client">Client</small><strong data-client></strong></div>
+        <div><small data-i18n="common.tags">Tags</small><strong data-tags></strong></div>
+        <div><small data-i18n="common.year">Year</small><strong data-year></strong></div>
+      </div>
+    </div>
+  </aside>
+
+  <aside class="modal" id="contactModal" aria-hidden="true" aria-modal="true" role="dialog">
+    <div class="modal-panel">
+      <button class="modal-close" type="button" data-close data-i18n="common.close">Close</button>
+      <h2 data-i18n="cta.start">Start a project</h2>
+      <p data-i18n="contact.copy">Captains Film crafts cinematic stories, commercials, and branded films with a sharp visual voice. نحوّل الأفكار إلى أفلام مؤثرة وواضحة.</p>
+      <div class="contact-details">
+        <div><strong data-i18n="contact.email">Email:</strong> <a href="mailto:ahoy@captains.film">ahoy@captains.film</a></div>
+        <div><strong data-i18n="contact.addressLabel">Address:</strong> <span data-i18n="contact.address">7272 Al Thumamah St., Al Sahafah District, Riyadh, Kingdom of Saudi Arabia</span></div>
+        <div class="contact-phones">
+          <div><strong data-i18n="contact.phone">Phone:</strong> <a href="tel:+966567614818">+966567614818</a></div>
+          <div><strong data-i18n="contact.phone">Phone:</strong> <a href="tel:+966558432482">+966558432482</a></div>
+        </div>
+      </div>
+      <a class="contact-whatsapp" href="https://wa.me/966567614818" target="_blank" rel="noopener noreferrer" data-i18n="contact.whatsapp">WhatsApp</a>
+    </div>
+  </aside>
+
+  <script>
+    const translations = {
+      en: {
+        "nav.home": "Home",
+        "nav.projects": "Projects",
+        "nav.services": "Services",
+        "cta.start": "Start a project",
+        "common.close": "Close",
+        "common.client": "Client",
+        "common.tags": "Tags",
+        "common.year": "Year",
+        "contact.copy": "Captains Film crafts cinematic stories, commercials, and branded films with a sharp visual voice. نحوّل الأفكار إلى أفلام مؤثرة وواضحة.",
+        "contact.email": "Email:",
+        "contact.addressLabel": "Address:",
+        "contact.address": "7272 Al Thumamah St., Al Sahafah District, Riyadh, Kingdom of Saudi Arabia",
+        "contact.phone": "Phone:",
+        "contact.whatsapp": "WhatsApp",
+        "social.vimeo": "Vimeo",
+        "social.linkedin": "LinkedIn",
+        "social.instagram": "Instagram",
+        "filter.all": "All",
+        "tag.TVC": "TVC",
+        "tag.Documentary": "Documentary",
+        "tag.post-production": "post-production",
+        "tag.AI/Animation": "AI/Animation",
+        "projects.empty": "No projects found for this tag.",
+        "projects.generic": "Film work for",
+        "projects.tagWork": "work for"
+      },
+      ar: {
+        "nav.home": "الرئيسية",
+        "nav.projects": "أعمالنا",
+        "nav.services": "الخدمات",
+        "cta.start": "ابدأ مشروعًا",
+        "common.close": "إغلاق",
+        "common.client": "العميل",
+        "common.tags": "الوسوم",
+        "common.year": "السنة",
+        "contact.copy": "تقدم كابتينز أفلامًا سينمائية وإعلانات وأفلامًا للعلامات التجارية بصوت بصري واضح ومؤثر.",
+        "contact.email": "البريد الإلكتروني:",
+        "contact.addressLabel": "العنوان:",
+        "contact.address": "7272 شارع الثمامة، حي الصحافة، الرياض، المملكة العربية السعودية",
+        "contact.phone": "الهاتف:",
+        "contact.whatsapp": "واتساب",
+        "social.vimeo": "فيميو",
+        "social.linkedin": "لينكدإن",
+        "social.instagram": "إنستغرام",
+        "filter.all": "الكل",
+        "tag.TVC": "الاعلانات",
+        "tag.Documentary": "الوثائقيات",
+        "tag.post-production": "ما بعد الإنتاج",
+        "tag.AI/Animation": "ذكالي / أنميشن",
+        "projects.empty": "لا توجد أعمال ضمن هذا الوسم.",
+        "projects.generic": "عمل فيلم لصالح",
+        "projects.tagWork": "لصالح"
+      }
+    };
+
+    const projects = [
+      { title: "SoundStorm FlyThrough", tags: ["TVC","post-production"], client: "MDLBEAST", year: "2025", duration: "00:58", videoId: "1200401658", videoUrl: "https://vimeo.com/1200401658", image: "assets/captains/projects/p43.jpg", description: "TVC / post-production work for MDLBEAST." },
+      { title: "Your Way | TVC 3", tags: ["TVC","post-production"], client: "Hyunday", year: "2025", duration: "00:46", videoId: "1200171419", videoUrl: "https://vimeo.com/1200171419", image: "assets/captains/projects/p01.jpg", description: "TVC / post-production work for Hyunday." },
+      { title: "Your Way | TVC 2", tags: ["TVC","post-production"], client: "Hyunday", year: "2025", duration: "00:49", videoId: "1200171420", videoUrl: "https://vimeo.com/1200171420", image: "assets/captains/projects/p02.jpg", description: "TVC / post-production work for Hyunday." },
+      { title: "Your Way | TVC 1", tags: ["TVC","post-production"], client: "Hyunday", year: "2025", duration: "00:45", videoId: "1200171418", videoUrl: "https://vimeo.com/1200171418", image: "assets/captains/projects/p03.jpg", description: "TVC / post-production work for Hyunday." },
+      { title: "Founding Day", tags: ["post-production"], client: "Founding Day", year: "2025", duration: "00:58", videoId: "1190139775", videoUrl: "https://vimeo.com/1190139775", image: "assets/captains/projects/p04.jpg", description: "post-production work for Founding Day." },
+      { title: "Animation", tags: ["AI/Animation","post-production"], client: "Naqwa", year: "2025", duration: "03:00", videoId: "1186869691", videoUrl: "https://vimeo.com/1186869691", image: "assets/captains/projects/p05.jpg", description: "AI/Animation / post-production work for Naqwa." },
+      { title: "Ripple Event", tags: ["post-production"], client: "Zid", year: "2025", duration: "43:45", videoId: "1186855541", videoUrl: "https://vimeo.com/1186855541", image: "assets/captains/projects/p06.jpg", description: "post-production work for Zid." },
+      { title: "The Promised Land", tags: ["post-production"], client: "The Promised Land", year: "2025", duration: "02:05", videoId: "1190876263", videoUrl: "https://vimeo.com/1190876263", image: "assets/captains/projects/p07.jpg", description: "post-production work for The Promised Land." },
+      { title: "Hold What Matters", tags: ["TVC","post-production"], client: "ZUMI", year: "2025", duration: "00:49", videoId: "1200146976", videoUrl: "https://vimeo.com/1200146976", image: "assets/captains/projects/p08.jpg", description: "TVC / post-production work for ZUMI." },
+      { title: "National Day", tags: ["TVC","post-production"], client: "King Salman Park", year: "2025", duration: "01:15", videoId: "1200146975", videoUrl: "https://vimeo.com/1200146975", image: "assets/captains/projects/p09.jpg", description: "TVC / post-production work for King Salman Park." },
+      { title: "Choco Cup", tags: ["TVC","AI/Animation","post-production"], client: "YoPro", year: "2025", duration: "00:06", videoId: "1200155171", videoUrl: "https://vimeo.com/1200155171", image: "assets/captains/projects/p10.jpg", description: "TVC / AI/Animation / post-production work for YoPro." },
+      { title: "ACHIEVMENT VIDEO", tags: ["post-production"], client: "RCU", year: "2025", duration: "03:49", videoId: "1200155172", videoUrl: "https://vimeo.com/1200155172", image: "assets/captains/projects/p11.jpg", description: "post-production work for RCU." },
+      { title: "SS Tickets", tags: ["TVC","post-production"], client: "MDLBEAST", year: "2025", duration: "00:26", videoId: "1200157923", videoUrl: "https://vimeo.com/1200157923", image: "assets/captains/projects/p12.jpg", description: "TVC / post-production work for MDLBEAST." },
+      { title: "SS TICKET | TVC 4", tags: ["TVC","post-production"], client: "MDLBEAST", year: "2025", duration: "00:15", videoId: "1200157920", videoUrl: "https://vimeo.com/1200157920", image: "assets/captains/projects/p13.jpg", description: "TVC / post-production work for MDLBEAST." },
+      { title: "Saudi Taste | PROMO", tags: ["TVC","post-production"], client: "ALMARAI x Shahid", year: "2025", duration: "00:15", videoId: "1200157922", videoUrl: "https://vimeo.com/1200157922", image: "assets/captains/projects/p14.jpg", description: "TVC / post-production work for ALMARAI x Shahid." },
+      { title: "Annual Report | AI FIlm", tags: ["AI/Animation","post-production"], client: "LEAN", year: "2025", duration: "01:51", videoId: "1200157189", videoUrl: "https://vimeo.com/1200157189", image: "assets/captains/projects/p15.jpg", description: "AI/Animation / post-production work for LEAN." },
+      { title: "SS Teaer | TVC", tags: ["TVC","post-production"], client: "MDLBEAST", year: "2025", duration: "00:16", videoId: "1200157921", videoUrl: "https://vimeo.com/1200157921", image: "assets/captains/projects/p16.jpg", description: "TVC / post-production work for MDLBEAST." },
+      { title: "Plain Cup", tags: ["TVC","post-production"], client: "YoPro", year: "2025", duration: "00:06", videoId: "1200158022", videoUrl: "https://vimeo.com/1200158022", image: "assets/captains/projects/p17.jpg", description: "TVC / post-production work for YoPro." },
+      { title: "TVC", tags: ["TVC","post-production"], client: "Solan", year: "2025", duration: "02:18", videoId: "1200165759", videoUrl: "https://vimeo.com/1200165759", image: "assets/captains/projects/p18.jpg", description: "TVC / post-production work for Solan." },
+      { title: "Case Study", tags: ["post-production"], client: "Bold x Almarai", year: "2025", duration: "01:36", videoId: "1200165758", videoUrl: "https://vimeo.com/1200165758", image: "assets/captains/projects/p19.jpg", description: "post-production work for Bold x Almarai." },
+      { title: "Life Style", tags: ["TVC"], client: "Azure", year: "2025", duration: "01:33", videoId: "1200143601", videoUrl: "https://vimeo.com/1200143601", image: "assets/captains/projects/p20.jpg", description: "TVC work for Azure." },
+      { title: "Showreel", tags: ["TVC"], client: "Captains Film", year: "2025", duration: "01:17", videoId: "1192999749", videoUrl: "https://vimeo.com/1192999749", image: "assets/captains/projects/p21.jpg", description: "TVC work for Captains Film." },
+      { title: "Receipt", tags: ["TVC"], client: "Digital", year: "2025", duration: "01:26", videoId: "1186866209", videoUrl: "https://vimeo.com/1186866209", image: "assets/captains/projects/p22.jpg", description: "TVC work for Digital." },
+      { title: "Conference", tags: [], client: "Philosophy", year: "2025", duration: "01:32", videoId: "1190880102", videoUrl: "https://vimeo.com/1190880102", image: "assets/captains/projects/p23.jpg", description: "Film work for Philosophy." },
+      { title: "ALMARAI x SHAHID", tags: ["Documentary"], client: "ALMARAI x SHAHID", year: "2025", duration: "23:43", videoId: "1190882282", videoUrl: "https://vimeo.com/1190882282", image: "assets/captains/projects/p24.jpg", description: "Documentary work for ALMARAI x SHAHID." },
+      { title: "4", tags: ["TVC"], client: "Renault", year: "2025", duration: "00:20", videoId: "1190872463", videoUrl: "https://vimeo.com/1190872463", image: "assets/captains/projects/p25.jpg", description: "TVC work for Renault." },
+      { title: "3", tags: ["TVC"], client: "Renault", year: "2025", duration: "00:16", videoId: "1190872424", videoUrl: "https://vimeo.com/1190872424", image: "assets/captains/projects/p26.jpg", description: "TVC work for Renault." },
+      { title: "6", tags: ["TVC"], client: "Renault", year: "2025", duration: "00:16", videoId: "1190872544", videoUrl: "https://vimeo.com/1190872544", image: "assets/captains/projects/p27.jpg", description: "TVC work for Renault." },
+      { title: "5", tags: ["TVC"], client: "Renault", year: "2025", duration: "00:16", videoId: "1190872500", videoUrl: "https://vimeo.com/1190872500", image: "assets/captains/projects/p28.jpg", description: "TVC work for Renault." },
+      { title: "Hyundai", tags: [], client: "Hyundai", year: "2025", duration: "06:44", videoId: "1190873988", videoUrl: "https://vimeo.com/1190873988", image: "assets/captains/projects/p29.jpg", description: "Film work for Hyundai." },
+      { title: "HILTON", tags: [], client: "OSUS", year: "2025", duration: "03:32", videoId: "1190874535", videoUrl: "https://vimeo.com/1190874535", image: "assets/captains/projects/p30.jpg", description: "Film work for OSUS." },
+      { title: "Tea Film 1", tags: ["TVC"], client: "PUBGxRabea", year: "2025", duration: "00:30", videoId: "1190880384", videoUrl: "https://vimeo.com/1190880384", image: "assets/captains/projects/p31.jpg", description: "TVC work for PUBGxRabea." },
+      { title: "Tea Film 2", tags: ["TVC"], client: "PUBGxRabea", year: "2025", duration: "00:30", videoId: "1190880423", videoUrl: "https://vimeo.com/1190880423", image: "assets/captains/projects/p32.jpg", description: "TVC work for PUBGxRabea." },
+      { title: "Tea Film 3", tags: ["TVC"], client: "PUBGxRabea", year: "2025", duration: "00:25", videoId: "1190880454", videoUrl: "https://vimeo.com/1190880454", image: "assets/captains/projects/p33.jpg", description: "TVC work for PUBGxRabea." },
+      { title: "Diet Center", tags: ["TVC"], client: "Diet Center", year: "2025", duration: "00:35", videoId: "1190140057", videoUrl: "https://vimeo.com/1190140057", image: "assets/captains/projects/p34.jpg", description: "TVC work for Diet Center." },
+      { title: "2025", tags: ["TVC"], client: "YO PRO", year: "2025", duration: "00:30", videoId: "1186731172", videoUrl: "https://vimeo.com/1186731172", image: "assets/captains/projects/p35.jpg", description: "TVC work for YO PRO." },
+      { title: "ND", tags: ["TVC"], client: "Ceer", year: "2025", duration: "00:50", videoId: "1186728445", videoUrl: "https://vimeo.com/1186728445", image: "assets/captains/projects/p36.jpg", description: "TVC work for Ceer." },
+      { title: "2026", tags: [], client: "Sound Storm", year: "2025", duration: "01:16", videoId: "1186729154", videoUrl: "https://vimeo.com/1186729154", image: "assets/captains/projects/p37.jpg", description: "Film work for Sound Storm." },
+      { title: "RIYADH ART", tags: [], client: "RIYADH ART", year: "2025", duration: "00:59", videoId: "1190875988", videoUrl: "https://vimeo.com/1190875988", image: "assets/captains/projects/p38.jpg", description: "Film work for RIYADH ART." },
+      { title: "ND 2024", tags: ["TVC"], client: "BSF", year: "2025", duration: "00:51", videoId: "1186733466", videoUrl: "https://vimeo.com/1186733466", image: "assets/captains/projects/p39.jpg", description: "TVC work for BSF." },
+      { title: "Osus Eye", tags: ["Documentary"], client: "OSUS", year: "2025", duration: "09:52", videoId: "1186730138", videoUrl: "https://vimeo.com/1186730138", image: "assets/captains/projects/p40.jpg", description: "Documentary work for OSUS." },
+      { title: "AR", tags: ["TVC"], client: "YO PRO", year: "2025", duration: "00:30", videoId: "1190872926", videoUrl: "https://vimeo.com/1190872926", image: "assets/captains/projects/p41.jpg", description: "TVC work for YO PRO." },
+      { title: "2", tags: ["TVC"], client: "Renault", year: "2025", duration: "00:15", videoId: "1190872388", videoUrl: "https://vimeo.com/1190872388", image: "assets/captains/projects/p42.jpg", description: "TVC work for Renault." }
+    ];
+
+    const body = document.body;
+    const hamburger = document.querySelector(".hamburger");
+    const mobileMenu = document.querySelector(".mobile-menu");
+    const filters = document.querySelector(".filters");
+    const gridView = document.querySelector(".grid-view");
+    const bgMedia = document.querySelector(".bg-media");
+    const projectModal = document.querySelector("#projectModal");
+    const contactModal = document.querySelector("#contactModal");
+    let filter = "All";
+    let activeProject = null;
+    let currentLang = localStorage.getItem("captainsLang") || "en";
+    const tagOrder = ["TVC", "Documentary", "post-production", "AI/Animation"];
+
+    function t(key) {
+      return translations[currentLang][key] || translations.en[key] || key;
+    }
+
+    function tagLabel(tag) {
+      if (tag === "All") return t("filter.all");
+      return t(`tag.${tag}`);
+    }
+
+    function localizedTags(project) {
+      return projectTags(project).map(tagLabel).join(" / ");
+    }
+
+    function projectDescription(project) {
+      if (currentLang !== "ar") return project.description;
+      const tags = localizedTags(project);
+      return tags ? `عمل ${tags} ${t("projects.tagWork")} ${project.client}.` : `${t("projects.generic")} ${project.client}.`;
+    }
+
+    function applyLanguage() {
+      document.documentElement.lang = currentLang;
+      document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
+      document.title = currentLang === "ar" ? "أعمالنا | كابتينز" : "Projects | Captains Film";
+      document.querySelectorAll("[data-i18n]").forEach((node) => {
+        node.textContent = t(node.dataset.i18n);
+      });
+      document.querySelectorAll("[data-lang-toggle]").forEach((button) => {
+        button.textContent = currentLang === "ar" ? "EN" : "عربي";
+        button.setAttribute("aria-label", currentLang === "ar" ? "Switch to English" : "التبديل إلى العربية");
+      });
+      render();
+      if (activeProject && projectModal.classList.contains("open")) {
+        projectModal.querySelector("h2").textContent = activeProject.title;
+        projectModal.querySelector("p").textContent = projectDescription(activeProject);
+        projectModal.querySelector("[data-tags]").textContent = localizedTags(activeProject);
+      }
+    }
+
+    function vimeoEmbedUrl(project) {
+      return `https://player.vimeo.com/video/${project.videoId}?background=1&autoplay=1&muted=1&loop=1&autopause=0&controls=0&playsinline=1&dnt=1`;
+    }
+
+    function projectTags(project) {
+      return project.tags;
+    }
+
+    function counts() {
+      const base = { All: projects.length };
+      tagOrder.forEach((tag) => {
+        base[tag] = projects.filter((project) => projectTags(project).includes(tag)).length;
+      });
+      return base;
+    }
+
+    function filteredProjects() {
+      return filter === "All" ? projects : projects.filter((project) => projectTags(project).includes(filter));
+    }
+
+    function setBackground(project) {
+      bgMedia.classList.remove("video-ready");
+      bgMedia.style.backgroundImage = `url("${project.image}")`;
+      bgMedia.innerHTML = "";
+      const frame = document.createElement("iframe");
+      frame.src = vimeoEmbedUrl(project);
+      frame.title = `${project.title} background video`;
+      frame.loading = "lazy";
+      frame.allow = "autoplay; fullscreen; picture-in-picture";
+      frame.referrerPolicy = "strict-origin-when-cross-origin";
+      frame.addEventListener("load", () => {
+        setTimeout(() => bgMedia.classList.add("video-ready"), 4500);
+      }, { once: true });
+      bgMedia.append(frame);
+      bgMedia.classList.add("active");
+    }
+
+    function clearBackground() {
+      bgMedia.classList.remove("active", "video-ready");
+      bgMedia.innerHTML = "";
+    }
+
+    function openProject(project) {
+      activeProject = project;
+      projectModal.querySelector("h2").textContent = project.title;
+      projectModal.querySelector(".modal-player").innerHTML = `<iframe src="https://player.vimeo.com/video/${project.videoId}?title=0&byline=0&portrait=0&dnt=1" title="${project.title}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
+      projectModal.querySelector("p").textContent = projectDescription(project);
+      projectModal.querySelector("[data-client]").textContent = project.client;
+      projectModal.querySelector("[data-tags]").textContent = localizedTags(project);
+      projectModal.querySelector("[data-year]").textContent = project.year;
+      openModal(projectModal);
+    }
+
+    function projectCard(project, index) {
+      const card = document.createElement("article");
+      card.className = "project-card";
+      card.style.animationDelay = `${index * 70}ms`;
+      card.innerHTML = `
+        <div class="thumb"><img src="${project.image}" alt="${project.title}"></div>
+        <div class="card-meta"><span>${localizedTags(project)}</span><span>${project.duration}</span></div>
+        <h2 class="card-title">${project.title}</h2>
+      `;
+      card.addEventListener("mouseenter", () => setBackground(project));
+      card.addEventListener("mouseleave", clearBackground);
+      card.addEventListener("click", () => openProject(project));
+      return card;
+    }
+
+    function renderFilters() {
+      const values = counts();
+      filters.innerHTML = "";
+      Object.entries(values).forEach(([name, count]) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = name === filter ? "active" : "";
+        button.innerHTML = `${tagLabel(name)} <span>(${count})</span>`;
+        button.addEventListener("click", () => {
+          filter = name;
+          render();
+        });
+        filters.append(button);
+      });
+    }
+
+    function renderProjects() {
+      const items = filteredProjects();
+      gridView.innerHTML = "";
+      items.forEach((project, index) => {
+        gridView.append(projectCard(project, index));
+      });
+      if (!items.length) {
+        gridView.innerHTML = `<div class="empty">${t("projects.empty")}</div>`;
+      }
+    }
+
+    function render() {
+      renderFilters();
+      renderProjects();
+    }
+
+    function openModal(modal) {
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      body.classList.add("modal-open");
+    }
+
+    function closeModals() {
+      document.querySelectorAll(".modal.open").forEach((modal) => {
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+      });
+      projectModal.querySelector(".modal-player").innerHTML = "";
+      activeProject = null;
+      body.classList.remove("modal-open");
+    }
+
+    hamburger.addEventListener("click", () => {
+      const isOpen = body.classList.toggle("menu-open");
+      hamburger.setAttribute("aria-expanded", String(isOpen));
+      mobileMenu.setAttribute("aria-hidden", String(!isOpen));
+    });
+
+    document.querySelectorAll("[data-contact]").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        body.classList.remove("menu-open");
+        openModal(contactModal);
+      });
+    });
+
+    document.querySelectorAll("[data-close]").forEach((button) => button.addEventListener("click", closeModals));
+    document.querySelectorAll(".modal").forEach((modal) => {
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal) closeModals();
+      });
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeModals();
+    });
+
+    document.querySelectorAll("[data-lang-toggle]").forEach((button) => {
+      button.addEventListener("click", () => {
+        currentLang = currentLang === "ar" ? "en" : "ar";
+        localStorage.setItem("captainsLang", currentLang);
+        applyLanguage();
+      });
+    });
+
+    applyLanguage();
+    setTimeout(() => body.classList.add("ready"), 80);
+  </script>
+</body>
+</html>
