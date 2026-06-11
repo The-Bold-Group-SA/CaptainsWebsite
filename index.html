@@ -165,6 +165,10 @@
       transform: translateY(-1px);
     }
 
+    html[dir="rtl"] .brand {
+      width: clamp(160px, 16vw, 230px);
+    }
+
     .nav-links {
       display: flex;
       gap: 2rem;
@@ -484,6 +488,21 @@
       line-height: .92;
       text-transform: uppercase;
       letter-spacing: -.025em;
+    }
+
+    .hero-brand-logo {
+      display: none;
+      width: min(620px, 78vw);
+      height: auto;
+      margin: 0 0 1rem;
+    }
+
+    html[dir="rtl"] .copy h1 {
+      display: none;
+    }
+
+    html[dir="rtl"] .hero-brand-logo {
+      display: block;
     }
 
     .project-meta {
@@ -869,7 +888,7 @@
     <nav class="nav" aria-label="Primary navigation">
       <div class="nav-row">
         <a class="brand" href="index.html" aria-label="Captains Film home">
-          <img src="assets/captains/logo-green-web.png" alt="Captains Film">
+          <img src="assets/captains/logo-green-web.png" alt="Captains Film" data-logo-en="assets/captains/logo-green-web.png" data-logo-ar="assets/captains/logo-ar-green.png">
         </a>
         <ul class="nav-links">
           <li><a href="index.html" data-go="home" data-i18n="nav.home">Home</a></li>
@@ -909,6 +928,7 @@
       <div class="content-spacer"></div>
       <div class="copy">
         <h1 data-i18n="brand">Captains Film</h1>
+        <img class="hero-brand-logo" src="assets/captains/logo-ar-green.png" alt="كابتينز">
         <p class="project-meta"></p>
         <div class="scroll-word" data-i18n="hero.scroll">Scroll</div>
       </div>
@@ -1101,6 +1121,10 @@
       document.documentElement.lang = currentLang;
       document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
       document.title = currentLang === "ar" ? "كابتينز" : "Captains Film";
+      document.querySelectorAll("[data-logo-en][data-logo-ar]").forEach((logo) => {
+        logo.src = currentLang === "ar" ? logo.dataset.logoAr : logo.dataset.logoEn;
+        logo.alt = currentLang === "ar" ? "كابتينز" : "Captains Film";
+      });
       document.querySelectorAll("[data-i18n]").forEach((node) => {
         node.textContent = t(node.dataset.i18n);
       });
