@@ -312,10 +312,11 @@
 
     .hero-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr);
+      grid-template-columns: minmax(0, .92fr) minmax(360px, 1.08fr);
       gap: clamp(34px, 6vw, 90px);
-      align-items: end;
+      align-items: center;
       margin-bottom: clamp(110px, 15vw, 180px);
+      min-height: min(760px, calc(100svh - 210px));
     }
 
     .eyebrow {
@@ -334,7 +335,7 @@
     .page-title {
       margin: 0;
       color: var(--mint);
-      font-size: clamp(58px, 11vw, 160px);
+      font-size: clamp(58px, 8.5vw, 126px);
       font-weight: 900;
       line-height: .85;
       letter-spacing: -.055em;
@@ -350,14 +351,94 @@
       font-weight: 500;
     }
 
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .8rem;
+      margin-top: 2rem;
+    }
+
+    .hero-media {
+      position: relative;
+      min-height: clamp(420px, 56vw, 650px);
+      overflow: hidden;
+      border-radius: 8px;
+      background: rgba(62,255,163,.06);
+      isolation: isolate;
+    }
+
+    .hero-media img {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(1) contrast(1.18) brightness(.72);
+      transform: scale(1.02);
+    }
+
+    .hero-media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(12,7,5,.05), rgba(12,7,5,.72)),
+        radial-gradient(circle at 74% 20%, rgba(62,255,163,.22), transparent 28%);
+      mix-blend-mode: screen;
+      opacity: .72;
+      pointer-events: none;
+    }
+
+    .media-caption {
+      position: absolute;
+      right: 1rem;
+      bottom: 1rem;
+      left: 1rem;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      color: var(--soft);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    html[dir="rtl"] .media-caption {
+      direction: rtl;
+    }
+
+    .pull-quote {
+      max-width: 920px;
+      margin: 0 0 clamp(58px, 7vw, 100px);
+      color: var(--white);
+      font-size: clamp(34px, 5vw, 82px);
+      font-weight: 900;
+      line-height: .96;
+      letter-spacing: -.055em;
+      text-transform: uppercase;
+    }
+
+    .pull-quote mark {
+      padding: 0 .14em;
+      background: var(--mint);
+      color: var(--black);
+    }
+
     .bio-copy {
       max-width: 970px;
-      margin: 0 0 clamp(84px, 10vw, 140px) auto;
+      margin: 0 0 1.15rem auto;
       color: var(--soft);
-      font-size: clamp(22px, 2.6vw, 42px);
-      font-weight: 700;
-      line-height: 1.22;
-      letter-spacing: -.03em;
+      font-size: clamp(17px, 1.45vw, 22px);
+      font-weight: 500;
+      line-height: 1.75;
+      letter-spacing: 0;
+    }
+
+    .bio-copy + .bio-copy {
+      margin-bottom: clamp(58px, 7vw, 100px);
     }
 
     .about-facts {
@@ -365,6 +446,7 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 1px;
       margin-top: clamp(28px, 4vw, 54px);
+      margin-bottom: clamp(90px, 11vw, 150px);
       background: var(--line);
     }
 
@@ -410,34 +492,45 @@
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 0;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: clamp(14px, 1.4vw, 22px);
       margin-bottom: clamp(110px, 14vw, 180px);
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
     }
 
     .stat-card {
       position: relative;
-      min-height: 300px;
+      min-height: 250px;
       padding: clamp(22px, 2.8vw, 42px) clamp(14px, 2vw, 28px);
-      border-right: 1px solid var(--line);
-      background: transparent;
+      border: 1px solid rgba(62,255,163,.18);
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(62,255,163,.07), rgba(62,255,163,.025)),
+        rgba(12,7,5,.72);
       overflow: hidden;
       opacity: 0;
       transform: translateY(26px);
       animation: rise .72s var(--ease) forwards;
-      transition: transform .45s var(--ease), background .3s ease;
+      transition: transform .45s var(--ease), background .3s ease, border-color .3s ease;
     }
-    html[dir="rtl"] .stat-card { border-right: 0; border-left: 1px solid var(--line); }
-    .stat-card:last-child { border-right: 0; }
-    html[dir="rtl"] .stat-card:last-child { border-left: 0; }
+    .stat-card.featured {
+      grid-column: span 2;
+      min-height: 320px;
+      background:
+        linear-gradient(135deg, rgba(62,255,163,.2), rgba(62,255,163,.05)),
+        rgba(12,7,5,.82);
+    }
     .stat-card:nth-child(2) { animation-delay: 80ms; }
     .stat-card:nth-child(3) { animation-delay: 160ms; }
     .stat-card:nth-child(4) { animation-delay: 240ms; }
     .stat-card:nth-child(5) { animation-delay: 320ms; }
     .stat-card:nth-child(6) { animation-delay: 400ms; }
-    .stat-card:hover { transform: translateY(-6px); background: rgba(62,255,163,.045); }
+    .stat-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(62,255,163,.42);
+      background:
+        linear-gradient(180deg, rgba(62,255,163,.11), rgba(62,255,163,.035)),
+        rgba(12,7,5,.78);
+    }
     .stat-number { color: rgba(194,255,224,.42); font-size: .82rem; font-weight: 800; letter-spacing: .16em; }
     .stat-card h3 { margin: 2rem 0 1rem; color: var(--white); font-size: clamp(18px, 1.7vw, 26px); line-height: 1; text-transform: uppercase; }
     .stat-card p { margin: 0; color: var(--soft); line-height: 1.65; }
@@ -460,17 +553,22 @@
     .stat-value {
       display: block;
       color: var(--mint);
-      font-size: clamp(48px, 7vw, 104px);
+      font-size: clamp(56px, 7vw, 116px);
       font-weight: 900;
       line-height: .82;
       letter-spacing: -.055em;
     }
 
+    .stat-card.featured .stat-value {
+      font-size: clamp(76px, 10vw, 168px);
+    }
+
     .client-logo-wall {
       margin-bottom: clamp(90px, 11vw, 150px);
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
+      border: 1px solid rgba(62,255,163,.16);
+      border-radius: 8px;
       overflow: hidden;
+      background: rgba(12,7,5,.72);
     }
 
     .client-logo-wall img {
@@ -478,6 +576,13 @@
       width: 100%;
       height: auto;
       filter: contrast(1.08);
+      opacity: .88;
+      transition: opacity .25s ease, filter .25s ease;
+    }
+
+    .client-logo-wall:hover img {
+      opacity: 1;
+      filter: contrast(1.14);
     }
 
     .client-logo-note {
@@ -487,6 +592,50 @@
       margin: .85rem 0 clamp(80px, 10vw, 130px);
       color: var(--muted);
       font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .stills-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      grid-template-rows: repeat(2, minmax(220px, 32vw));
+      gap: clamp(14px, 1.6vw, 24px);
+      margin-bottom: clamp(100px, 12vw, 160px);
+    }
+
+    .still {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      background: rgba(62,255,163,.06);
+    }
+
+    .still:first-child {
+      grid-row: span 2;
+    }
+
+    .still img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(.9) contrast(1.12) brightness(.78);
+      transition: transform .7s var(--ease), filter .35s ease;
+    }
+
+    .still:hover img {
+      transform: scale(1.035);
+      filter: grayscale(.25) contrast(1.05) brightness(.88);
+    }
+
+    .still span {
+      position: absolute;
+      right: 1rem;
+      bottom: 1rem;
+      left: 1rem;
+      color: var(--white);
+      font-size: .72rem;
       font-weight: 800;
       letter-spacing: .12em;
       text-transform: uppercase;
@@ -739,10 +888,25 @@
       .brand { width: 168px; }
       .social-rail { display: none; }
       .about-page { padding: 150px 1.25rem 96px; }
-      .page-title { font-size: clamp(54px, 17vw, 78px); }
+      .hero-grid { gap: 2.25rem; margin-bottom: 5rem; min-height: auto; }
+      .page-title { font-size: clamp(50px, 15vw, 72px); line-height: .92; }
+      html[dir="rtl"] .page-title { font-size: clamp(42px, 11vw, 54px); line-height: 1.05; letter-spacing: 0; }
+      .lead { font-size: 1.08rem; }
+      .hero-media { min-height: 430px; }
+      .pull-quote { font-size: clamp(34px, 12vw, 54px); line-height: 1.02; }
       .about-facts { grid-template-columns: 1fr; }
       .section-label { align-items: flex-start; flex-direction: column; }
       .stats-grid, .deliverable-grid { grid-template-columns: 1fr; }
+      .stat-card.featured { grid-column: span 1; min-height: 280px; }
+      .stills-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: none;
+      }
+      .still,
+      .still:first-child {
+        grid-row: auto;
+        min-height: 280px;
+      }
       .stat-card,
       .stat-card:nth-child(2n),
       html[dir="rtl"] .stat-card,
@@ -815,10 +979,16 @@
     <section class="hero-grid" aria-labelledby="aboutTitle">
       <div>
         <div class="eyebrow" data-i18n="about.eyebrow">Who we are</div>
-        <h1 class="page-title" id="aboutTitle" data-i18n="nav.about">About us</h1>
+        <h1 class="page-title" id="aboutTitle" data-i18n="about.heroTitle">The one who leads the work defines its impact</h1>
+        <p class="lead" data-i18n="about.lead">A Riyadh-based production company leading stories from first idea to final screen with clarity, confidence, and cinematic craft.</p>
+        <div class="hero-actions">
+          <button class="project-button" type="button" data-contact><span data-i18n="cta.start">Start a project</span></button>
+          <a class="ghost-link" href="projects.html" data-i18n="cta.viewProjects">View projects</a>
+        </div>
       </div>
-      <div>
-        <p class="lead" data-i18n="about.lead">They say you can tell a horse by its rider - at CAPTAINS, we say: great work comes from a great captain.</p>
+      <div class="hero-media">
+        <img src="assets/captains/slides/sl1.jpg" alt="Cinematic horizon frame from Captains Film work">
+        <div class="media-caption"><span>CAPTAINS FILM</span><span>RIYADH / 2026</span></div>
       </div>
     </section>
 
@@ -827,7 +997,9 @@
         <h2 id="bioTitle" data-i18n="about.bioTitle">The captain sets the route</h2>
         <p data-i18n="about.bioIntro">Leadership is the difference between a finished film and a film that arrives with purpose.</p>
       </div>
-      <p class="bio-copy" data-i18n="about.bioCopy">We believe, as a production company, that real value lies in leadership. Behind every exceptional piece of work is a CAPTAIN who knows the ship and the route - leading the journey with clarity and confidence from the first idea to the final product. We're made for it - and we know it best.</p>
+      <blockquote class="pull-quote"><span data-i18n="about.quoteOne">Great work comes from a</span> <mark data-i18n="about.quoteMark">great captain.</mark></blockquote>
+      <p class="bio-copy" data-i18n="about.bioCopyOne">We believe, as a production company, that real value lies in leadership. Behind every exceptional piece of work is a CAPTAIN who knows the ship and the route.</p>
+      <p class="bio-copy" data-i18n="about.bioCopyTwo">That captain leads the journey with clarity and confidence from the first idea to the final product. We're made for it - and we know it best.</p>
       <div class="about-facts" aria-label="Captains profile facts">
         <div class="about-fact"><small data-i18n="about.panelOne">Role</small><strong>CAPTAIN</strong></div>
         <div class="about-fact"><small data-i18n="about.panelTwo">Route</small><strong>IDEA - FILM</strong></div>
@@ -850,6 +1022,18 @@
       </div>
     </section>
 
+    <section aria-labelledby="stillsTitle">
+      <div class="section-label">
+        <h2 id="stillsTitle" data-i18n="about.stillsTitle">Frames from the route</h2>
+        <p data-i18n="about.stillsCopy">A visual pause from selected documentaries, commercials, branded films, and post-production work.</p>
+      </div>
+      <div class="stills-grid">
+        <figure class="still"><img src="assets/captains/projects/p37.jpg" alt="Soundstorm cinematic frame"><span>MDLBEAST</span></figure>
+        <figure class="still"><img src="assets/captains/projects/p20.jpg" alt="Azure lifestyle cinematic frame"><span>AZURE</span></figure>
+        <figure class="still"><img src="assets/captains/projects/p44.jpg" alt="Bakery oven documentary frame"><span>DGDA x BOLD</span></figure>
+      </div>
+    </section>
+
     <section aria-labelledby="numbersTitle">
       <div class="section-label">
         <h2 id="numbersTitle"><span data-i18n="about.year">2025</span><br><span class="harvest-kicker" data-i18n="about.harvest">Harvest</span><br><span data-i18n="about.numbers">in numbers</span></h2>
@@ -866,7 +1050,7 @@
           <h3 data-i18n="about.data">Terabytes of data</h3>
           <p data-i18n="about.dataCopy">Raw materials, editing, animation, archiving, and delivery.</p>
         </article>
-        <article class="stat-card">
+        <article class="stat-card featured">
           <span class="stat-value">+1,800</span>
           <h3 data-i18n="about.minutes">Minutes of content</h3>
           <p data-i18n="about.minutesCopy">Ads, social media content, programs, animation, and documentaries.</p>
@@ -937,14 +1121,20 @@
         "social.vimeo": "Vimeo",
         "social.linkedin": "LinkedIn",
         "social.instagram": "Instagram",
-        "about.eyebrow": "Who we are",
-        "about.lead": "They say you can tell a horse by its rider - at CAPTAINS, we say: great work comes from a great captain.",
+        "about.eyebrow": "Captains / A production company leading ideas to screen",
+        "about.heroTitle": "The one who leads the work defines its impact",
+        "about.lead": "A Riyadh-based production company leading stories from first idea to final screen with clarity, confidence, and cinematic craft.",
         "about.bioTitle": "The captain sets the route",
         "about.bioIntro": "Leadership is the difference between a finished film and a film that arrives with purpose.",
         "about.panelOne": "Role",
         "about.panelTwo": "Route",
         "about.panelThree": "Base",
-        "about.bioCopy": "We believe, as a production company, that real value lies in leadership. Behind every exceptional piece of work is a CAPTAIN who knows the ship and the route - leading the journey with clarity and confidence from the first idea to the final product. We're made for it - and we know it best.",
+        "about.quoteOne": "Great work comes from a",
+        "about.quoteMark": "great captain.",
+        "about.bioCopyOne": "We believe, as a production company, that real value lies in leadership. Behind every exceptional piece of work is a CAPTAIN who knows the ship and the route.",
+        "about.bioCopyTwo": "That captain leads the journey with clarity and confidence from the first idea to the final product. We're made for it - and we know it best.",
+        "about.stillsTitle": "Frames from the route",
+        "about.stillsCopy": "A visual pause from selected documentaries, commercials, branded films, and post-production work.",
         "about.year": "2025",
         "about.harvest": "Harvest",
         "about.numbers": "in numbers",
@@ -985,14 +1175,20 @@
         "social.vimeo": "فيميو",
         "social.linkedin": "لينكدإن",
         "social.instagram": "إنستغرام",
-        "about.eyebrow": "من نحن",
-        "about.lead": "يقولون إن الفارس يُعرَف من حصانه - ونحن في كابتينز نقول: العمل العظيم يأتي من كابتن عظيم.",
+        "about.eyebrow": "كابتينز / شركة إنتاج تقود الفكرة إلى الشاشة",
+        "about.heroTitle": "من يقود العمل، يحدد أثره",
+        "about.lead": "شركة إنتاج من الرياض تقود الحكاية من الفكرة الأولى إلى الشاشة بوضوح وثقة وحرفة سينمائية.",
         "about.bioTitle": "الكابتن يحدد المسار",
         "about.bioIntro": "القيادة هي الفرق بين فيلم مكتمل وفيلم يصل بهدف واضح.",
         "about.panelOne": "الدور",
         "about.panelTwo": "المسار",
         "about.panelThree": "المقر",
-        "about.bioCopy": "نؤمن، كشركة إنتاج، أن القيمة الحقيقية تكمن في القيادة. خلف كل عمل استثنائي كابتن يعرف السفينة والطريق، ويقود الرحلة بوضوح وثقة من الفكرة الأولى إلى المنتج النهائي. نحن صُنعنا لهذا، ونعرفه جيدًا.",
+        "about.quoteOne": "العمل العظيم يأتي من",
+        "about.quoteMark": "كابتن عظيم.",
+        "about.bioCopyOne": "نؤمن، كشركة إنتاج، أن القيمة الحقيقية تكمن في القيادة. خلف كل عمل استثنائي كابتن يعرف السفينة والطريق.",
+        "about.bioCopyTwo": "ذلك الكابتن يقود الرحلة بوضوح وثقة من الفكرة الأولى إلى المنتج النهائي. نحن صُنعنا لهذا، ونعرفه جيدًا.",
+        "about.stillsTitle": "لقطات من المسار",
+        "about.stillsCopy": "وقفة بصرية من أعمال مختارة بين الوثائقيات والإعلانات والأفلام التجارية وما بعد الإنتاج.",
         "about.year": "2025",
         "about.harvest": "حصاد",
         "about.numbers": "بالأرقام",
