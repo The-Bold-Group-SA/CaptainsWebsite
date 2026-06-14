@@ -350,23 +350,44 @@
       font-weight: 500;
     }
 
-    .hero-panel {
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      background: linear-gradient(180deg, rgba(62,255,163,.08), rgba(12,7,5,.68));
-      backdrop-filter: blur(12px);
-      overflow: hidden;
+    .bio-copy {
+      max-width: 970px;
+      margin: 0 0 clamp(84px, 10vw, 140px) auto;
+      color: var(--soft);
+      font-size: clamp(22px, 2.6vw, 42px);
+      font-weight: 700;
+      line-height: 1.22;
+      letter-spacing: -.03em;
     }
-    .hero-panel-top {
+
+    .about-facts {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      border-bottom: 1px solid var(--line);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      margin-top: clamp(28px, 4vw, 54px);
+      background: var(--line);
     }
-    .hero-panel-top div { padding: 1rem; border-right: 1px solid var(--line); }
-    .hero-panel-top div:last-child { border-right: 0; }
-    .hero-panel-top small { display: block; color: var(--muted); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; }
-    .hero-panel-top strong { display: block; margin-top: .35rem; color: var(--mint); font-size: clamp(20px, 2.4vw, 35px); line-height: 1; }
-    .hero-panel p { margin: 0; padding: 1.25rem; color: var(--soft); line-height: 1.7; }
+
+    .about-fact {
+      padding: 1rem 0;
+      background: var(--black);
+    }
+
+    .about-fact small {
+      display: block;
+      color: var(--muted);
+      font-size: .68rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .about-fact strong {
+      display: block;
+      margin-top: .35rem;
+      color: var(--mint);
+      font-size: clamp(20px, 2.4vw, 35px);
+      line-height: 1;
+    }
 
     .section-label {
       display: flex;
@@ -389,42 +410,36 @@
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: clamp(16px, 2vw, 28px);
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0;
       margin-bottom: clamp(110px, 14vw, 180px);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
     }
 
     .stat-card {
       position: relative;
-      min-height: 260px;
-      padding: clamp(20px, 2.4vw, 32px);
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      background: rgba(62,255,163,.045);
+      min-height: 300px;
+      padding: clamp(22px, 2.8vw, 42px) clamp(14px, 2vw, 28px);
+      border-right: 1px solid var(--line);
+      background: transparent;
       overflow: hidden;
       opacity: 0;
       transform: translateY(26px);
       animation: rise .72s var(--ease) forwards;
-      transition: transform .45s var(--ease), background .3s ease, border-color .3s ease;
+      transition: transform .45s var(--ease), background .3s ease;
     }
+    html[dir="rtl"] .stat-card { border-right: 0; border-left: 1px solid var(--line); }
+    .stat-card:last-child { border-right: 0; }
+    html[dir="rtl"] .stat-card:last-child { border-left: 0; }
     .stat-card:nth-child(2) { animation-delay: 80ms; }
     .stat-card:nth-child(3) { animation-delay: 160ms; }
     .stat-card:nth-child(4) { animation-delay: 240ms; }
     .stat-card:nth-child(5) { animation-delay: 320ms; }
     .stat-card:nth-child(6) { animation-delay: 400ms; }
-    .stat-card:hover { transform: translateY(-6px); border-color: rgba(62,255,163,.46); background: rgba(62,255,163,.075); }
-    .stat-card::after {
-      content: "";
-      position: absolute;
-      right: -45px;
-      top: -45px;
-      width: 150px;
-      height: 150px;
-      border: 1px solid rgba(62,255,163,.14);
-      border-radius: 999px;
-    }
+    .stat-card:hover { transform: translateY(-6px); background: rgba(62,255,163,.045); }
     .stat-number { color: rgba(194,255,224,.42); font-size: .82rem; font-weight: 800; letter-spacing: .16em; }
-    .stat-card h3 { margin: 2.4rem 0 1rem; color: var(--mint); font-size: clamp(24px, 2.4vw, 38px); line-height: .95; text-transform: uppercase; }
+    .stat-card h3 { margin: 2rem 0 1rem; color: var(--white); font-size: clamp(18px, 1.7vw, 26px); line-height: 1; text-transform: uppercase; }
     .stat-card p { margin: 0; color: var(--soft); line-height: 1.65; }
     .stat-card ul { display: grid; gap: .65rem; margin: 0; padding: 0; list-style: none; }
     .stat-card li { color: var(--muted); font-size: .9rem; line-height: 1.35; }
@@ -451,47 +466,29 @@
       letter-spacing: -.055em;
     }
 
-    .clients-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: clamp(16px, 2vw, 28px);
+    .client-logo-wall {
       margin-bottom: clamp(90px, 11vw, 150px);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
     }
 
-    .client-group {
-      min-height: 280px;
-      padding: clamp(20px, 2.4vw, 32px);
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      background: rgba(62,255,163,.045);
+    .client-logo-wall img {
+      display: block;
+      width: 100%;
+      height: auto;
+      filter: contrast(1.08);
     }
 
-    .client-group h3 {
-      margin: 0 0 1.4rem;
-      color: var(--mint);
-      font-size: clamp(24px, 2.8vw, 42px);
-      line-height: .95;
-      text-transform: uppercase;
-    }
-
-    .client-list {
+    .client-logo-note {
       display: flex;
-      flex-wrap: wrap;
-      gap: .65rem;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .client-list li {
-      padding: .58rem .76rem;
-      border: 1px solid rgba(62,255,163,.18);
-      border-radius: 999px;
-      color: var(--soft);
-      background: rgba(12,7,5,.28);
-      font-size: .84rem;
+      justify-content: space-between;
+      gap: 1rem;
+      margin: .85rem 0 clamp(80px, 10vw, 130px);
+      color: var(--muted);
+      font-size: .78rem;
       font-weight: 800;
-      letter-spacing: .04em;
+      letter-spacing: .12em;
       text-transform: uppercase;
     }
 
@@ -721,8 +718,9 @@
     @media (max-width: 1080px) {
       .hero-grid, .workflow-shell { grid-template-columns: 1fr; }
       .workflow-sticky { position: relative; top: auto; }
-      .stats-grid,
-      .clients-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .stat-card:nth-child(2n) { border-right: 0; }
+      html[dir="rtl"] .stat-card:nth-child(2n) { border-left: 0; }
       .deliverable-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .cta-band { grid-template-columns: 1fr; }
       .cta-actions { justify-content: flex-start; }
@@ -742,11 +740,28 @@
       .social-rail { display: none; }
       .about-page { padding: 150px 1.25rem 96px; }
       .page-title { font-size: clamp(54px, 17vw, 78px); }
-      .hero-panel-top { grid-template-columns: 1fr; }
-      .hero-panel-top div { border-right: 0; border-bottom: 1px solid var(--line); }
-      .hero-panel-top div:last-child { border-bottom: 0; }
+      .about-facts { grid-template-columns: 1fr; }
       .section-label { align-items: flex-start; flex-direction: column; }
-      .stats-grid, .clients-grid, .deliverable-grid { grid-template-columns: 1fr; }
+      .stats-grid, .deliverable-grid { grid-template-columns: 1fr; }
+      .stat-card,
+      .stat-card:nth-child(2n),
+      html[dir="rtl"] .stat-card,
+      html[dir="rtl"] .stat-card:nth-child(2n) {
+        border-right: 0;
+        border-left: 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .stat-card:last-child { border-bottom: 0; }
+      .client-logo-wall {
+        width: calc(100% + 2.5rem);
+        margin-right: -1.25rem;
+        margin-left: -1.25rem;
+      }
+      .client-logo-wall img {
+        width: 160%;
+        max-width: none;
+      }
+      .client-logo-note { flex-direction: column; }
       .step { grid-template-columns: 1fr; min-height: auto; }
     }
 
@@ -812,13 +827,26 @@
         <h2 id="bioTitle" data-i18n="about.bioTitle">The captain sets the route</h2>
         <p data-i18n="about.bioIntro">Leadership is the difference between a finished film and a film that arrives with purpose.</p>
       </div>
-      <div class="hero-panel">
-        <div class="hero-panel-top">
-          <div><small data-i18n="about.panelOne">Role</small><strong>CAPTAIN</strong></div>
-          <div><small data-i18n="about.panelTwo">Route</small><strong>IDEA - FILM</strong></div>
-          <div><small data-i18n="about.panelThree">Base</small><strong>RIYADH</strong></div>
-        </div>
-        <p data-i18n="about.bioCopy">We believe, as a production company, that real value lies in leadership. Behind every exceptional piece of work is a CAPTAIN who knows the ship and the route - leading the journey with clarity and confidence from the first idea to the final product. We're made for it - and we know it best.</p>
+      <p class="bio-copy" data-i18n="about.bioCopy">We believe, as a production company, that real value lies in leadership. Behind every exceptional piece of work is a CAPTAIN who knows the ship and the route - leading the journey with clarity and confidence from the first idea to the final product. We're made for it - and we know it best.</p>
+      <div class="about-facts" aria-label="Captains profile facts">
+        <div class="about-fact"><small data-i18n="about.panelOne">Role</small><strong>CAPTAIN</strong></div>
+        <div class="about-fact"><small data-i18n="about.panelTwo">Route</small><strong>IDEA - FILM</strong></div>
+        <div class="about-fact"><small data-i18n="about.panelThree">Base</small><strong>RIYADH</strong></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="clientsTitle">
+      <div class="section-label">
+        <h2 id="clientsTitle" data-i18n="about.clientsTitle">Featured clients</h2>
+        <p data-i18n="about.clientsCopy">Selected partners and organizations from our portfolio across agencies, government, semi-government, and corporate work.</p>
+      </div>
+      <div class="client-logo-wall">
+        <img src="assets/captains/about/client-logos.png" alt="Featured client logos from Captains Film portfolio">
+      </div>
+      <div class="client-logo-note" aria-hidden="true">
+        <span data-i18n="about.agencies">Agencies / Production</span>
+        <span data-i18n="about.gov">Government / Semi-Gov</span>
+        <span data-i18n="about.corporate">Corporate</span>
       </div>
     </section>
 
@@ -852,58 +880,6 @@
           <span class="stat-value">+190</span>
           <h3 data-i18n="about.productionDays">Production days</h3>
           <p data-i18n="about.productionDaysCopy">Shooting, prep, post-production, reviews, and delivery.</p>
-        </article>
-      </div>
-    </section>
-
-    <section aria-labelledby="clientsTitle">
-      <div class="section-label">
-        <h2 id="clientsTitle" data-i18n="about.clientsTitle">Featured clients</h2>
-        <p data-i18n="about.clientsCopy">Selected partners and organizations from our portfolio across agencies, government, semi-government, and corporate work.</p>
-      </div>
-      <div class="clients-grid">
-        <article class="client-group">
-          <h3 data-i18n="about.agencies">Agencies / Production</h3>
-          <ul class="client-list">
-            <li>Webedia</li>
-            <li>The Bold Group</li>
-            <li>Ethos</li>
-            <li>Next Level</li>
-            <li>Ability</li>
-            <li>WonderEight</li>
-            <li>Millimeter</li>
-          </ul>
-        </article>
-        <article class="client-group">
-          <h3 data-i18n="about.gov">Government / Semi-Gov</h3>
-          <ul class="client-list">
-            <li>Saudi Payments</li>
-            <li>RCU</li>
-            <li>Diriyah</li>
-            <li>Ministry of Culture</li>
-            <li>Noor Riyadh</li>
-            <li>Center3</li>
-            <li>DAN</li>
-            <li>Ministry of Tourism</li>
-            <li>MDLBEAST</li>
-            <li>Premium Residency</li>
-            <li>Lean</li>
-          </ul>
-        </article>
-        <article class="client-group">
-          <h3 data-i18n="about.corporate">Corporate</h3>
-          <ul class="client-list">
-            <li>Hyundai</li>
-            <li>BSF</li>
-            <li>Zain</li>
-            <li>Foodics</li>
-            <li>Alwaleed Philanthropies</li>
-            <li>Almarai</li>
-            <li>Snapchat</li>
-            <li>Renault</li>
-            <li>OSUS</li>
-            <li>Naqwa</li>
-          </ul>
         </article>
       </div>
     </section>
