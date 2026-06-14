@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Services | Captains Film</title>
-  <meta name="description" content="Captains Film services, production workflow, and collaboration model.">
+  <title>About us | Captains Film</title>
+  <meta name="description" content="Captains Film company story, achievements, and featured clients.">
   <link rel="icon" type="image/x-icon" href="assets/captains/favicon_io/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/captains/favicon_io/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/captains/favicon_io/favicon-16x16.png">
@@ -264,7 +264,7 @@
     .social-rail a { transition: color .2s ease, transform .2s ease; }
     .social-rail a:hover { color: var(--white); transform: translateX(1px); }
 
-    .services-bg {
+    .about-bg {
       position: fixed;
       inset: 0;
       z-index: 0;
@@ -275,10 +275,10 @@
         var(--black);
       pointer-events: none;
     }
-    .services-bg::before,
-    .services-bg::after,
+    .about-bg::before,
+    .about-bg::after,
     .noise { content: ""; position: absolute; inset: 0; pointer-events: none; }
-    .services-bg::before {
+    .about-bg::before {
       opacity: .25;
       background-image:
         linear-gradient(rgba(62,255,163,.09) 1px, transparent 1px),
@@ -287,7 +287,7 @@
       transform: perspective(600px) rotateX(62deg) translateY(-30%);
       transform-origin: top;
     }
-    .services-bg::after {
+    .about-bg::after {
       background:
         linear-gradient(90deg, rgba(12,7,5,.82), rgba(12,7,5,.35), rgba(12,7,5,.9)),
         linear-gradient(0deg, rgba(12,7,5,.9), rgba(12,7,5,.18), rgba(12,7,5,.68));
@@ -303,7 +303,7 @@
       animation: noiseDrift .55s steps(2) infinite;
     }
 
-    .services-page {
+    .about-page {
       position: relative;
       z-index: 10;
       min-height: 100svh;
@@ -387,14 +387,14 @@
     }
     .section-label p { max-width: 520px; margin: 0; color: var(--muted); line-height: 1.55; }
 
-    .services-grid {
+    .stats-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: clamp(16px, 2vw, 28px);
       margin-bottom: clamp(110px, 14vw, 180px);
     }
 
-    .service-card {
+    .stat-card {
       position: relative;
       min-height: 260px;
       padding: clamp(20px, 2.4vw, 32px);
@@ -407,13 +407,13 @@
       animation: rise .72s var(--ease) forwards;
       transition: transform .45s var(--ease), background .3s ease, border-color .3s ease;
     }
-    .service-card:nth-child(2) { animation-delay: 80ms; }
-    .service-card:nth-child(3) { animation-delay: 160ms; }
-    .service-card:nth-child(4) { animation-delay: 240ms; }
-    .service-card:nth-child(5) { animation-delay: 320ms; }
-    .service-card:nth-child(6) { animation-delay: 400ms; }
-    .service-card:hover { transform: translateY(-6px); border-color: rgba(62,255,163,.46); background: rgba(62,255,163,.075); }
-    .service-card::after {
+    .stat-card:nth-child(2) { animation-delay: 80ms; }
+    .stat-card:nth-child(3) { animation-delay: 160ms; }
+    .stat-card:nth-child(4) { animation-delay: 240ms; }
+    .stat-card:nth-child(5) { animation-delay: 320ms; }
+    .stat-card:nth-child(6) { animation-delay: 400ms; }
+    .stat-card:hover { transform: translateY(-6px); border-color: rgba(62,255,163,.46); background: rgba(62,255,163,.075); }
+    .stat-card::after {
       content: "";
       position: absolute;
       right: -45px;
@@ -423,12 +423,77 @@
       border: 1px solid rgba(62,255,163,.14);
       border-radius: 999px;
     }
-    .service-number { color: rgba(194,255,224,.42); font-size: .82rem; font-weight: 800; letter-spacing: .16em; }
-    .service-card h3 { margin: 2.4rem 0 1rem; color: var(--mint); font-size: clamp(24px, 2.4vw, 38px); line-height: .95; text-transform: uppercase; }
-    .service-card p { margin: 0; color: var(--soft); line-height: 1.65; }
-    .service-card ul { display: grid; gap: .65rem; margin: 0; padding: 0; list-style: none; }
-    .service-card li { color: var(--muted); font-size: .9rem; line-height: 1.35; }
-    .service-card li::before { content: "+"; margin-right: .5rem; color: var(--mint); }
+    .stat-number { color: rgba(194,255,224,.42); font-size: .82rem; font-weight: 800; letter-spacing: .16em; }
+    .stat-card h3 { margin: 2.4rem 0 1rem; color: var(--mint); font-size: clamp(24px, 2.4vw, 38px); line-height: .95; text-transform: uppercase; }
+    .stat-card p { margin: 0; color: var(--soft); line-height: 1.65; }
+    .stat-card ul { display: grid; gap: .65rem; margin: 0; padding: 0; list-style: none; }
+    .stat-card li { color: var(--muted); font-size: .9rem; line-height: 1.35; }
+    .stat-card li::before { content: "+"; margin-right: .5rem; color: var(--mint); }
+
+    .harvest-kicker {
+      display: inline-block;
+      margin-bottom: .55rem;
+      padding: .08rem .28rem;
+      background: var(--white);
+      color: var(--black);
+      font-size: clamp(22px, 3.5vw, 52px);
+      font-weight: 900;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .stat-value {
+      display: block;
+      color: var(--mint);
+      font-size: clamp(48px, 7vw, 104px);
+      font-weight: 900;
+      line-height: .82;
+      letter-spacing: -.055em;
+    }
+
+    .clients-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(16px, 2vw, 28px);
+      margin-bottom: clamp(90px, 11vw, 150px);
+    }
+
+    .client-group {
+      min-height: 280px;
+      padding: clamp(20px, 2.4vw, 32px);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: rgba(62,255,163,.045);
+    }
+
+    .client-group h3 {
+      margin: 0 0 1.4rem;
+      color: var(--mint);
+      font-size: clamp(24px, 2.8vw, 42px);
+      line-height: .95;
+      text-transform: uppercase;
+    }
+
+    .client-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .65rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .client-list li {
+      padding: .58rem .76rem;
+      border: 1px solid rgba(62,255,163,.18);
+      border-radius: 999px;
+      color: var(--soft);
+      background: rgba(12,7,5,.28);
+      font-size: .84rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
 
     .workflow {
       margin-bottom: clamp(80px, 10vw, 130px);
@@ -656,7 +721,8 @@
     @media (max-width: 1080px) {
       .hero-grid, .workflow-shell { grid-template-columns: 1fr; }
       .workflow-sticky { position: relative; top: auto; }
-      .services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .stats-grid,
+      .clients-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .deliverable-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .cta-band { grid-template-columns: 1fr; }
       .cta-actions { justify-content: flex-start; }
@@ -674,13 +740,13 @@
       .mobile-menu .project-button { background: var(--mint); color: var(--black); }
       .brand { width: 168px; }
       .social-rail { display: none; }
-      .services-page { padding: 150px 1.25rem 96px; }
+      .about-page { padding: 150px 1.25rem 96px; }
       .page-title { font-size: clamp(54px, 17vw, 78px); }
       .hero-panel-top { grid-template-columns: 1fr; }
       .hero-panel-top div { border-right: 0; border-bottom: 1px solid var(--line); }
       .hero-panel-top div:last-child { border-bottom: 0; }
       .section-label { align-items: flex-start; flex-direction: column; }
-      .services-grid, .deliverable-grid { grid-template-columns: 1fr; }
+      .stats-grid, .clients-grid, .deliverable-grid { grid-template-columns: 1fr; }
       .step { grid-template-columns: 1fr; min-height: auto; }
     }
 
@@ -704,7 +770,7 @@
         <ul class="nav-links">
           <li><a href="index.html" data-i18n="nav.home">Home</a></li>
           <li><a href="projects.html" data-i18n="nav.projects">Projects</a></li>
-          <li><a class="active" href="services.html" data-i18n="nav.services">Services</a></li>
+          <li><a class="active" href="about.html" data-i18n="nav.about">About us</a></li>
         </ul>
         <div class="nav-actions desktop">
           <button class="lang-toggle" type="button" data-lang-toggle aria-label="Switch language">عربي</button>
@@ -715,7 +781,7 @@
       <div class="mobile-menu" aria-hidden="true">
         <a href="index.html" data-i18n="nav.home">Home</a>
         <a href="projects.html" data-i18n="nav.projects">Projects</a>
-        <a class="active" href="services.html" data-i18n="nav.services">Services</a>
+        <a class="active" href="about.html" data-i18n="nav.about">About us</a>
         <button class="lang-toggle" type="button" data-lang-toggle aria-label="Switch language">عربي</button>
         <button class="project-button" type="button" data-contact><span data-i18n="cta.start">Start a project</span></button>
       </div>
@@ -728,57 +794,124 @@
     <a href="https://www.instagram.com/captains_film/" target="_blank" rel="noopener noreferrer" data-i18n="social.instagram">Instagram</a>
   </div>
 
-  <div class="services-bg" aria-hidden="true"><div class="noise"></div></div>
+  <div class="about-bg" aria-hidden="true"><div class="noise"></div></div>
 
-  <main class="services-page">
-    <section class="hero-grid" aria-labelledby="servicesTitle">
+  <main class="about-page">
+    <section class="hero-grid" aria-labelledby="aboutTitle">
       <div>
-        <div class="eyebrow" data-i18n="services.eyebrow">What we do</div>
-        <h1 class="page-title" id="servicesTitle" data-i18n="nav.services">Services</h1>
+        <div class="eyebrow" data-i18n="about.eyebrow">Who we are</div>
+        <h1 class="page-title" id="aboutTitle" data-i18n="nav.about">About us</h1>
       </div>
       <div>
-        <p class="lead" data-i18n="services.lead">Cinematic production, post-production, and visual storytelling for brands, agencies, and cultural projects.</p>
+        <p class="lead" data-i18n="about.lead">They say you can tell a horse by its rider - at CAPTAINS, we say: great work comes from a great captain.</p>
       </div>
     </section>
 
-    <section aria-labelledby="whatWeDo">
+    <section aria-labelledby="bioTitle">
       <div class="section-label">
-        <h2 id="whatWeDo" data-i18n="services.core">Core services</h2>
-        <p data-i18n="services.coreCopy">Built to stay lean, clear, and production-ready.</p>
+        <h2 id="bioTitle" data-i18n="about.bioTitle">The captain sets the route</h2>
+        <p data-i18n="about.bioIntro">Leadership is the difference between a finished film and a film that arrives with purpose.</p>
       </div>
-      <div class="services-grid">
-        <article class="service-card">
-          <span class="service-number">01</span>
-          <h3 data-i18n="services.full">Full Production</h3>
-          <p data-i18n="services.fullCopy">From brief and treatment to shoot planning, crew, locations, and set execution.</p>
+      <div class="hero-panel">
+        <div class="hero-panel-top">
+          <div><small data-i18n="about.panelOne">Role</small><strong>CAPTAIN</strong></div>
+          <div><small data-i18n="about.panelTwo">Route</small><strong>IDEA - FILM</strong></div>
+          <div><small data-i18n="about.panelThree">Base</small><strong>RIYADH</strong></div>
+        </div>
+        <p data-i18n="about.bioCopy">We believe, as a production company, that real value lies in leadership. Behind every exceptional piece of work is a CAPTAIN who knows the ship and the route - leading the journey with clarity and confidence from the first idea to the final product. We're made for it - and we know it best.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="numbersTitle">
+      <div class="section-label">
+        <h2 id="numbersTitle"><span data-i18n="about.year">2025</span><br><span class="harvest-kicker" data-i18n="about.harvest">Harvest</span><br><span data-i18n="about.numbers">in numbers</span></h2>
+        <p data-i18n="about.numbersCopy">A quick look at the scale of the journeys we led across borders, crews, edits, deliveries, and production days.</p>
+      </div>
+      <div class="stats-grid">
+        <article class="stat-card">
+          <span class="stat-value">+5</span>
+          <h3 data-i18n="about.countries">Countries</h3>
+          <p data-i18n="about.countriesCopy">We crossed borders and filmed in more than 5 international destinations.</p>
         </article>
-        <article class="service-card">
-          <span class="service-number">02</span>
-          <h3 data-i18n="tag.tvc">TVC</h3>
-          <p data-i18n="services.tvcCopy">Commercial films with strong visual direction and clean campaign delivery.</p>
+        <article class="stat-card">
+          <span class="stat-value">+100</span>
+          <h3 data-i18n="about.data">Terabytes of data</h3>
+          <p data-i18n="about.dataCopy">Raw materials, editing, animation, archiving, and delivery.</p>
         </article>
-        <article class="service-card">
-          <span class="service-number">03</span>
-          <h3 data-i18n="tag.documentary">Documentary</h3>
-          <p data-i18n="services.docCopy">Human-led films shaped around interviews, story, atmosphere, and clarity.</p>
+        <article class="stat-card">
+          <span class="stat-value">+1,800</span>
+          <h3 data-i18n="about.minutes">Minutes of content</h3>
+          <p data-i18n="about.minutesCopy">Ads, social media content, programs, animation, and documentaries.</p>
         </article>
-        <article class="service-card">
-          <span class="service-number">04</span>
-          <h3 data-i18n="tag.post">Post-Production</h3>
-          <p data-i18n="services.postCopy">Editing, color, sound, motion, cutdowns, versioning, and final masters.</p>
+        <article class="stat-card">
+          <span class="stat-value">+60</span>
+          <h3 data-i18n="about.projectsDelivered">Projects delivered</h3>
+          <p data-i18n="about.projectsCopy">Delivered to the highest standards, on time.</p>
         </article>
-        <article class="service-card">
-          <span class="service-number">05</span>
-          <h3 data-i18n="tag.ai">AI / Animation</h3>
-          <p data-i18n="services.aiCopy">Motion design, AI visuals, and animated systems for specific story needs.</p>
+        <article class="stat-card">
+          <span class="stat-value">+190</span>
+          <h3 data-i18n="about.productionDays">Production days</h3>
+          <p data-i18n="about.productionDaysCopy">Shooting, prep, post-production, reviews, and delivery.</p>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="clientsTitle">
+      <div class="section-label">
+        <h2 id="clientsTitle" data-i18n="about.clientsTitle">Featured clients</h2>
+        <p data-i18n="about.clientsCopy">Selected partners and organizations from our portfolio across agencies, government, semi-government, and corporate work.</p>
+      </div>
+      <div class="clients-grid">
+        <article class="client-group">
+          <h3 data-i18n="about.agencies">Agencies / Production</h3>
+          <ul class="client-list">
+            <li>Webedia</li>
+            <li>The Bold Group</li>
+            <li>Ethos</li>
+            <li>Next Level</li>
+            <li>Ability</li>
+            <li>WonderEight</li>
+            <li>Millimeter</li>
+          </ul>
+        </article>
+        <article class="client-group">
+          <h3 data-i18n="about.gov">Government / Semi-Gov</h3>
+          <ul class="client-list">
+            <li>Saudi Payments</li>
+            <li>RCU</li>
+            <li>Diriyah</li>
+            <li>Ministry of Culture</li>
+            <li>Noor Riyadh</li>
+            <li>Center3</li>
+            <li>DAN</li>
+            <li>Ministry of Tourism</li>
+            <li>MDLBEAST</li>
+            <li>Premium Residency</li>
+            <li>Lean</li>
+          </ul>
+        </article>
+        <article class="client-group">
+          <h3 data-i18n="about.corporate">Corporate</h3>
+          <ul class="client-list">
+            <li>Hyundai</li>
+            <li>BSF</li>
+            <li>Zain</li>
+            <li>Foodics</li>
+            <li>Alwaleed Philanthropies</li>
+            <li>Almarai</li>
+            <li>Snapchat</li>
+            <li>Renault</li>
+            <li>OSUS</li>
+            <li>Naqwa</li>
+          </ul>
         </article>
       </div>
     </section>
 
     <section class="cta-band" aria-label="Start a project call to action">
       <div>
-        <h2 data-i18n="services.brief">Have a brief?</h2>
-        <p data-i18n="services.briefCopy">Send the idea, deadline, and needed outputs. We will shape the right route.</p>
+        <h2 data-i18n="about.ctaTitle">Ready to sail?</h2>
+        <p data-i18n="about.ctaCopy">Bring the idea, the deadline, or the challenge. We will help set the route.</p>
       </div>
       <div class="cta-actions">
         <button class="project-button" type="button" data-contact><span data-i18n="cta.start">Start a project</span></button>
@@ -813,7 +946,7 @@
       en: {
         "nav.home": "Home",
         "nav.projects": "Projects",
-        "nav.services": "Services",
+        "nav.about": "About us",
         "cta.start": "Start a project",
         "cta.viewProjects": "View projects",
         "common.close": "Close",
@@ -828,27 +961,40 @@
         "social.vimeo": "Vimeo",
         "social.linkedin": "LinkedIn",
         "social.instagram": "Instagram",
-        "services.eyebrow": "What we do",
-        "services.lead": "Cinematic production, post-production, and visual storytelling for brands, agencies, and cultural projects.",
-        "services.core": "Core services",
-        "services.coreCopy": "Built to stay lean, clear, and production-ready.",
-        "services.full": "Full Production",
-        "services.fullCopy": "From brief and treatment to shoot planning, crew, locations, and set execution.",
-        "tag.tvc": "TVC",
-        "services.tvcCopy": "Commercial films with strong visual direction and clean campaign delivery.",
-        "tag.documentary": "Documentary",
-        "services.docCopy": "Human-led films shaped around interviews, story, atmosphere, and clarity.",
-        "tag.post": "Post-Production",
-        "services.postCopy": "Editing, color, sound, motion, cutdowns, versioning, and final masters.",
-        "tag.ai": "AI / Animation",
-        "services.aiCopy": "Motion design, AI visuals, and animated systems for specific story needs.",
-        "services.brief": "Have a brief?",
-        "services.briefCopy": "Send the idea, deadline, and needed outputs. We will shape the right route."
+        "about.eyebrow": "Who we are",
+        "about.lead": "They say you can tell a horse by its rider - at CAPTAINS, we say: great work comes from a great captain.",
+        "about.bioTitle": "The captain sets the route",
+        "about.bioIntro": "Leadership is the difference between a finished film and a film that arrives with purpose.",
+        "about.panelOne": "Role",
+        "about.panelTwo": "Route",
+        "about.panelThree": "Base",
+        "about.bioCopy": "We believe, as a production company, that real value lies in leadership. Behind every exceptional piece of work is a CAPTAIN who knows the ship and the route - leading the journey with clarity and confidence from the first idea to the final product. We're made for it - and we know it best.",
+        "about.year": "2025",
+        "about.harvest": "Harvest",
+        "about.numbers": "in numbers",
+        "about.numbersCopy": "A quick look at the scale of the journeys we led across borders, crews, edits, deliveries, and production days.",
+        "about.countries": "Countries",
+        "about.countriesCopy": "We crossed borders and filmed in more than 5 international destinations.",
+        "about.data": "Terabytes of data",
+        "about.dataCopy": "Raw materials, editing, animation, archiving, and delivery.",
+        "about.minutes": "Minutes of content",
+        "about.minutesCopy": "Ads, social media content, programs, animation, and documentaries.",
+        "about.projectsDelivered": "Projects delivered",
+        "about.projectsCopy": "Delivered to the highest standards, on time.",
+        "about.productionDays": "Production days",
+        "about.productionDaysCopy": "Shooting, prep, post-production, reviews, and delivery.",
+        "about.clientsTitle": "Featured clients",
+        "about.clientsCopy": "Selected partners and organizations from our portfolio across agencies, government, semi-government, and corporate work.",
+        "about.agencies": "Agencies / Production",
+        "about.gov": "Government / Semi-Gov",
+        "about.corporate": "Corporate",
+        "about.ctaTitle": "Ready to sail?",
+        "about.ctaCopy": "Bring the idea, the deadline, or the challenge. We will help set the route."
       },
       ar: {
         "nav.home": "الرئيسية",
         "nav.projects": "أعمالنا",
-        "nav.services": "الخدمات",
+        "nav.about": "من نحن",
         "cta.start": "ابدأ مشروعًا",
         "cta.viewProjects": "عرض أعمالنا",
         "common.close": "إغلاق",
@@ -863,22 +1009,35 @@
         "social.vimeo": "فيميو",
         "social.linkedin": "لينكدإن",
         "social.instagram": "إنستغرام",
-        "services.eyebrow": "ما نقدمه",
-        "services.lead": "إنتاج سينمائي، وما بعد الإنتاج، وسرد بصري للعلامات التجارية والوكالات والمشاريع الثقافية.",
-        "services.core": "الخدمات الأساسية",
-        "services.coreCopy": "",
-        "services.full": "الإنتاج الكامل",
-        "services.fullCopy": "من الموجز والمعالجة إلى التخطيط، الفريق، المواقع، وتنفيذ التصوير.",
-        "tag.tvc": "الاعلانات",
-        "services.tvcCopy": "أفلام تجارية باتجاه بصري قوي وتسليم واضح للحملات.",
-        "tag.documentary": "الوثائقيات",
-        "services.docCopy": "أفلام إنسانية تُبنى حول المقابلات والقصة والأجواء والوضوح.",
-        "tag.post": "ما بعد الإنتاج",
-        "services.postCopy": "مونتاج، تلوين، صوت، موشن، نسخ قصيرة، إصدارات، ونسخ نهائية.",
-        "tag.ai": "ذكالي / أنميشن",
-        "services.aiCopy": "موشن ديزاين، بصريات بالذكاء الاصطناعي، وأنظمة متحركة حسب احتياج القصة.",
-        "services.brief": "عندك فكرة؟",
-        "services.briefCopy": "أرسل الفكرة والموعد والمخرجات المطلوبة، وسنساعدك في بناء المسار المناسب."
+        "about.eyebrow": "من نحن",
+        "about.lead": "يقولون إن الفارس يُعرَف من حصانه - ونحن في كابتينز نقول: العمل العظيم يأتي من كابتن عظيم.",
+        "about.bioTitle": "الكابتن يحدد المسار",
+        "about.bioIntro": "القيادة هي الفرق بين فيلم مكتمل وفيلم يصل بهدف واضح.",
+        "about.panelOne": "الدور",
+        "about.panelTwo": "المسار",
+        "about.panelThree": "المقر",
+        "about.bioCopy": "نؤمن، كشركة إنتاج، أن القيمة الحقيقية تكمن في القيادة. خلف كل عمل استثنائي كابتن يعرف السفينة والطريق، ويقود الرحلة بوضوح وثقة من الفكرة الأولى إلى المنتج النهائي. نحن صُنعنا لهذا، ونعرفه جيدًا.",
+        "about.year": "2025",
+        "about.harvest": "حصاد",
+        "about.numbers": "بالأرقام",
+        "about.numbersCopy": "نظرة سريعة على حجم الرحلات التي قدناها عبر الحدود والفرق والمونتاج والتسليم وأيام الإنتاج.",
+        "about.countries": "دول",
+        "about.countriesCopy": "عبرنا الحدود وصورنا في أكثر من 5 وجهات دولية.",
+        "about.data": "تيرابايت من البيانات",
+        "about.dataCopy": "مواد خام، مونتاج، أنيميشن، أرشفة، وتسليم.",
+        "about.minutes": "دقائق محتوى",
+        "about.minutesCopy": "إعلانات، محتوى تواصل اجتماعي، برامج، أنيميشن، ووثائقيات.",
+        "about.projectsDelivered": "مشروع تم تسليمه",
+        "about.projectsCopy": "تم التسليم بأعلى المعايير وفي الوقت المحدد.",
+        "about.productionDays": "أيام إنتاج",
+        "about.productionDaysCopy": "تصوير، تحضير، ما بعد الإنتاج، مراجعات، وتسليم.",
+        "about.clientsTitle": "عملاء مختارون",
+        "about.clientsCopy": "شركاء وجهات مختارة من ملف أعمالنا عبر الوكالات والجهات الحكومية وشبه الحكومية والشركات.",
+        "about.agencies": "وكالات / إنتاج",
+        "about.gov": "حكومي / شبه حكومي",
+        "about.corporate": "شركات",
+        "about.ctaTitle": "جاهز للإبحار؟",
+        "about.ctaCopy": "أحضر الفكرة أو الموعد أو التحدي، وسنساعدك في تحديد المسار."
       }
     };
 
@@ -892,7 +1051,7 @@
     function applyLanguage() {
       document.documentElement.lang = currentLang;
       document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
-      document.title = currentLang === "ar" ? "الخدمات | كابتينز" : "Services | Captains Film";
+      document.title = currentLang === "ar" ? "من نحن | كابتينز" : "About us | Captains Film";
       document.querySelectorAll("[data-logo-en][data-logo-ar]").forEach((logo) => {
         logo.src = currentLang === "ar" ? logo.dataset.logoAr : logo.dataset.logoEn;
         logo.alt = currentLang === "ar" ? "كابتينز" : "Captains Film";
