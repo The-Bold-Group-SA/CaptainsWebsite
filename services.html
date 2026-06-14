@@ -573,6 +573,44 @@
       margin-top: 1rem;
     }
 
+    .contact-talent {
+      display: grid;
+      gap: .85rem;
+      margin-top: 1.5rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(62,255,163,.14);
+    }
+
+    .contact-talent-title {
+      margin: 0;
+      color: var(--white);
+      font-size: 1.08rem;
+      font-weight: 800;
+    }
+
+    .contact-talent-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      min-height: 44px;
+      padding: .75rem 1.1rem;
+      border: 1px solid var(--mint);
+      border-radius: 999px;
+      color: var(--mint);
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transition: background .25s ease, color .25s ease, transform .25s var(--ease);
+    }
+
+    .contact-talent-button:hover {
+      background: var(--mint);
+      color: var(--black);
+      transform: translateY(-2px);
+    }
+
     .contact-whatsapp {
       display: inline-flex;
       align-items: center;
@@ -762,6 +800,10 @@
           <div><strong data-i18n="contact.phone">Phone:</strong> <a href="tel:+966558432482">+966558432482</a></div>
         </div>
       </div>
+      <div class="contact-talent">
+        <p class="contact-talent-title" data-i18n="contact.talentTitle">Join the talent network</p>
+        <a class="contact-talent-button" href="https://docs.google.com/forms/d/e/1FAIpQLSeVdHrW7VywTzEHe75qHfmorvghPwpk85tNjOECUtvwsH7pIw/viewform?usp=header" target="_blank" rel="noopener noreferrer" data-i18n="contact.talentCta">Open form</a>
+      </div>
       <a class="contact-whatsapp" href="https://wa.me/966567614818" target="_blank" rel="noopener noreferrer" data-i18n="contact.whatsapp">WhatsApp</a>
     </div>
   </aside>
@@ -780,6 +822,8 @@
         "contact.addressLabel": "Address:",
         "contact.address": "7272 Al Thumamah St., Al Sahafah District, Riyadh, Kingdom of Saudi Arabia",
         "contact.phone": "Phone:",
+        "contact.talentTitle": "Join the talent network",
+        "contact.talentCta": "Open form",
         "contact.whatsapp": "WhatsApp",
         "social.vimeo": "Vimeo",
         "social.linkedin": "LinkedIn",
@@ -813,6 +857,8 @@
         "contact.addressLabel": "العنوان:",
         "contact.address": "7272 شارع الثمامة، حي الصحافة، الرياض، المملكة العربية السعودية",
         "contact.phone": "الهاتف:",
+        "contact.talentTitle": "انضم لشبكة المواهب",
+        "contact.talentCta": "افتح النموذج",
         "contact.whatsapp": "واتساب",
         "social.vimeo": "فيميو",
         "social.linkedin": "لينكدإن",
