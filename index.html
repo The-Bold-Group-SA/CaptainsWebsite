@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -1176,7 +1176,7 @@
     let startedAt = performance.now();
     const duration = 8500;
     const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let currentLang = localStorage.getItem("captainsLang") || "en";
+    let currentLang = localStorage.getItem("captainsLang") || "ar";
 
     function t(key) {
       return translations[currentLang][key] || translations.en[key] || key;
