@@ -457,6 +457,27 @@
 
     .project-card:hover .thumb img { transform: scale(1.06); }
 
+    .thumb-fallback {
+      display: grid;
+      height: 100%;
+      place-items: end start;
+      padding: 1rem;
+      color: var(--soft);
+      background:
+        linear-gradient(135deg, rgba(62,255,163,.2), rgba(10,20,16,.62)),
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,0));
+    }
+
+    .thumb-fallback span {
+      max-width: 14rem;
+      color: var(--white);
+      font-family: "Neue Montreal", Inter, sans-serif;
+      font-size: clamp(1.35rem, 2.2vw, 2.4rem);
+      line-height: .95;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
     .card-meta {
       display: flex;
       justify-content: space-between;
@@ -833,6 +854,8 @@
         "tag.Documentary": "Documentary",
         "tag.post-production": "post-production",
         "tag.AI/Animation": "AI/Animation",
+        "tag.event": "event",
+        "filter.Events & Coverage": "Events & Coverage",
         "projects.empty": "No projects found for this tag.",
         "projects.generic": "Film work for",
         "projects.tagWork": "work for"
@@ -862,6 +885,8 @@
         "tag.Documentary": "الوثائقيات",
         "tag.post-production": "ما بعد الإنتاج",
         "tag.AI/Animation": "ذكالي / أنميشن",
+        "tag.event": "فعالية",
+        "filter.Events & Coverage": "الفعاليات والتغطيات",
         "projects.empty": "لا توجد أعمال ضمن هذا الوسم.",
         "projects.generic": "عمل فيلم لصالح",
         "projects.tagWork": "لصالح"
@@ -912,7 +937,20 @@
       { title: "BSF NATIONAL DAY 24", tags: ["TVC"], client: "BSF x WEBEDIA", year: "2025", duration: "00:51", videoId: "1186733466", videoUrl: "https://vimeo.com/1186733466", image: "assets/captains/projects/p39.jpg", description: "TVC work for BSF x WEBEDIA." },
       { title: "Osus Eye", tags: ["Documentary"], client: "OSUS", year: "2025", duration: "09:52", videoId: "1186730138", videoUrl: "https://vimeo.com/1186730138", image: "assets/captains/projects/p40.jpg", description: "Documentary work for OSUS." },
       { title: "000 2", tags: ["TVC"], client: "YOPRO x BOLD Creative", year: "2025", duration: "00:30", videoId: "1190872926", videoUrl: "https://vimeo.com/1190872926", image: "assets/captains/projects/p41.jpg", description: "TVC work for YOPRO x BOLD Creative." },
-      { title: "Ramad Campaign 2", tags: ["TVC"], client: "RENAULT X QA Arabia", year: "2025", duration: "00:15", videoId: "1190872388", videoUrl: "https://vimeo.com/1190872388", image: "assets/captains/projects/p42.jpg", description: "TVC work for RENAULT X QA Arabia." }
+      { title: "Ramad Campaign 2", tags: ["TVC"], client: "RENAULT X QA Arabia", year: "2025", duration: "00:15", videoId: "1190872388", videoUrl: "https://vimeo.com/1190872388", image: "assets/captains/projects/p42.jpg", description: "TVC work for RENAULT X QA Arabia." },
+      { title: "NEOM | Ambassadors", tags: ["event"], category: "Events & Coverage", client: "NEOM", year: "2026", duration: "Event", videoId: "1201419417", videoUrl: "https://vimeo.com/manage/videos/1201419417", image: "https://i.vimeocdn.com/video/2168756595-a7a9dc59d28f0e54a74564a4bc76ad3e0961e30b5c93afe7b06362b0b42451cf-d_1280x720?region=us", description: "Events & Coverage work for NEOM.", excludeFromAll: true },
+      { title: "TONOLEAP", tags: ["event"], category: "Events & Coverage", client: "NEOM / LEAP", year: "2026", duration: "Event", videoId: "1201412414", videoHash: "b4074fda31", videoUrl: "https://vimeo.com/manage/videos/1201412414/b4074fda31", image: "https://i.vimeocdn.com/video/2168747899-c01ded021dc4ee93452b828c77477189a814271e9d7a1024a890d80589499866-d_1280x720?region=us", description: "Events & Coverage work for NEOM / LEAP.", excludeFromAll: true },
+      { title: "NEOM | Ent Riyadh", tags: ["event"], category: "Events & Coverage", client: "NEOM", year: "2026", duration: "Event", videoId: "1201410742", videoHash: "6912777fcb", videoUrl: "https://vimeo.com/manage/videos/1201410742/6912777fcb", image: "https://i.vimeocdn.com/video/2168747434-a8d932ce57af64482a3c79100f714dba8feee748b2aac745a237e19d5d3fcff0-d_1280x720?region=us", description: "Events & Coverage work for NEOM.", excludeFromAll: true },
+      { title: "Osus | Osus Eye Launch Event", tags: ["event"], category: "Events & Coverage", client: "Osus", year: "2026", duration: "Event", videoId: "1201412109", videoHash: "a37c4f6f77", videoUrl: "https://vimeo.com/manage/videos/1201412109/a37c4f6f77", image: "https://i.vimeocdn.com/video/2168756402-8304ba4a5e41944a512ada6b160b808cc29a284633b35e0500e1dbdb92371b7d-d_1280x720?region=us", description: "Events & Coverage work for Osus.", excludeFromAll: true },
+      { title: "NEOM | Ent KHOBAR", tags: ["event"], category: "Events & Coverage", client: "NEOM", year: "2026", duration: "Event", videoId: "1201410741", videoHash: "044627245f", videoUrl: "https://vimeo.com/manage/videos/1201410741/044627245f", image: "https://i.vimeocdn.com/video/2168747001-de0cc8a838945f332024a9b95a709758103347495765229e85ff38c031f5180f-d_1280x720?region=us", description: "Events & Coverage work for NEOM.", excludeFromAll: true },
+      { title: "Neom x Mclaren | Formula E team", tags: ["event"], category: "Events & Coverage", client: "NEOM / McLaren", year: "2026", duration: "Event", videoId: "1201410743", videoHash: "0c4380fbe7", videoUrl: "https://vimeo.com/manage/videos/1201410743/0c4380fbe7", description: "Events & Coverage work for NEOM / McLaren.", excludeFromAll: true },
+      { title: "Takamol @Gitex | Day 1", tags: ["event"], category: "Events & Coverage", client: "Takamol", year: "2026", duration: "Event", videoId: "1201412488", videoHash: "7b48187961", videoUrl: "https://vimeo.com/manage/videos/1201412488/7b48187961", image: "https://i.vimeocdn.com/video/2168756410-30839e8d58f386e9aa6843e0166e348ac6e4f5b47b72355def9757bbf72b5a64-d_1280x720?region=us", description: "Events & Coverage work for Takamol.", excludeFromAll: true },
+      { title: "Binan Expo Coverage", tags: ["event"], category: "Events & Coverage", client: "Binan", year: "2026", duration: "Event", videoId: "1201412819", videoHash: "9f6c153d30", videoUrl: "https://vimeo.com/manage/videos/1201412819/9f6c153d30", image: "https://i.vimeocdn.com/video/2168748091-1048168c9dcf91d78a442195323569d8ffb2debd8efe7c1bb6af28788c676d25-d_1280x720?region=us", description: "Events & Coverage work for Binan.", excludeFromAll: true },
+      { title: "Takamol @Gitex | Day 2,3", tags: ["event"], category: "Events & Coverage", client: "Takamol", year: "2026", duration: "Event", videoId: "1201412862", videoHash: "6ae444d91d", videoUrl: "https://vimeo.com/manage/videos/1201412862/6ae444d91d", image: "https://i.vimeocdn.com/video/2168755761-12dc85fac1e569d7e4c734b36e9262661283596f41fc994238badc490fe902ef-d_1280x720?region=us", description: "Events & Coverage work for Takamol.", excludeFromAll: true },
+      { title: "Takamol @Gitex | Day 4", tags: ["event"], category: "Events & Coverage", client: "Takamol", year: "2026", duration: "Event", videoId: "1201413028", videoHash: "a1369c2b77", videoUrl: "https://vimeo.com/manage/videos/1201413028/a1369c2b77", image: "https://i.vimeocdn.com/video/2168754980-3bc03db08d2253ff4133bced1c2016d0afea8ae1bc26dc7391c7681af540b5ac-d_1280x720?region=us", description: "Events & Coverage work for Takamol.", excludeFromAll: true },
+      { title: "Qidiya | Throne & Liberty Drone Show", tags: ["event"], category: "Events & Coverage", client: "Qidiya", year: "2026", duration: "Event", videoId: "1201419642", videoUrl: "https://vimeo.com/manage/videos/1201419642", image: "https://i.vimeocdn.com/video/2168756570-a1f9a88df2dfa34f744ffb01e2377bb5e8c651563ed1486070b88f6f23a87f93-d_1280x720?region=us", description: "Events & Coverage work for Qidiya.", excludeFromAll: true },
+      { title: "LEAP | 3 Things We Learned", tags: ["event"], category: "Events & Coverage", client: "LEAP", year: "2026", duration: "Event", videoId: "1201411004", videoHash: "192194deda", videoUrl: "https://vimeo.com/manage/videos/1201411004/192194deda", image: "https://i.vimeocdn.com/video/2168747068-c05d4695209fba19cc8bae6ceb79b2fb3e4300d2171500e9f8433a0bccc34f7c-d_1280x720?region=us", description: "Events & Coverage work for LEAP.", excludeFromAll: true },
+      { title: "Takamol @Gitex | Recap", tags: ["event"], category: "Events & Coverage", client: "Takamol", year: "2026", duration: "Event", videoId: "1201410745", videoHash: "532a8234c4", videoUrl: "https://vimeo.com/manage/videos/1201410745/532a8234c4", image: "https://i.vimeocdn.com/video/2168747366-9fa230772a40850ffa14bbd29ad88731136941819341df2405da76a79afc4189-d_1280x720?region=us", description: "Events & Coverage work for Takamol.", excludeFromAll: true }
     ];
 
     const body = document.body;
@@ -926,7 +964,7 @@
     let filter = "All";
     let activeProject = null;
     let currentLang = localStorage.getItem("captainsLang") || "ar";
-    const tagOrder = ["TVC", "Documentary", "post-production", "AI/Animation"];
+    const tagOrder = ["TVC", "Documentary", "post-production", "AI/Animation", "Events & Coverage"];
 
     function t(key) {
       return translations[currentLang][key] || translations.en[key] || key;
@@ -934,6 +972,7 @@
 
     function tagLabel(tag) {
       if (tag === "All") return t("filter.all");
+      if (tag === "Events & Coverage") return t("filter.Events & Coverage");
       return t(`tag.${tag}`);
     }
 
@@ -971,28 +1010,46 @@
     }
 
     function vimeoEmbedUrl(project) {
-      return `https://player.vimeo.com/video/${project.videoId}?background=1&autoplay=1&muted=1&loop=1&autopause=0&controls=0&playsinline=1&dnt=1`;
+      const hash = project.videoHash ? `h=${project.videoHash}&` : "";
+      return `https://player.vimeo.com/video/${project.videoId}?${hash}background=1&autoplay=1&muted=1&loop=1&autopause=0&controls=0&playsinline=1&dnt=1`;
     }
 
     function projectTags(project) {
       return project.tags;
     }
 
+    function projectCategories(project) {
+      return project.category ? [project.category] : [];
+    }
+
+    function projectFilterValues(project) {
+      return [...projectTags(project), ...projectCategories(project)];
+    }
+
+    function projectImage(project) {
+      return project.image || "";
+    }
+
+    function allProjects() {
+      return projects.filter((project) => !project.excludeFromAll);
+    }
+
     function counts() {
-      const base = { All: projects.length };
+      const base = { All: allProjects().length };
       tagOrder.forEach((tag) => {
-        base[tag] = projects.filter((project) => projectTags(project).includes(tag)).length;
+        base[tag] = projects.filter((project) => projectFilterValues(project).includes(tag)).length;
       });
       return base;
     }
 
     function filteredProjects() {
-      return filter === "All" ? projects : projects.filter((project) => projectTags(project).includes(filter));
+      return filter === "All" ? allProjects() : projects.filter((project) => projectFilterValues(project).includes(filter));
     }
 
     function setBackground(project) {
       bgMedia.classList.remove("video-ready");
-      bgMedia.style.backgroundImage = `url("${project.image}")`;
+      const image = projectImage(project);
+      bgMedia.style.backgroundImage = image ? `url("${image}")` : "";
       bgMedia.innerHTML = "";
       const frame = document.createElement("iframe");
       frame.src = vimeoEmbedUrl(project);
@@ -1015,7 +1072,8 @@
     function openProject(project) {
       activeProject = project;
       projectModal.querySelector("h2").textContent = project.title;
-      projectModal.querySelector(".modal-player").innerHTML = `<iframe src="https://player.vimeo.com/video/${project.videoId}?title=0&byline=0&portrait=0&dnt=1" title="${project.title}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
+      const hash = project.videoHash ? `h=${project.videoHash}&` : "";
+      projectModal.querySelector(".modal-player").innerHTML = `<iframe src="https://player.vimeo.com/video/${project.videoId}?${hash}title=0&byline=0&portrait=0&dnt=1" title="${project.title}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
       projectModal.querySelector("p").textContent = projectDescription(project);
       projectModal.querySelector("[data-client]").textContent = project.client;
       projectModal.querySelector("[data-tags]").textContent = localizedTags(project);
@@ -1027,8 +1085,12 @@
       const card = document.createElement("article");
       card.className = "project-card";
       card.style.animationDelay = `${index * 70}ms`;
+      const image = projectImage(project);
+      const thumb = image
+        ? `<img src="${image}" alt="${project.title}">`
+        : `<div class="thumb-fallback"><span>${project.title}</span></div>`;
       card.innerHTML = `
-        <div class="thumb"><img src="${project.image}" alt="${project.title}"></div>
+        <div class="thumb">${thumb}</div>
         <div class="card-meta"><span>${localizedTags(project)}</span><span>${project.duration}</span></div>
         <h2 class="card-title">${project.title}</h2>
       `;
