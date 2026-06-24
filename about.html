@@ -567,60 +567,6 @@
       filter: brightness(0) invert(1) opacity(1) drop-shadow(0 0 8px rgba(62, 255, 163, 0.35));
     }
 
-    /* STILLS GRID WITH ZOOM EFFECTS */
-    .stills-grid {
-      display: grid;
-      grid-template-columns: 1.25fr 0.85fr;
-      grid-template-rows: repeat(2, minmax(210px, 28vw));
-      gap: 1.5rem;
-    }
-
-    .still {
-      position: relative;
-      overflow: hidden;
-      border-radius: 10px;
-      border: 1px solid rgba(62, 255, 163, 0.08);
-      background: #000;
-    }
-
-    .still:first-child {
-      grid-row: span 2;
-    }
-
-    .still img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      filter: grayscale(0.85) contrast(1.12) brightness(0.72);
-      transition: transform 0.8s var(--ease), filter 0.4s ease;
-    }
-
-    .still:hover img {
-      transform: scale(1.04);
-      filter: grayscale(0.2) contrast(1.04) brightness(0.88);
-    }
-
-    .still span {
-      position: absolute;
-      bottom: 1.2rem;
-      left: 1.2rem;
-      z-index: 2;
-      font-size: 0.65rem;
-      font-family: monospace;
-      color: rgba(255, 255, 255, 0.7);
-      background: rgba(12, 7, 5, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 0.25rem 0.6rem;
-      border-radius: 4px;
-      backdrop-filter: blur(4px);
-    }
-
-    html[dir="rtl"] .still span {
-      left: auto;
-      right: 1.2rem;
-    }
-
     /* TECHNICAL VIEWFINDER Graphic */
     .viewfinder-panel {
       position: relative;
@@ -889,14 +835,10 @@
       .hero-grid,
       .section-label,
       .bio-grid,
-      .stills-grid,
       .cta-band { grid-template-columns: 1fr; }
 
       .bio-grid { gap: 3rem; }
       .viewfinder-panel { order: -1; min-height: 360px; }
-
-      .stills-grid { grid-template-rows: none; gap: 1.2rem; }
-      .still, .still:first-child { grid-row: auto; min-height: 280px; }
 
       .social-rail { display: none; }
       .cta-band { align-items: start; padding: 2rem; gap: 2rem; }
@@ -1047,28 +989,6 @@
         <div class="client-logo"><img src="assets/captains/about/logos-normalized/logo.png" alt="Partner logo"></div>
         <div class="client-logo"><img src="assets/captains/about/logos-normalized/logo-new.png" alt="Partner logo"></div>
         <div class="client-logo"><img src="assets/captains/about/logos-normalized/white-logo.png" alt="Partner logo"></div>
-      </div>
-    </section>
-
-    <!-- FRAMES FROM THE ROUTE STILLS GALLERY (RESTORED) -->
-    <section class="section scroll-reveal" aria-labelledby="stillsTitle">
-      <div class="section-label">
-        <h2 id="stillsTitle" data-i18n="about.stillsTitle">Frames from the route</h2>
-        <p data-i18n="about.stillsCopy">A visual pause from selected documentaries, commercials, branded films, and post-production work.</p>
-      </div>
-      <div class="stills-grid">
-        <div class="still">
-          <img src="assets/captains/projects/p14.jpg" alt="Production Still 1">
-          <span>[ FRAME_01 // 35MM ]</span>
-        </div>
-        <div class="still">
-          <img src="assets/captains/projects/p25.jpg" alt="Production Still 2">
-          <span>[ FRAME_02 // ANAMORPHIC ]</span>
-        </div>
-        <div class="still">
-          <img src="assets/captains/projects/p30.jpg" alt="Production Still 3">
-          <span>[ FRAME_03 // VFX PASS ]</span>
-        </div>
       </div>
     </section>
 

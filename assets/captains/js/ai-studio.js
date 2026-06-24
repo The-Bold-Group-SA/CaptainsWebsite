@@ -43,18 +43,6 @@
         "ai.proofThreeCopy": "Create alternate hooks, social edits, aspect ratios, and visual tests from the same creative route.",
         "ai.ctaTitle": "Bring the idea. We will build the world.",
         "ai.ctaCopy": "Send us your goal, references, timeline, and the formats you need. Captains AI Studio will shape the concept and lead it to final delivery.",
-        
-        /* New translations */
-        "ai.consoleTitle": "CAPTAINS AI ENGINE // v1.2",
-        "ai.consoleActive": "SYSTEM ACTIVE",
-        "ai.consolePrompt": "> PROMPT:",
-        "ai.consoleGenerating": "SYNTHESIZING LATENT FRAMES...",
-        "ai.tab1": "01 // Cyberpunk Oasis",
-        "ai.tab2": "02 // Surreal Voyager",
-        "ai.tab3": "03 // Future City",
-        "ai.prompt1": "cinematic shot of a cybernetic oasis in the desert, neon palm trees, reflection pool, dusk lighting, 8k resolution, photorealistic --ar 16:9",
-        "ai.prompt2": "wide angle shot of an astronaut walking in a surreal dreamscape of giant floating crystals and purple clouds, cinematic lighting --ar 16:9",
-        "ai.prompt3": "hyper-detailed futuristic skyscraper covered in vertical gardens, flying vehicle trails, cinematic sunset, volumetric dust, raw style --ar 16:9",
         "ai.workflowDetailTitle": "PIPELINE DATA READOUT"
       },
       ar: {
@@ -62,7 +50,7 @@
         "nav.projects": "أعمالنا",
         "nav.aiStudio": "استديو ذكالي",
         "nav.about": "من نحن",
-        "cta.start": "ابدأ مشروعًا",
+        "cta.start": "تواصل معنا",
         "common.close": "إغلاق",
         "contact.phone": "الهاتف:",
         "contact.talentTitle": "انضم لشبكة المواهب",
@@ -76,7 +64,7 @@
         "ai.workflowLink": "شاهد مسار العمل",
         "ai.servicesTitle": "إنتاج فيديو بالذكاء الاصطناعي",
         "ai.servicesCopy": "نجمع بين قدرات الذكاء الاصطناعي التوليدي وخبرات الإنتاج المرئي، والمونتاج، وتصميم الصوت، والمؤثرات البصرية، والتوجيه الإبداعي للعلامة التجارية، لنقدم أعمالًا مدروسة بعناية تجمع بين الدقة الاستراتيجية والجودة السينمائية، وتصل إلى الجمهور بأعلى مستويات التأثير.",
-        "ai.serviceOneTitle": "أفلام توليدية",
+        "ai.serviceOneTitle": "توليد الأفلام",
         "ai.serviceOneCopy": "نصنع مشاهد أصلية وعوالم بصرية للمنتجات والعلامات التجارية، ونطوّر أفلام الإطلاق ومحتوى المنصات الرقمية من خلال مسار إبداعي واضح يجمع بين قوة الفكرة، ودقة التنفيذ، وجودة المخرجات السينمائية.",
         "ai.serviceTwoTitle": "التحرير الذكي",
         "ai.serviceTwoCopy": "نحوّل المواد المصورة أو المولدة إلى مخرجات متكاملة من خلال تطوير الأسلوب البصري، وتحسين جودة الصورة، وتصميم الحركة، ومعالجة الصوت، والتلوين السينمائي، والمؤثرات البصرية، لنضمن عملاً متقنًا ومتسقًا وجاهزًا للنشر بأعلى المعايير المهنية.",
@@ -101,18 +89,6 @@
         "ai.proofThreeCopy": "ننتج افتتاحيات بديلة، نسخ سوشال، مقاسات مختلفة، واختبارات بصرية من نفس المسار الإبداعي.",
         "ai.ctaTitle": "هات الفكرة. ونبني لها العالم.",
         "ai.ctaCopy": "أرسل لنا الهدف والمراجع والمدة والمقاسات المطلوبة. استديو ذكالي في كابتينز يصوغ المفهوم ويقوده حتى التسليم النهائي.",
-        
-        /* New translations */
-        "ai.consoleTitle": "محرك ذكاء كابتينز // v1.2",
-        "ai.consoleActive": "النظام نشط",
-        "ai.consolePrompt": "مدخل البرومبت:",
-        "ai.consoleGenerating": "جاري توليد الفريمات الإبداعية...",
-        "ai.tab1": "٠١ // واحة سايبربانك",
-        "ai.tab2": "٠٢ // مسافر سريالي",
-        "ai.tab3": "٠٣ // مدينة المستقبل",
-        "ai.prompt1": "لقطة سينمائية لواحة سيبرانية في الصحراء، أشجار نخيل نيون، مسبح عاكس، إضاءة الغسق، دقة 8k، واقعية --ar 16:9",
-        "ai.prompt2": "لقطة زاوية واسعة لرائد فضاء يمشي في مشهد أحلام سريالي من بلورات عائمة عملاقة وغيوم أرجوانية، إضاءة سينمائية --ar 16:9",
-        "ai.prompt3": "ناطحة سحاب مستقبلية فائقة التفاصيل مغطاة بحدائق عمودية، مسارات مركبات طائرة، غروب سينمائي، غبار حجمي، نمط خام --ar 16:9",
         "ai.workflowDetailTitle": "قراءة بيانات خط الإنتاج"
       }
     };
@@ -212,72 +188,6 @@
 
     document.querySelectorAll(".scroll-reveal").forEach(el => revealObserver.observe(el));
 
-    // INTERACTIVE AI PROMPT GENERATOR SIMULATOR
-    let typewriterTimer = null;
-    let currentPromptIndex = 1;
-    const prompts = {
-      1: "ai.prompt1",
-      2: "ai.prompt2",
-      3: "ai.prompt3"
-    };
-
-    function startTypewriter(text, element, callback) {
-      if (typewriterTimer) clearInterval(typewriterTimer);
-      element.textContent = "";
-      let i = 0;
-      typewriterTimer = setInterval(() => {
-        if (i < text.length) {
-          element.textContent += text.charAt(i);
-          i++;
-        } else {
-          clearInterval(typewriterTimer);
-          typewriterTimer = null;
-          if (callback) callback();
-        }
-      }, 15);
-    }
-
-    function selectPromptTab(index) {
-      currentPromptIndex = index;
-      const tabs = document.querySelectorAll(".console-tab");
-      tabs.forEach(tab => tab.classList.remove("active"));
-      
-      const activeTab = document.querySelector(`.console-tab[data-prompt-index="${index}"]`);
-      if (activeTab) activeTab.classList.add("active");
-      
-      const promptTextKey = prompts[index];
-      const promptTextValue = t(promptTextKey);
-      
-      const promptEl = document.getElementById("console-prompt-text");
-      const canvas = document.getElementById("console-canvas");
-      const images = document.querySelectorAll(".canvas-image");
-      const progressBar = document.querySelector(".loader-progress-bar");
-      
-      canvas.className = "console-canvas state-loading";
-      images.forEach(img => img.classList.remove("active"));
-      progressBar.style.width = "0%";
-      
-      // Trigger typewriter typing simulation
-      startTypewriter(promptTextValue, promptEl, () => {
-        // Shimmer progress bar animation
-        progressBar.style.width = "100%";
-        setTimeout(() => {
-          canvas.className = "console-canvas state-playing";
-          const targetImg = document.querySelector(`.canvas-image.img-${index}`);
-          if (targetImg) {
-            targetImg.classList.add("active");
-          }
-        }, 1100);
-      });
-    }
-
-    document.querySelectorAll(".console-tab").forEach(tab => {
-      tab.addEventListener("click", () => {
-        const index = parseInt(tab.dataset.promptIndex, 10);
-        selectPromptTab(index);
-      });
-    });
-
     // INTERACTIVE PIPELINE/WORKFLOW DASHBOARD
     document.querySelectorAll(".workflow-step-btn").forEach(btn => {
       btn.addEventListener("click", () => {
@@ -303,8 +213,6 @@
         currentLang = currentLang === "ar" ? "en" : "ar";
         localStorage.setItem("captainsLang", currentLang);
         applyLanguage();
-        // Refresh active typing prompt for current language
-        selectPromptTab(currentPromptIndex);
       });
     });
 
@@ -312,6 +220,4 @@
     applyLanguage();
     setTimeout(() => {
       body.classList.add("ready");
-      // Start typewriter on load
-      selectPromptTab(1);
     }, 100);

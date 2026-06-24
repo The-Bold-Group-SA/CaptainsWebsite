@@ -31,7 +31,7 @@
         "nav.projects": "أعمالنا",
         "nav.aiStudio": "استديو ذكالي",
         "nav.about": "من نحن",
-        "cta.start": "ابدأ مشروعًا",
+        "cta.start": "تواصل معنا",
         "common.close": "إغلاق",
         "common.client": "العميل",
         "common.category": "التصنيف",
@@ -68,8 +68,8 @@
         descriptionAr: "قطعة سينمائية للعلامة مبنية على الإحساس والحركة ومسار سردي واضح. تصنع كابتينز كل إطار ليكون مقصودًا وجريئًا ولا يُنسى."
       },
       {
-        title: "Sound Storm 2026",
-        titleAr: "ساوند ستورم 2026",
+        title: "Sound Storm",
+        titleAr: "ساوند ستورم",
         client: "Captains Film",
         year: "2026",
         category: "Event Film",
@@ -81,8 +81,8 @@
         descriptionAr: "لغة فيلم إنسانية للمقابلات والقصص والحملات التي تحتاج وضوحًا عاطفيًا من دون فقدان القوة البصرية."
       },
       {
-        title: "YO PRO 2025",
-        titleAr: "يو برو 2025",
+        title: "YO PRO",
+        titleAr: "يو برو",
         client: "Captains Film",
         year: "2025",
         category: "Commercial",
@@ -110,9 +110,9 @@
 
     const body = document.body;
     const hero = document.querySelector(".hero");
+    const heroTitle = document.querySelector("[data-hero-title]");
     const currentLayer = document.querySelector(".project-image.current");
     const nextLayer = document.querySelector(".project-image.next");
-    const meta = document.querySelector(".project-meta");
     const counter = document.querySelector(".counter");
     const dots = document.querySelector(".dots");
     const progress = document.querySelector(".progress span");
@@ -209,14 +209,10 @@
       layer.append(frame);
     }
 
-    function projectLabel(project) {
-      return `${t("hero.project")}: ${projectTitle(project)} | ${project.client} | ${project.year}`;
-    }
-
     function paintStatic() {
       const project = projects[index];
       setSlideMedia(currentLayer, project, "eager");
-      meta.textContent = projectLabel(project);
+      heroTitle.textContent = projectTitle(project);
       counter.textContent = `${String(index + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}`;
       [...dots.children].forEach((dot, dotIndex) => dot.classList.toggle("active", dotIndex === index));
       progress.style.transform = "scaleX(0)";
@@ -255,7 +251,7 @@
         nextLayer.replaceChildren();
         nextLayer.classList.remove("video-ready");
         delete nextLayer.dataset.videoId;
-        meta.textContent = projectLabel(project);
+        heroTitle.textContent = projectTitle(project);
         counter.textContent = `${String(index + 1).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}`;
         [...dots.children].forEach((dot, dotIndex) => dot.classList.toggle("active", dotIndex === index));
         progress.style.transform = "scaleX(0)";

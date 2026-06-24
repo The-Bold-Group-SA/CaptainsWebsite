@@ -36,7 +36,7 @@
         "nav.projects": "أعمالنا",
         "nav.aiStudio": "استديو ذكالي",
         "nav.about": "من نحن",
-        "cta.start": "ابدأ مشروعًا",
+        "cta.start": "تواصل معنا",
         "common.close": "إغلاق",
         "common.client": "العميل",
         "common.tags": "الوسوم",
