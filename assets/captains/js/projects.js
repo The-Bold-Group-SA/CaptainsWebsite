@@ -271,6 +271,8 @@
         const img = document.createElement("img");
         img.src = image;
         img.alt = project.title;
+        img.loading = "lazy";
+        img.decoding = "async";
         thumb.append(img);
       } else {
         const fallback = document.createElement("div");
