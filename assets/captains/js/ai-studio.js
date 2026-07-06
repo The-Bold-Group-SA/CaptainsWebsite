@@ -262,6 +262,13 @@
         document.querySelectorAll(".preview-tab-content").forEach(tab => tab.classList.remove("active"));
         const targetTab = document.getElementById(`workflow-p${stepNum}`);
         if (targetTab) targetTab.classList.add("active");
+
+        // Play the scene video in the active tab, pause the rest
+        const allowMotion = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        document.querySelectorAll(".preview-tab-content video").forEach((video) => {
+          if (allowMotion && targetTab && targetTab.contains(video)) video.play().catch(() => {});
+          else video.pause();
+        });
       });
     });
 
@@ -273,6 +280,14 @@
         applyLanguage();
       });
     });
+
+    // Pause decorative scene videos for users who prefer reduced motion
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.querySelectorAll(".pv-scene video").forEach((video) => {
+        video.removeAttribute("autoplay");
+        video.pause();
+      });
+    }
 
     // INITIALIZATION
     applyLanguage();

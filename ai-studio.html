@@ -763,6 +763,20 @@
       animation: blink 1s infinite steps(2);
     }
 
+    .pv-scene {
+      border: 1px solid rgba(62, 255, 163, 0.12);
+      border-radius: 6px;
+      overflow: hidden;
+      background: rgba(0, 0, 0, 0.35);
+      margin-bottom: 1rem;
+    }
+    .pv-scene video {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
     .editor-interface {
       display: flex;
       flex-direction: column;
@@ -1454,25 +1468,8 @@
               
               <!-- STAGE 3 DETAIL VIEW -->
               <div class="preview-tab-content" id="workflow-p3">
-                <div class="editor-interface">
-                  <div class="waveform-box">
-                    <div class="wf-bar" style="height:40%"></div>
-                    <div class="wf-bar" style="height:60%"></div>
-                    <div class="wf-bar" style="height:80%"></div>
-                    <div class="wf-bar" style="height:50%"></div>
-                    <div class="wf-bar" style="height:90%"></div>
-                    <div class="wf-bar" style="height:30%"></div>
-                    <div class="wf-bar" style="height:70%"></div>
-                    <div class="wf-bar" style="height:45%"></div>
-                    <div class="wf-bar" style="height:85%"></div>
-                    <div class="wf-bar" style="height:55%"></div>
-                    <div class="wf-bar" style="height:75%"></div>
-                  </div>
-                  <div class="grading-circles">
-                    <div class="grade-circle shadows"><span data-i18n="ai.pv3Shadows">SHADOWS</span></div>
-                    <div class="grade-circle midtones"><span data-i18n="ai.pv3Midtones">MIDTONES</span></div>
-                    <div class="grade-circle highlights"><span data-i18n="ai.pv3Highlights">HIGHLIGHTS</span></div>
-                  </div>
+                <div class="pv-scene" aria-hidden="true">
+                  <video src="assets/captains/ai/step3-edit-suite.mp4" poster="assets/captains/ai/step3-edit-suite.jpg" autoplay muted loop playsinline disablepictureinpicture></video>
                 </div>
                 <div class="tech-log">
                   <code data-i18n="ai.pv3Log1">&gt; Cut locked at 00:58 on the music drop</code>
