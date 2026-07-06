@@ -718,6 +718,27 @@
       border-radius: 4px;
       background-size: cover;
       background-position: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .match-thumb::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: inherit;
+      animation: pan-zoom-2 14s infinite alternate ease-in-out;
+    }
+    .match-item:nth-child(2) .match-thumb::after {
+      animation-name: pan-zoom-3;
+      animation-duration: 18s;
+    }
+    .match-item:nth-child(3) .match-thumb::after {
+      animation-name: pan-zoom-1;
+      animation-duration: 16s;
+    }
+    .match-item:nth-child(4) .match-thumb::after {
+      animation-name: pan-zoom-3;
+      animation-duration: 12s;
     }
     .match-score {
       font-size: 0.62rem;
@@ -725,6 +746,21 @@
       color: var(--mint);
       text-align: center;
       font-weight: 700;
+    }
+    .match-item:last-child .match-score {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+    .match-item:last-child .match-score::before {
+      content: "";
+      width: 5px;
+      height: 5px;
+      background: var(--mint);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--mint);
+      animation: blink 1s infinite steps(2);
     }
 
     .editor-interface {
@@ -830,6 +866,18 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+
+    html[dir="rtl"] .preview-title,
+    html[dir="rtl"] .preview-step-indicator,
+    html[dir="rtl"] .tech-label,
+    html[dir="rtl"] .tech-log,
+    html[dir="rtl"] .tech-log code,
+    html[dir="rtl"] .match-score,
+    html[dir="rtl"] .grade-circle span,
+    html[dir="rtl"] .file-status {
+      font-family: var(--arabic);
+      letter-spacing: 0;
     }
 
     /* VIEWFINDER PROOF SECTION */
@@ -1357,12 +1405,12 @@
               <div class="preview-tab-content active" id="workflow-p1">
                 <div class="tech-grid">
                   <div class="tech-card">
-                    <div class="tech-label">CREATIVE_BRIEF</div>
-                    <div class="tech-value">Cinematic Brand Campaign</div>
+                    <div class="tech-label" data-i18n="ai.pv1LabelBrief">PROJECT_TYPE</div>
+                    <div class="tech-value" data-i18n="ai.pv1ValueBrief">Launch film + social cutdowns</div>
                   </div>
                   <div class="tech-card">
-                    <div class="tech-label">VISUAL_STYLE</div>
-                    <div class="tech-value">Neo-Noir Cyberpunk</div>
+                    <div class="tech-label" data-i18n="ai.pv1LabelStyle">TARGET_LOOK</div>
+                    <div class="tech-value" data-i18n="ai.pv1ValueStyle">Desert dusk, anamorphic</div>
                   </div>
                 </div>
                 <div class="moodboard-preview">
@@ -1371,9 +1419,9 @@
                   <div class="mb-tile" style="background-image:url('assets/captains/projects/p22.jpg')"></div>
                 </div>
                 <div class="tech-log">
-                  <code>&gt; Initializing moodboard analysis...</code>
-                  <code>&gt; Aspect ratios locked: 16:9, 9:16</code>
-                  <code>&gt; Directing creative route [CONFIRMED]</code>
+                  <code data-i18n="ai.pv1Log1">&gt; Brief parsed: 3 deliverables, 2 weeks</code>
+                  <code data-i18n="ai.pv1Log2">&gt; References mapped to a shot list</code>
+                  <code data-i18n="ai.pv1Log3">&gt; Route locked: cinematic realism [GO]</code>
                 </div>
               </div>
               
@@ -1382,25 +1430,25 @@
                 <div class="match-grid">
                   <div class="match-item">
                     <div class="match-thumb" style="background-image:url('assets/captains/projects/p01.jpg')"></div>
-                    <div class="match-score">94% MATCH</div>
+                    <div class="match-score" data-i18n="ai.pv2Match1">96% ON-BRAND</div>
                   </div>
                   <div class="match-item">
                     <div class="match-thumb" style="background-image:url('assets/captains/projects/p02.jpg')"></div>
-                    <div class="match-score">87% MATCH</div>
+                    <div class="match-score" data-i18n="ai.pv2Match2">88% ON-BRAND</div>
                   </div>
                   <div class="match-item">
                     <div class="match-thumb" style="background-image:url('assets/captains/projects/p13.jpg')"></div>
-                    <div class="match-score">91% MATCH</div>
+                    <div class="match-score" data-i18n="ai.pv2Match3">92% ON-BRAND</div>
                   </div>
                   <div class="match-item">
                     <div class="match-thumb" style="background-image:url('assets/captains/projects/p07.jpg')"></div>
-                    <div class="match-score">SELECTED</div>
+                    <div class="match-score" data-i18n="ai.pv2Match4">HERO SHOT</div>
                   </div>
                 </div>
                 <div class="tech-log">
-                  <code>&gt; Generating seed variations...</code>
-                  <code>&gt; Filtering frame consistency & realism...</code>
-                  <code>&gt; Curating consistent character weights...</code>
+                  <code data-i18n="ai.pv2Log1">&gt; 240 frames generated across 6 runs</code>
+                  <code data-i18n="ai.pv2Log2">&gt; Faces, hands, logos checked frame by frame</code>
+                  <code data-i18n="ai.pv2Log3">&gt; 4 hero shots approved for the edit</code>
                 </div>
               </div>
               
@@ -1421,15 +1469,15 @@
                     <div class="wf-bar" style="height:75%"></div>
                   </div>
                   <div class="grading-circles">
-                    <div class="grade-circle shadows"><span>SHADOWS</span></div>
-                    <div class="grade-circle midtones"><span>MIDTONES</span></div>
-                    <div class="grade-circle highlights"><span>HIGHLIGHTS</span></div>
+                    <div class="grade-circle shadows"><span data-i18n="ai.pv3Shadows">SHADOWS</span></div>
+                    <div class="grade-circle midtones"><span data-i18n="ai.pv3Midtones">MIDTONES</span></div>
+                    <div class="grade-circle highlights"><span data-i18n="ai.pv3Highlights">HIGHLIGHTS</span></div>
                   </div>
                 </div>
                 <div class="tech-log">
-                  <code>&gt; Pacing analysis: 24fps audio-sync</code>
-                  <code>&gt; Soundscape: Sub-bass + synth pads applied</code>
-                  <code>&gt; VFX cleanup: Lens warp corrected</code>
+                  <code data-i18n="ai.pv3Log1">&gt; Cut locked at 00:58 on the music drop</code>
+                  <code data-i18n="ai.pv3Log2">&gt; Foley and sub-bass layered in</code>
+                  <code data-i18n="ai.pv3Log3">&gt; Grade: teal-mint night palette</code>
                 </div>
               </div>
               
@@ -1437,25 +1485,25 @@
               <div class="preview-tab-content" id="workflow-p4">
                 <div class="file-list">
                   <div class="file-item">
-                    <span class="file-name">Master_Campaign_16x9.mov</span>
-                    <span class="file-size">4.2 GB</span>
-                    <span class="file-status">READY</span>
+                    <span class="file-name">Launch_Film_Master_4K.mov</span>
+                    <span class="file-size">6.8 GB</span>
+                    <span class="file-status" data-i18n="ai.pvReady">READY</span>
                   </div>
                   <div class="file-item">
-                    <span class="file-name">Social_9x16_Teaser.mp4</span>
-                    <span class="file-size">420 MB</span>
-                    <span class="file-status">READY</span>
+                    <span class="file-name">Social_Cutdowns_9x16.mp4</span>
+                    <span class="file-size">380 MB</span>
+                    <span class="file-status" data-i18n="ai.pvReady">READY</span>
                   </div>
                   <div class="file-item">
-                    <span class="file-name">VFX_Composite_Passes.zip</span>
-                    <span class="file-size">12.8 GB</span>
-                    <span class="file-status">DELIVERED</span>
+                    <span class="file-name">Stills_and_Key_Art.zip</span>
+                    <span class="file-size">1.2 GB</span>
+                    <span class="file-status" data-i18n="ai.pvDelivered">DELIVERED</span>
                   </div>
                 </div>
                 <div class="tech-log">
-                  <code>&gt; Formatting campaign variants...</code>
-                  <code>&gt; Uploading master outputs to server...</code>
-                  <code>&gt; Pipeline complete. Launch ready.</code>
+                  <code data-i18n="ai.pv4Log1">&gt; QC passed: color, loudness, safe areas</code>
+                  <code data-i18n="ai.pv4Log2">&gt; Ratios exported: 16:9, 9:16, 1:1, 4:5</code>
+                  <code data-i18n="ai.pv4Log3">&gt; Handover complete. Campaign live.</code>
                 </div>
               </div>
               

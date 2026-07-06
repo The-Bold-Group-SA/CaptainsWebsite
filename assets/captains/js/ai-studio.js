@@ -43,7 +43,32 @@
         "ai.proofThreeCopy": "Create alternate hooks, social edits, aspect ratios, and visual tests from the same creative route.",
         "ai.ctaTitle": "Bring the idea. We will build the world.",
         "ai.ctaCopy": "Send us your goal, references, timeline, and the formats you need. Captains AI Studio will shape the concept and lead it to final delivery.",
-        "ai.workflowDetailTitle": "PIPELINE DATA READOUT"
+        "ai.workflowDetailTitle": "PIPELINE DATA READOUT",
+        "ai.pv1LabelBrief": "PROJECT_TYPE",
+        "ai.pv1ValueBrief": "Launch film + social cutdowns",
+        "ai.pv1LabelStyle": "TARGET_LOOK",
+        "ai.pv1ValueStyle": "Desert dusk, anamorphic",
+        "ai.pv1Log1": "> Brief parsed: 3 deliverables, 2 weeks",
+        "ai.pv1Log2": "> References mapped to a shot list",
+        "ai.pv1Log3": "> Route locked: cinematic realism [GO]",
+        "ai.pv2Match1": "96% ON-BRAND",
+        "ai.pv2Match2": "88% ON-BRAND",
+        "ai.pv2Match3": "92% ON-BRAND",
+        "ai.pv2Match4": "HERO SHOT",
+        "ai.pv2Log1": "> 240 frames generated across 6 runs",
+        "ai.pv2Log2": "> Faces, hands, logos checked frame by frame",
+        "ai.pv2Log3": "> 4 hero shots approved for the edit",
+        "ai.pv3Shadows": "SHADOWS",
+        "ai.pv3Midtones": "MIDTONES",
+        "ai.pv3Highlights": "HIGHLIGHTS",
+        "ai.pv3Log1": "> Cut locked at 00:58 on the music drop",
+        "ai.pv3Log2": "> Foley and sub-bass layered in",
+        "ai.pv3Log3": "> Grade: teal-mint night palette",
+        "ai.pvReady": "READY",
+        "ai.pvDelivered": "DELIVERED",
+        "ai.pv4Log1": "> QC passed: color, loudness, safe areas",
+        "ai.pv4Log2": "> Ratios exported: 16:9, 9:16, 1:1, 4:5",
+        "ai.pv4Log3": "> Handover complete. Campaign live."
       },
       ar: {
         "nav.home": "الرئيسية",
@@ -89,11 +114,42 @@
         "ai.proofThreeCopy": "ننتج افتتاحيات بديلة، نسخ سوشال، مقاسات مختلفة، واختبارات بصرية من نفس المسار الإبداعي.",
         "ai.ctaTitle": "هات الفكرة. ونبني لها العالم.",
         "ai.ctaCopy": "أرسل لنا الهدف والمراجع والمدة والمقاسات المطلوبة. استديو ذكالي في كابتينز يصوغ المفهوم ويقوده حتى التسليم النهائي.",
-        "ai.workflowDetailTitle": "قراءة بيانات خط الإنتاج"
+        "ai.workflowDetailTitle": "قراءة بيانات خط الإنتاج",
+        "ai.pv1LabelBrief": "نوع_المشروع",
+        "ai.pv1ValueBrief": "فيلم إطلاق + نسخ سوشال",
+        "ai.pv1LabelStyle": "اللوك_المستهدف",
+        "ai.pv1ValueStyle": "غسق صحراوي بعدسات أنامورفك",
+        "ai.pv1Log1": "> تحليل الملخص: 3 مخرجات خلال أسبوعين",
+        "ai.pv1Log2": "> تحويل المراجع إلى قائمة لقطات",
+        "ai.pv1Log3": "> تثبيت الاتجاه: واقعية سينمائية [تم]",
+        "ai.pv2Match1": "ضمن الهوية 96%",
+        "ai.pv2Match2": "ضمن الهوية 88%",
+        "ai.pv2Match3": "ضمن الهوية 92%",
+        "ai.pv2Match4": "اللقطة الرئيسية",
+        "ai.pv2Log1": "> توليد 240 فريم عبر 6 جولات",
+        "ai.pv2Log2": "> فحص الوجوه والأيادي والشعارات فريم بفريم",
+        "ai.pv2Log3": "> اعتماد 4 لقطات رئيسية للمونتاج",
+        "ai.pv3Shadows": "الظلال",
+        "ai.pv3Midtones": "الدرجات الوسطى",
+        "ai.pv3Highlights": "الإضاءات",
+        "ai.pv3Log1": "> قفل المونتاج عند 00:58 مع ضربة الموسيقى",
+        "ai.pv3Log2": "> إضافة طبقات الفولي والباص العميق",
+        "ai.pv3Log3": "> التلوين: باليت ليلي بدرجات النعناع",
+        "ai.pvReady": "جاهز",
+        "ai.pvDelivered": "تم التسليم",
+        "ai.pv4Log1": "> اجتياز فحص الجودة: اللون والصوت ومناطق الأمان",
+        "ai.pv4Log2": "> تصدير المقاسات: 16:9 و9:16 و1:1 و4:5",
+        "ai.pv4Log3": "> اكتمل التسليم. الحملة انطلقت."
       }
     };
 
     let currentLang = localStorage.getItem("captainsLang") || "ar";
+    let currentStep = 1;
+
+    function updateStageIndicator() {
+      const indicator = document.getElementById("preview-stage-num");
+      if (indicator) indicator.textContent = currentLang === "ar" ? `المرحلة 0${currentStep}` : `STAGE_0${currentStep}`;
+    }
 
     function t(key) {
       if (Object.prototype.hasOwnProperty.call(translations[currentLang], key)) return translations[currentLang][key];
@@ -119,6 +175,7 @@
         button.textContent = currentLang === "ar" ? "EN" : "عربي";
         button.setAttribute("aria-label", currentLang === "ar" ? "Switch to English" : "التبديل إلى العربية");
       });
+      updateStageIndicator();
     }
 
     const body = document.body;
@@ -198,7 +255,8 @@
         btn.classList.add("active");
         
         // Update stage readout tag
-        document.getElementById("preview-stage-num").textContent = `STAGE_0${stepNum}`;
+        currentStep = Number(stepNum);
+        updateStageIndicator();
         
         // Toggle preview tabs
         document.querySelectorAll(".preview-tab-content").forEach(tab => tab.classList.remove("active"));
