@@ -281,12 +281,26 @@
       });
     });
 
-    // Pause decorative scene videos for users who prefer reduced motion
+    // Pause decorative scene videos for users who prefer reduced motion;
+    // otherwise play the active tab's scene while the panel is on screen
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       document.querySelectorAll(".pv-scene video").forEach((video) => {
         video.removeAttribute("autoplay");
         video.pause();
       });
+    } else {
+      const previewPanel = document.querySelector(".preview-box");
+      if (previewPanel && "IntersectionObserver" in window) {
+        const sceneObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            const activeVideo = document.querySelector(".preview-tab-content.active video");
+            if (!activeVideo) return;
+            if (entry.isIntersecting) activeVideo.play().catch(() => {});
+            else activeVideo.pause();
+          });
+        }, { threshold: 0.15 });
+        sceneObserver.observe(previewPanel);
+      }
     }
 
     // INITIALIZATION
