@@ -1,0 +1,11 @@
+{
+  // Cloudflare Worker config — serves this static site via Workers Static Assets.
+  // "name" must match the existing Worker so deploys update it in place.
+  "name": "captains-website",
+  "compatibility_date": "2026-07-08",
+  "assets": {
+    "directory": ".",
+    // Clean URLs: /about serves about.html, /about/ redirects to /about
+    "html_handling": "auto-trailing-slash"
+  }
+}

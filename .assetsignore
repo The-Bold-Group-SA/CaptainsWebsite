@@ -1,0 +1,10 @@
+.git
+.gitignore
+.DS_Store
+.claude
+node_modules
+screenshots
+about-full-page.png
+vercel.json
+wrangler.jsonc
+.assetsignore
