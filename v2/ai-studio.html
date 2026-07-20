@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Studio | Captains Film</title>
+  <meta name="description" content="Captains AI Studio — cinematic AI video production for brands: generative films, AI post-production, and reference-led brand worlds.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self' https:; frame-src https://player.vimeo.com; object-src 'none'; base-uri 'self'; form-action 'self';">
+  <link rel="icon" type="image/x-icon" href="../assets/captains/favicon_io/favicon.ico">
+  <link rel="apple-touch-icon" href="../assets/captains/favicon_io/apple-touch-icon.png">
+  <link rel="canonical" href="https://captains.film/v2/ai-studio">
+  <meta property="og:title" content="AI Studio | Captains Film">
+  <meta property="og:image" content="https://captains.film/assets/captains/og-image.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Cairo:wght@400;600;700;900&display=swap">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <style>
+    .ai-hero { padding: clamp(9rem, 15vw, 13rem) 0 clamp(3rem, 6vw, 5rem); }
+    .ai-hero .eyebrow { margin-bottom: 1.6rem; }
+    .ai-hero h1 {
+      font-size: clamp(3rem, 9vw, 8.5rem);
+      font-weight: 900;
+      line-height: .9;
+      letter-spacing: -.03em;
+      text-transform: uppercase;
+    }
+    .ai-hero h1 .grad { background: linear-gradient(120deg, #fff 25%, var(--mint) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .ai-hero p { max-width: 60ch; margin-top: 1.8rem; color: var(--soft); font-size: clamp(1.05rem, 1.6vw, 1.4rem); line-height: 1.7; }
+    .ai-hero .actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2.4rem; align-items: center; }
+
+    .sec-head { max-width: 62ch; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+    .sec-head .eyebrow { margin-bottom: 1.3rem; }
+    .sec-head h2 { font-size: clamp(2rem, 4.5vw, 4rem); font-weight: 900; line-height: .98; letter-spacing: -.03em; text-transform: uppercase; }
+    .sec-head p { margin-top: 1.2rem; color: var(--soft); font-size: clamp(1rem, 1.4vw, 1.2rem); line-height: 1.7; }
+
+    .services { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: clamp(1rem, 2vw, 1.6rem); }
+    @media (max-width: 860px) { .services { grid-template-columns: 1fr; } }
+    .svc {
+      position: relative; overflow: hidden;
+      padding: clamp(1.8rem, 3vw, 2.6rem);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,.015);
+      transition: transform .4s var(--ease), border-color .4s var(--ease), background .4s var(--ease);
+    }
+    .svc:hover { transform: translateY(-6px); border-color: var(--mint-dim); background: rgba(62,255,163,.03); }
+    .svc .num { display: inline-block; color: var(--mint); font-family: monospace; font-size: .85rem; font-weight: 800; letter-spacing: .08em; border: 1px solid var(--line); border-radius: 5px; padding: .2rem .5rem; background: rgba(62,255,163,.05); }
+    .svc h3 { margin: 1.6rem 0 .8rem; font-size: clamp(1.3rem, 1.9vw, 1.7rem); font-weight: 800; text-transform: uppercase; line-height: 1.12; }
+    .svc p { color: var(--muted); font-size: .98rem; line-height: 1.66; }
+
+    /* workflow */
+    .workflow { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+    @media (max-width: 940px) { .workflow { grid-template-columns: 1fr; } .wf-preview { order: -1; } }
+    .wf-steps { display: flex; flex-direction: column; gap: 1rem; }
+    .wf-step {
+      display: grid; grid-template-columns: auto 1fr; gap: 1.4rem; align-items: start;
+      padding: 1.4rem 1.5rem;
+      border: 1px solid var(--line); border-radius: 10px;
+      background: rgba(255,255,255,.012);
+      cursor: pointer;
+      transition: border-color .35s var(--ease), background .35s var(--ease);
+    }
+    .wf-step:hover { border-color: var(--mint-dim); background: rgba(62,255,163,.02); }
+    .wf-step.active { border-color: var(--mint); background: rgba(62,255,163,.045); }
+    .wf-step .n { color: var(--mint); font-family: monospace; font-size: clamp(1.4rem, 2.4vw, 2rem); font-weight: 900; line-height: 1; }
+    .wf-step h3 { font-size: clamp(1.1rem, 1.6vw, 1.4rem); font-weight: 800; text-transform: uppercase; margin-bottom: .5rem; transition: color .3s ease; }
+    .wf-step.active h3 { color: var(--mint); }
+    .wf-step p { color: var(--muted); font-size: .95rem; line-height: 1.6; }
+    .wf-preview { position: sticky; top: 90px; }
+    .wf-box { border: 1px solid var(--line); border-radius: 12px; background: rgba(10,14,12,.6); padding: 1.4rem; }
+    .wf-box-head { display: flex; align-items: center; justify-content: space-between; padding-bottom: .9rem; border-bottom: 1px solid var(--line); }
+    .wf-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 8px var(--mint); }
+    .wf-tag { font-family: monospace; font-size: .68rem; color: var(--mint); letter-spacing: .08em; border: 1px solid var(--line); border-radius: 4px; padding: .15rem .45rem; background: rgba(62,255,163,.05); }
+    html[dir="rtl"] .wf-tag, html[dir="rtl"] .wf-title, html[dir="rtl"] .wf-log, html[dir="rtl"] .wf-log code { font-family: var(--arabic); letter-spacing: 0; }
+    .wf-title { font-family: monospace; font-size: .68rem; color: var(--muted); letter-spacing: .08em; }
+    .wf-scene { margin-top: 1.2rem; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: #000; }
+    .wf-scene video { display: block; width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+    .wf-log { margin-top: 1.2rem; background: rgba(0,0,0,.45); border: 1px solid var(--line); border-radius: 8px; padding: .9rem 1rem; font-family: monospace; font-size: .76rem; color: var(--mint); display: grid; gap: .35rem; }
+    .wf-log code { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .wf-pane { display: none; }
+    .wf-pane.active { display: block; animation: fadeIn .4s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+    /* proof */
+    .proof-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: clamp(1rem, 2vw, 1.6rem); }
+    @media (max-width: 860px) { .proof-grid { grid-template-columns: 1fr; } }
+    .proof { padding: clamp(1.6rem, 2.5vw, 2.2rem); border: 1px solid var(--line); border-radius: 10px; background: rgba(255,255,255,.012); transition: border-color .35s ease, transform .35s var(--ease); }
+    .proof:hover { border-color: var(--mint-dim); transform: translateY(-4px); }
+    .proof i { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid var(--mint-dim); border-radius: 50%; color: var(--mint); font-style: normal; font-weight: 900; font-family: monospace; background: rgba(62,255,163,.05); }
+    .proof h3 { margin: 1.2rem 0 .6rem; font-size: 1.2rem; font-weight: 800; text-transform: uppercase; }
+    .proof p { color: var(--muted); font-size: .96rem; line-height: 1.62; }
+
+    /* cta band */
+    .cta-band { display: grid; grid-template-columns: 1.1fr auto; gap: 2.5rem; align-items: center; padding: clamp(2.2rem, 5vw, 4rem); border: 1px solid var(--line); border-radius: 14px; background: rgba(10,14,12,.55); }
+    @media (max-width: 760px) { .cta-band { grid-template-columns: 1fr; } }
+    .cta-band h2 { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: .95; letter-spacing: -.03em; text-transform: uppercase; color: var(--mint); }
+    .cta-band p { margin-top: 1rem; max-width: 60ch; color: var(--soft); font-size: clamp(1rem, 1.3vw, 1.18rem); line-height: 1.66; }
+  </style>
+</head>
+<body>
+  <div class="bg-fx" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="index.html" aria-label="Captains Film home">
+        <img src="../assets/captains/logo-green-web.png" alt="Captains Film" data-logo-en="../assets/captains/logo-green-web.png" data-logo-ar="../assets/captains/logo-ar-green.png">
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+        <li><a href="projects.html" data-i18n="nav.projects">Work</a></li>
+        <li><a class="active" href="ai-studio.html" data-i18n="nav.aiStudio">AI Studio</a></li>
+        <li><a href="about.html" data-i18n="nav.about">Studio</a></li>
+      </ul>
+      <div class="nav-actions desktop">
+        <button class="lang-toggle" type="button" data-lang-toggle>عربي</button>
+        <button class="btn" type="button" data-contact><span data-i18n="cta.start">Start a project</span></button>
+      </div>
+      <button class="hamburger" type="button" aria-label="Menu" aria-expanded="false"><i></i></button>
+    </nav>
+  </header>
+
+  <div class="mobile-menu" aria-hidden="true">
+    <a href="index.html" data-i18n="nav.home">Home</a>
+    <a href="projects.html" data-i18n="nav.projects">Work</a>
+    <a class="active" href="ai-studio.html" data-i18n="nav.aiStudio">AI Studio</a>
+    <a href="about.html" data-i18n="nav.about">Studio</a>
+    <div class="mobile-menu-actions">
+      <button class="lang-toggle" type="button" data-lang-toggle>عربي</button>
+      <button class="btn" type="button" data-contact><span data-i18n="cta.start">Start a project</span></button>
+    </div>
+  </div>
+
+  <main>
+    <section class="ai-hero shell">
+      <span class="eyebrow" data-i18n="ai.eyebrow">Captains AI Studio</span>
+      <h1><span class="grad" data-i18n="ai.heroTitle">AI Studio</span></h1>
+      <p data-i18n="ai.heroCopy">Cinematic AI video production for brands that need bold concepts, faster campaign assets, and human-led storytelling from the first reference to the final frame.</p>
+      <div class="actions">
+        <button class="btn btn-solid" type="button" data-contact><span data-i18n="cta.start">Start a project</span></button>
+        <a class="ghost-link" href="#workflow"><span data-i18n="ai.workflowLink">See the workflow</span> <span class="arrow">→</span></a>
+      </div>
+    </section>
+
+    <section class="section shell reveal">
+      <div class="sec-head">
+        <span class="eyebrow" data-i18n="ai.servicesEyebrow">Capabilities</span>
+        <h2 data-i18n="ai.servicesTitle">AI video production</h2>
+        <p data-i18n="ai.servicesCopy">We combine generative tools, real production judgment, editing, sound, VFX, and brand direction so AI output feels intentional, cinematic, and ready for audiences.</p>
+      </div>
+      <div class="services">
+        <article class="svc"><span class="num">01</span><h3 data-i18n="ai.svc1Title">Generative films</h3><p data-i18n="ai.svc1Copy">Original scenes, campaign visuals, product worlds, launch films, and social-first edits shaped from a clear creative route.</p></article>
+        <article class="svc"><span class="num">02</span><h3 data-i18n="ai.svc2Title">AI post-production</h3><p data-i18n="ai.svc2Copy">Style extension, cleanup, motion design, sound, color, VFX, and finishing for footage or AI-generated material.</p></article>
+        <article class="svc"><span class="num">03</span><h3 data-i18n="ai.svc3Title">Reference-led brand worlds</h3><p data-i18n="ai.svc3Copy">We translate your brand guidelines, moodboards, and visual references into consistent cinematic content.</p></article>
+      </div>
+    </section>
+
+    <section class="section shell reveal" id="workflow">
+      <div class="sec-head">
+        <span class="eyebrow" data-i18n="ai.workflowEyebrow">The process</span>
+        <h2 data-i18n="ai.workflowTitle">From prompt to picture</h2>
+        <p data-i18n="ai.workflowCopy">The process stays creative, controlled, and production-minded. AI accelerates the build; Captains keeps the story on course.</p>
+      </div>
+      <div class="workflow">
+        <div class="wf-steps">
+          <div class="wf-step active" data-step="1"><span class="n">01</span><div><h3 data-i18n="ai.step1Title">Discovery and direction</h3><p data-i18n="ai.step1Copy">We define the audience, message, visual references, deliverables, and the creative route before generation begins.</p></div></div>
+          <div class="wf-step" data-step="2"><span class="n">02</span><div><h3 data-i18n="ai.step2Title">Generation and selection</h3><p data-i18n="ai.step2Copy">We create, compare, and curate AI scenes with brand consistency, composition, realism, and campaign use in mind.</p></div></div>
+          <div class="wf-step" data-step="3"><span class="n">03</span><div><h3 data-i18n="ai.step3Title">Edit, sound, and VFX</h3><p data-i18n="ai.step3Copy">Human editors refine pacing, transitions, sound design, motion graphics, color, and final cinematic polish.</p></div></div>
+          <div class="wf-step" data-step="4"><span class="n">04</span><div><h3 data-i18n="ai.step4Title">Delivery at scale</h3><p data-i18n="ai.step4Copy">Receive master films, cutdowns, platform ratios, campaign variants, and production files ready for launch.</p></div></div>
+        </div>
+        <div class="wf-preview">
+          <div class="wf-box">
+            <div class="wf-box-head">
+              <div style="display:flex;align-items:center;gap:.6rem;"><span class="wf-dot"></span><span class="wf-title" data-i18n="ai.pipelineTitle">PIPELINE DATA READOUT</span></div>
+              <span class="wf-tag" id="wfStage">STAGE_01</span>
+            </div>
+            <div class="wf-pane active" data-pane="1">
+              <div class="wf-scene"><video src="../assets/captains/ai/step1-scene.mp4" poster="../assets/captains/ai/step1-scene.jpg" autoplay muted loop playsinline disablepictureinpicture></video></div>
+              <div class="wf-log"><code data-i18n="ai.p1l1">&gt; Brief parsed: 3 deliverables, 2 weeks</code><code data-i18n="ai.p1l2">&gt; References mapped to a shot list</code><code data-i18n="ai.p1l3">&gt; Route locked: cinematic realism [GO]</code></div>
+            </div>
+            <div class="wf-pane" data-pane="2">
+              <div class="wf-scene"><video src="../assets/captains/ai/step2-scene.mp4" poster="../assets/captains/ai/step2-scene.jpg" muted loop playsinline disablepictureinpicture></video></div>
+              <div class="wf-log"><code data-i18n="ai.p2l1">&gt; 240 frames generated across 6 runs</code><code data-i18n="ai.p2l2">&gt; Faces, hands, logos checked frame by frame</code><code data-i18n="ai.p2l3">&gt; 4 hero shots approved for the edit</code></div>
+            </div>
+            <div class="wf-pane" data-pane="3">
+              <div class="wf-scene"><video src="../assets/captains/ai/step3-edit-suite.mp4" poster="../assets/captains/ai/step3-edit-suite.jpg" muted loop playsinline disablepictureinpicture></video></div>
+              <div class="wf-log"><code data-i18n="ai.p3l1">&gt; Cut locked at 00:58 on the music drop</code><code data-i18n="ai.p3l2">&gt; Foley and sub-bass layered in</code><code data-i18n="ai.p3l3">&gt; Grade: teal-mint night palette</code></div>
+            </div>
+            <div class="wf-pane" data-pane="4">
+              <div class="wf-scene"><video src="../assets/captains/ai/step4-scene.mp4" poster="../assets/captains/ai/step4-scene.jpg" muted loop playsinline disablepictureinpicture></video></div>
+              <div class="wf-log"><code data-i18n="ai.p4l1">&gt; QC passed: color, loudness, safe areas</code><code data-i18n="ai.p4l2">&gt; Ratios exported: 16:9, 9:16, 1:1, 4:5</code><code data-i18n="ai.p4l3">&gt; Handover complete. Campaign live.</code></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell reveal">
+      <div class="sec-head">
+        <span class="eyebrow" data-i18n="ai.proofEyebrow">Why it works</span>
+        <h2 data-i18n="ai.proofTitle">Built for brand momentum</h2>
+      </div>
+      <div class="proof-grid">
+        <article class="proof"><i>+</i><h3 data-i18n="ai.proof1Title">Faster campaign development</h3><p data-i18n="ai.proof1Copy">Move from idea to testable film language quickly without losing production control.</p></article>
+        <article class="proof"><i>+</i><h3 data-i18n="ai.proof2Title">Cinematic consistency</h3><p data-i18n="ai.proof2Copy">Every frame is reviewed for story, mood, brand fit, and final delivery quality.</p></article>
+        <article class="proof"><i>+</i><h3 data-i18n="ai.proof3Title">More versions, less friction</h3><p data-i18n="ai.proof3Copy">Create alternate hooks, social edits, aspect ratios, and visual tests from the same creative route.</p></article>
+      </div>
+    </section>
+
+    <section class="section shell reveal">
+      <div class="cta-band">
+        <div>
+          <h2 data-i18n="ai.ctaTitle">Bring the idea. We will build the world.</h2>
+          <p data-i18n="ai.ctaCopy">Send us your goal, references, timeline, and the formats you need. Captains AI Studio will shape the concept and lead it to final delivery.</p>
+        </div>
+        <button class="btn btn-solid" type="button" data-contact><span data-i18n="cta.start">Start a project</span></button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell">
+      <div class="footer-cta">
+        <h2><span data-i18n="footer.cta">Let's make something</span> <span class="accent" data-i18n="footer.ctaAccent">cinematic.</span></h2>
+        <button class="btn btn-solid" type="button" data-contact><span data-i18n="cta.start">Start a project</span></button>
+      </div>
+      <div class="footer-grid">
+        <div class="footer-col footer-brand">
+          <img class="footer-brand-logo" src="../assets/captains/logo-green-web.png" alt="Captains Film" data-logo-en="../assets/captains/logo-green-web.png" data-logo-ar="../assets/captains/logo-ar-green.png">
+          <p class="footer-tag" data-i18n="footer.tag">A cinematic production house in Riyadh.</p>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer.explore">Explore</h4>
+          <a href="index.html" data-i18n="nav.home">Home</a>
+          <a href="projects.html" data-i18n="nav.projects">Work</a>
+          <a href="ai-studio.html" data-i18n="nav.aiStudio">AI Studio</a>
+          <a href="about.html" data-i18n="nav.about">Studio</a>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer.connect">Connect</h4>
+          <a href="mailto:ahoy@captains.film">ahoy@captains.film</a>
+          <a href="tel:+966567614818">+966 56 761 4818</a>
+          <a href="https://wa.me/966567614818" target="_blank" rel="noopener" data-i18n="contact.whatsapp">WhatsApp</a>
+          <p data-i18n="footer.based">Riyadh, Saudi Arabia</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span data-i18n="footer.rights">© 2026 Captains Film.</span>
+        <div class="socials">
+          <a href="https://vimeo.com/user257545587" target="_blank" rel="noopener" data-i18n="social.vimeo">Vimeo</a>
+          <a href="https://www.linkedin.com/company/121454007" target="_blank" rel="noopener" data-i18n="social.linkedin">LinkedIn</a>
+          <a href="https://www.instagram.com/captains_film/" target="_blank" rel="noopener" data-i18n="social.instagram">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <aside class="modal" id="contactModal" aria-hidden="true" aria-modal="true" role="dialog">
+    <div class="modal-panel">
+      <button class="modal-close" type="button" data-close data-i18n="common.close">Close</button>
+      <h2 data-i18n="contact.title">Start a project</h2>
+      <p data-i18n="contact.copy">Bring the idea, the deadline, or the challenge.</p>
+      <div class="contact-block">
+        <div class="row"><strong data-i18n="contact.email">Email</strong><br><a href="mailto:ahoy@captains.film">ahoy@captains.film</a></div>
+        <div class="row"><strong data-i18n="contact.phone">Phone</strong><br><a href="tel:+966567614818">+966 56 761 4818</a> · <a href="tel:+966558432482">+966 55 843 2482</a></div>
+        <div class="row"><strong data-i18n="contact.addressLabel">Studio</strong><br><span data-i18n="contact.address">Riyadh, Saudi Arabia</span></div>
+      </div>
+      <div class="contact-actions">
+        <a class="btn btn-solid" href="https://wa.me/966567614818" target="_blank" rel="noopener"><span data-i18n="contact.whatsapp">WhatsApp</span></a>
+      </div>
+      <div class="contact-note">
+        <p data-i18n="contact.talentTitle">Join the talent network</p>
+        <a class="ghost-link" href="https://docs.google.com/forms/d/e/1FAIpQLSeVdHrW7VywTzEHe75qHfmorvghPwpk85tNjOECUtvwsH7pIw/viewform?usp=header" target="_blank" rel="noopener"><span data-i18n="contact.talentCta">Open form</span> <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </aside>
+
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/ai-studio.js"></script>
+</body>
+</html>

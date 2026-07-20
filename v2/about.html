@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Studio | Captains Film</title>
+  <meta name="description" content="Captains Film — company story, leadership philosophy, achievements and featured clients.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self' https:; frame-src https://player.vimeo.com; object-src 'none'; base-uri 'self'; form-action 'self';">
+  <link rel="icon" type="image/x-icon" href="../assets/captains/favicon_io/favicon.ico">
+  <link rel="apple-touch-icon" href="../assets/captains/favicon_io/apple-touch-icon.png">
+  <link rel="canonical" href="https://captains.film/v2/about">
+  <meta property="og:title" content="Studio | Captains Film">
+  <meta property="og:image" content="https://captains.film/assets/captains/og-image.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Cairo:wght@400;600;700;900&display=swap">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <style>
+    .about-hero { padding: clamp(9rem, 15vw, 13rem) 0 clamp(3rem, 6vw, 5rem); max-width: 1000px; }
+    .about-hero .eyebrow { margin-bottom: 1.6rem; }
+    .about-hero h1 {
+      font-size: clamp(2.6rem, 6.5vw, 6rem);
+      font-weight: 900;
+      line-height: .95;
+      letter-spacing: -.03em;
+      text-transform: uppercase;
+    }
+    .about-hero h1 .accent { color: var(--mint); }
+    .about-hero .manifesto { max-width: 66ch; margin-top: 2rem; color: var(--soft); font-size: clamp(1.1rem, 1.6vw, 1.4rem); line-height: 1.7; white-space: pre-line; }
+    .about-hero .note {
+      display: inline-flex; align-items: stretch; gap: 1.2rem;
+      margin-top: 2.2rem; padding: 1.1rem 1.4rem;
+      border: 1px solid var(--line); background: rgba(62,255,163,.03);
+      font-size: clamp(13px, 1vw, 16px); font-weight: 900; letter-spacing: .04em; line-height: 1.4; text-transform: uppercase;
+    }
+    .about-hero .note::before { content: ""; width: 3px; background: var(--mint); box-shadow: 0 0 10px var(--mint); }
+    .about-hero .actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-top: 2.5rem; }
+
+    /* bio / leadership */
+    .bio { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: stretch; }
+    @media (max-width: 940px) { .bio { grid-template-columns: 1fr; } .viewfinder { order: -1; min-height: 340px; } }
+    .viewfinder { position: relative; min-height: 460px; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #000; }
+    .viewfinder .vf-img { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: .78; animation: panzoom 24s infinite alternate ease-in-out; }
+    .viewfinder .vf-img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(12,7,5,.1), rgba(12,7,5,.7)); }
+    .vf-hud { position: absolute; inset: 0; padding: 1.4rem; display: flex; flex-direction: column; justify-content: space-between; z-index: 2; font-family: monospace; }
+    .vf-hud .top, .vf-hud .bot { display: flex; justify-content: space-between; align-items: center; }
+    .vf-rec { display: flex; align-items: center; gap: .4rem; color: var(--mint); font-size: .74rem; font-weight: 700; }
+    .vf-rec::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 6px var(--mint); animation: blink 1s steps(2) infinite; }
+    .vf-tc { font-size: .72rem; color: rgba(255,255,255,.75); }
+    .vf-bot span { font-size: .66rem; color: rgba(255,255,255,.6); }
+    @keyframes blink { 0%,100% { opacity: 0; } 50% { opacity: 1; } }
+    @keyframes panzoom { 0% { transform: scale(1.04); } 100% { transform: scale(1.14) translate(-2%,-2%); } }
+
+    .bio-content { display: flex; flex-direction: column; justify-content: center; }
+    .bio-content .log { color: var(--mint); font-family: monospace; font-size: .75rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 1rem; }
+    html[dir="rtl"] .bio-content .log { font-family: var(--arabic); letter-spacing: 0; }
+    .bio-content .intro { font-size: clamp(1.3rem, 2.2vw, 2rem); font-weight: 900; line-height: 1.25; text-transform: uppercase; margin-bottom: 1.8rem; }
+    .pull-quote { font-size: clamp(1.5rem, 2.8vw, 2.5rem); font-weight: 900; line-height: 1.05; letter-spacing: -.03em; text-transform: uppercase; margin-bottom: 1.8rem; padding-inline-start: 1.2rem; border-inline-start: 3px solid var(--mint); }
+    .pull-quote mark { background: transparent; color: var(--mint); }
+    .bio-text { color: var(--soft); font-size: 1.05rem; line-height: 1.7; margin-bottom: 1.1rem; }
+
+    /* clients */
+    .clients-head { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(1.5rem, 5vw, 4rem); align-items: end; margin-bottom: clamp(2.5rem, 5vw, 4rem); padding-bottom: 24px; border-bottom: 1px solid var(--line); }
+    @media (max-width: 760px) { .clients-head { grid-template-columns: 1fr; } }
+    .clients-head h2 { font-size: clamp(2rem, 4.5vw, 3.6rem); font-weight: 900; line-height: .98; letter-spacing: -.03em; text-transform: uppercase; }
+    .clients-head p { color: var(--soft); font-size: clamp(.98rem, 1.3vw, 1.15rem); line-height: 1.66; }
+    .logo-wall { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+    @media (max-width: 1000px) { .logo-wall { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+    @media (max-width: 620px) { .logo-wall { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+    .logo-cell { display: flex; align-items: center; justify-content: center; min-height: clamp(110px, 10vw, 140px); padding: clamp(14px, 2vw, 26px); background: var(--black-pure); transition: background .3s ease; }
+    .logo-cell:hover { background: rgba(62,255,163,.03); }
+    .logo-cell img { width: min(78%, 200px); max-height: 80px; object-fit: contain; filter: brightness(0) invert(1) opacity(.5); transition: filter .3s ease; }
+    .logo-cell:hover img { filter: brightness(0) invert(1) opacity(1) drop-shadow(0 0 8px var(--mint-glow)); }
+
+    .cta-band { display: grid; grid-template-columns: 1.1fr auto; gap: 2.5rem; align-items: center; padding: clamp(2.2rem, 5vw, 4rem); border: 1px solid var(--line); border-radius: 14px; background: rgba(10,14,12,.55); }
+    @media (max-width: 760px) { .cta-band { grid-template-columns: 1fr; } }
+    .cta-band h2 { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: .95; letter-spacing: -.03em; text-transform: uppercase; color: var(--mint); }
+    .cta-band p { margin-top: 1rem; max-width: 60ch; color: var(--soft); font-size: clamp(1rem, 1.3vw, 1.18rem); line-height: 1.66; }
+  </style>
+</head>
+<body>
+  <div class="bg-fx" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="index.html" aria-label="Captains Film home">
+        <img src="../assets/captains/logo-green-web.png" alt="Captains Film" data-logo-en="../assets/captains/logo-green-web.png" data-logo-ar="../assets/captains/logo-ar-green.png">
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+        <li><a href="projects.html" data-i18n="nav.projects">Work</a></li>
+        <li><a href="ai-studio.html" data-i18n="nav.aiStudio">AI Studio</a></li>
+        <li><a class="active" href="about.html" data-i18n="nav.about">Studio</a></li>
+      </ul>
+      <div class="nav-actions desktop">
+        <button class="lang-toggle" type="button" data-lang-toggle>عربي</button>
+        <button class="btn" type="button" data-contact><span data-i18n="cta.start">Start a project</span></button>
+      </div>
+      <button class="hamburger" type="button" aria-label="Menu" aria-expanded="false"><i></i></button>
+    </nav>
+  </header>
+
+  <div class="mobile-menu" aria-hidden="true">
+    <a href="index.html" data-i18n="nav.home">Home</a>
+    <a href="projects.html" data-i18n="nav.projects">Work</a>
+    <a href="ai-studio.html" data-i18n="nav.aiStudio">AI Studio</a>
+    <a class="active" href="about.html" data-i18n="nav.about">Studio</a>
+    <div class="mobile-menu-actions">
+      <button class="lang-toggle" type="button" data-lang-toggle>عربي</button>
+      <button class="btn" type="button" data-contact><span data-i18n="cta.start">Start a project</span></button>
+    </div>
+  </div>
+
+  <main>
+    <section class="about-hero shell">
+      <span class="eyebrow" data-i18n="about.eyebrow">Who we are</span>
+      <h1><span data-i18n="about.heroTitle">The one who leads the work defines its impact</span><span class="accent">.</span></h1>
+      <p class="manifesto" data-i18n="about.manifesto">We believe, as a production company, that real value lies in leadership. Behind every exceptional piece of work is a captain who knows the ship and the route — leading the journey with clarity and confidence from the first idea to the final product.</p>
+      <div class="note" data-i18n="about.note">We're made for it — and we know it best.</div>
+      <div class="actions">
+        <button class="btn btn-solid" type="button" data-contact><span data-i18n="cta.start">Start a project</span></button>
+        <a class="ghost-link" href="projects.html"><span data-i18n="cta.viewWork">View work</span> <span class="arrow">→</span></a>
+      </div>
+    </section>
+
+    <section class="section shell reveal">
+      <div class="bio">
+        <div class="viewfinder" aria-hidden="true">
+          <div class="vf-img" style="background-image:url('../assets/captains/projects/p42.jpg');"></div>
+          <div class="vf-hud">
+            <div class="top"><span class="vf-rec">REC</span><span class="vf-tc">TC 00:23:18:11</span></div>
+            <div class="bot vf-bot"><span>F/4.0 // ISO 800</span><span>RAW // UHD 24FPS</span></div>
+          </div>
+        </div>
+        <div class="bio-content">
+          <div class="log" data-i18n="about.bioLog">The captain sets the route</div>
+          <h3 class="intro" data-i18n="about.bioIntro">Leadership is the difference between a finished film and a film that arrives with purpose.</h3>
+          <div class="pull-quote"><span data-i18n="about.quote1">Great work comes from a</span> <mark data-i18n="about.quoteMark">great captain.</mark></div>
+          <p class="bio-text" data-i18n="about.bioCopy1">We believe, as a production company, that real value lies in leadership. Behind every exceptional piece of work is a captain who knows the ship and the route.</p>
+          <p class="bio-text" data-i18n="about.bioCopy2">That captain leads the journey with clarity and confidence from the first idea to the final product. We're made for it — and we know it best.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell reveal">
+      <div class="clients-head">
+        <h2 data-i18n="about.clientsTitle">Featured clients</h2>
+        <p data-i18n="about.clientsCopy">Selected partners and organizations from our portfolio across agencies, government, semi-government, and corporate work.</p>
+      </div>
+      <div class="logo-wall">
+        <div class="logo-cell"><img src="../assets/captains/about/logos-normalized/diriyah.png" alt="Diriyah"></div>
+        <div class="logo-cell"><img src="../assets/captains/about/logos-normalized/saudi-payments.png" alt="Saudi Payments"></div>
+        <div class="logo-cell"><img src="../assets/captains/about/logos-normalized/ministry-of-tourism.png" alt="Ministry of Tourism"></div>
+        <div class="logo-cell"><img src="../assets/captains/about/logos-normalized/ministry-of-culture.png" alt="Ministry of Culture"></div>
+        <div class="logo-cell"><img src="../assets/captains/about/logos-normalized/royal-commission-for-alula.png" alt="Royal Commission for AlUla"></div>
+        <div class="logo-cell"><img src="../assets/captains/about/logos-normalized/noor-riyadh.png" alt="Noor Riyadh"></div>
+        <div class="logo-cell"><img src="../assets/captains/about/logos-normalized/kafd.png" alt="KAFD"></div>
+        <div class="logo-cell"><img src="../assets/captains/about/logos-normalized/almarai.png" alt="Almarai"></div>
+        <div class="logo-cell"><img src="../assets/captains/about/logos-normalized/banque-saudi-fransi.png" alt="Banque Saudi Fransi"></div>
+        <div class="logo-cell"><img src="../assets/captains/about/logos-normalized/zain.png" alt="Zain"></div>
+        <div class="logo-cell"><img src="../assets/captains/about/logos-normalized/alwaleed-philanthropies.png" alt="Alwaleed Philanthropies"></div>
+        <div class="logo-cell"><img src="../assets/captains/about/logos-normalized/dan.png" alt="DAN"></div>
+        <div class="logo-cell"><img src="../assets/captains/about/logos-normalized/ceer.png" alt="CEER"></div>
+        <div class="logo-cell"><img src="../assets/captains/about/logos-normalized/renault.png" alt="Renault"></div>
+        <div class="logo-cell"><img src="../assets/captains/about/logos-normalized/foodics.png" alt="Foodics"></div>
+        <div class="logo-cell"><img src="../assets/captains/about/logos-normalized/lean.png" alt="Lean"></div>
+        <div class="logo-cell"><img src="../assets/captains/about/logos-normalized/webedia.png" alt="Webedia"></div>
+        <div class="logo-cell"><img src="../assets/captains/about/logos-normalized/bold-29.png" alt="BOLD"></div>
+        <div class="logo-cell"><img src="../assets/captains/about/logos-normalized/millimeter.png" alt="Millimeter"></div>
+        <div class="logo-cell"><img src="../assets/captains/about/logos-normalized/wondereight.png" alt="WonderEight"></div>
+      </div>
+    </section>
+
+    <section class="section shell reveal">
+      <div class="cta-band">
+        <div>
+          <h2 data-i18n="about.ctaTitle">Ready to sail?</h2>
+          <p data-i18n="about.ctaCopy">Bring the idea, the deadline, or the challenge. We will help set the route and lead it to delivery.</p>
+        </div>
+        <button class="btn btn-solid" type="button" data-contact><span data-i18n="cta.start">Start a project</span></button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell">
+      <div class="footer-cta">
+        <h2><span data-i18n="footer.cta">Let's make something</span> <span class="accent" data-i18n="footer.ctaAccent">cinematic.</span></h2>
+        <button class="btn btn-solid" type="button" data-contact><span data-i18n="cta.start">Start a project</span></button>
+      </div>
+      <div class="footer-grid">
+        <div class="footer-col footer-brand">
+          <img class="footer-brand-logo" src="../assets/captains/logo-green-web.png" alt="Captains Film" data-logo-en="../assets/captains/logo-green-web.png" data-logo-ar="../assets/captains/logo-ar-green.png">
+          <p class="footer-tag" data-i18n="footer.tag">A cinematic production house in Riyadh.</p>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer.explore">Explore</h4>
+          <a href="index.html" data-i18n="nav.home">Home</a>
+          <a href="projects.html" data-i18n="nav.projects">Work</a>
+          <a href="ai-studio.html" data-i18n="nav.aiStudio">AI Studio</a>
+          <a href="about.html" data-i18n="nav.about">Studio</a>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer.connect">Connect</h4>
+          <a href="mailto:ahoy@captains.film">ahoy@captains.film</a>
+          <a href="tel:+966567614818">+966 56 761 4818</a>
+          <a href="https://wa.me/966567614818" target="_blank" rel="noopener" data-i18n="contact.whatsapp">WhatsApp</a>
+          <p data-i18n="footer.based">Riyadh, Saudi Arabia</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span data-i18n="footer.rights">© 2026 Captains Film.</span>
+        <div class="socials">
+          <a href="https://vimeo.com/user257545587" target="_blank" rel="noopener" data-i18n="social.vimeo">Vimeo</a>
+          <a href="https://www.linkedin.com/company/121454007" target="_blank" rel="noopener" data-i18n="social.linkedin">LinkedIn</a>
+          <a href="https://www.instagram.com/captains_film/" target="_blank" rel="noopener" data-i18n="social.instagram">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <aside class="modal" id="contactModal" aria-hidden="true" aria-modal="true" role="dialog">
+    <div class="modal-panel">
+      <button class="modal-close" type="button" data-close data-i18n="common.close">Close</button>
+      <h2 data-i18n="contact.title">Start a project</h2>
+      <p data-i18n="contact.copy">Bring the idea, the deadline, or the challenge.</p>
+      <div class="contact-block">
+        <div class="row"><strong data-i18n="contact.email">Email</strong><br><a href="mailto:ahoy@captains.film">ahoy@captains.film</a></div>
+        <div class="row"><strong data-i18n="contact.phone">Phone</strong><br><a href="tel:+966567614818">+966 56 761 4818</a> · <a href="tel:+966558432482">+966 55 843 2482</a></div>
+        <div class="row"><strong data-i18n="contact.addressLabel">Studio</strong><br><span data-i18n="contact.address">Riyadh, Saudi Arabia</span></div>
+      </div>
+      <div class="contact-actions">
+        <a class="btn btn-solid" href="https://wa.me/966567614818" target="_blank" rel="noopener"><span data-i18n="contact.whatsapp">WhatsApp</span></a>
+      </div>
+      <div class="contact-note">
+        <p data-i18n="contact.talentTitle">Join the talent network</p>
+        <a class="ghost-link" href="https://docs.google.com/forms/d/e/1FAIpQLSeVdHrW7VywTzEHe75qHfmorvghPwpk85tNjOECUtvwsH7pIw/viewform?usp=header" target="_blank" rel="noopener"><span data-i18n="contact.talentCta">Open form</span> <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </aside>
+
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/about.js"></script>
+</body>
+</html>

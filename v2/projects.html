@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Work | Captains Film</title>
+  <meta name="description" content="Selected work by Captains Film — TVCs, documentaries, post-production and AI/animation projects for leading brands.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self' https:; frame-src https://player.vimeo.com; object-src 'none'; base-uri 'self'; form-action 'self';">
+  <link rel="icon" type="image/x-icon" href="../assets/captains/favicon_io/favicon.ico">
+  <link rel="apple-touch-icon" href="../assets/captains/favicon_io/apple-touch-icon.png">
+  <link rel="canonical" href="https://captains.film/v2/projects">
+  <meta property="og:title" content="Work | Captains Film">
+  <meta property="og:image" content="https://captains.film/assets/captains/og-image.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Cairo:wght@400;600;700;900&display=swap">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <style>
+    .page-hero { padding: clamp(9rem, 15vw, 13rem) 0 clamp(2rem, 4vw, 3.5rem); }
+    .page-hero h1 {
+      font-size: clamp(4rem, 15vw, 15rem);
+      font-weight: 900;
+      line-height: .82;
+      letter-spacing: -.05em;
+      text-transform: uppercase;
+    }
+    .page-hero h1 .accent { color: var(--mint); }
+    .page-hero .lead { max-width: 52ch; margin-top: 1.6rem; color: var(--soft); font-size: clamp(1.05rem, 1.6vw, 1.35rem); line-height: 1.7; }
+
+    /* toolbar / filters */
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem 1.6rem;
+      padding: 1.2rem 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 62px;
+      z-index: 30;
+      background: rgba(5,3,2,.82);
+      backdrop-filter: blur(12px);
+    }
+    .filters { display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; }
+    .filters button {
+      color: var(--muted);
+      font-size: clamp(.82rem, 1.1vw, .95rem);
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      transition: color .2s ease;
+    }
+    .filters button .count { color: var(--faint); font-size: .78em; }
+    .filters button.active, .filters button:hover { color: var(--mint); }
+    .filters button.active .count { color: var(--mint-dim); }
+
+    /* grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(1.4rem, 2.5vw, 2.4rem);
+      padding: clamp(2.5rem, 5vw, 4rem) 0 clamp(4rem, 8vw, 7rem);
+    }
+    @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+
+    .card { cursor: pointer; opacity: 0; transform: translateY(22px); animation: cardRise .7s var(--ease-out) forwards; }
+    @keyframes cardRise { to { opacity: 1; transform: translateY(0); } }
+    .card-thumb {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(62,255,163,.05);
+    }
+    .card-thumb img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.95) contrast(1.03); transform: scale(1); transition: transform .6s var(--ease); }
+    .card:hover .card-thumb img { transform: scale(1.07); }
+    .card-thumb::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 45%, rgba(5,3,2,.55));
+      opacity: 0;
+      transition: opacity .4s ease;
+    }
+    .card:hover .card-thumb::after { opacity: 1; }
+    .card-play {
+      position: absolute;
+      inset-block-start: 50%; inset-inline-start: 50%;
+      transform: translate(-50%, -50%) scale(.8);
+      width: 54px; height: 54px;
+      display: grid; place-items: center;
+      border: 1px solid var(--mint);
+      border-radius: 50%;
+      background: rgba(5,3,2,.5);
+      color: var(--mint);
+      opacity: 0;
+      transition: opacity .35s ease, transform .35s var(--ease);
+    }
+    html[dir="rtl"] .card-play { transform: translate(50%, -50%) scale(.8); }
+    .card:hover .card-play { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    html[dir="rtl"] .card:hover .card-play { transform: translate(50%, -50%) scale(1); }
+    .card-play svg { width: 18px; height: 18px; margin-inline-start: 3px; }
+    .card-meta { display: flex; justify-content: space-between; gap: 1rem; margin-top: .9rem; color: var(--muted); font-size: .74rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .card-title { margin-top: .35rem; font-size: clamp(1.1rem, 1.5vw, 1.4rem); font-weight: 800; line-height: 1.1; text-transform: uppercase; transition: color .25s ease; }
+    .card:hover .card-title { color: var(--mint); }
+    .card-client { margin-top: .3rem; color: var(--muted); font-size: .82rem; }
+    .empty { grid-column: 1 / -1; padding: 4rem 0; text-align: center; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="bg-fx" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="index.html" aria-label="Captains Film home">
+        <img src="../assets/captains/logo-green-web.png" alt="Captains Film" data-logo-en="../assets/captains/logo-green-web.png" data-logo-ar="../assets/captains/logo-ar-green.png">
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+        <li><a class="active" href="projects.html" data-i18n="nav.projects">Work</a></li>
+        <li><a href="ai-studio.html" data-i18n="nav.aiStudio">AI Studio</a></li>
+        <li><a href="about.html" data-i18n="nav.about">Studio</a></li>
+      </ul>
+      <div class="nav-actions desktop">
+        <button class="lang-toggle" type="button" data-lang-toggle>عربي</button>
+        <button class="btn" type="button" data-contact><span data-i18n="cta.start">Start a project</span></button>
+      </div>
+      <button class="hamburger" type="button" aria-label="Menu" aria-expanded="false"><i></i></button>
+    </nav>
+  </header>
+
+  <div class="mobile-menu" aria-hidden="true">
+    <a href="index.html" data-i18n="nav.home">Home</a>
+    <a class="active" href="projects.html" data-i18n="nav.projects">Work</a>
+    <a href="ai-studio.html" data-i18n="nav.aiStudio">AI Studio</a>
+    <a href="about.html" data-i18n="nav.about">Studio</a>
+    <div class="mobile-menu-actions">
+      <button class="lang-toggle" type="button" data-lang-toggle>عربي</button>
+      <button class="btn" type="button" data-contact><span data-i18n="cta.start">Start a project</span></button>
+    </div>
+  </div>
+
+  <main>
+    <section class="page-hero shell">
+      <span class="eyebrow" data-i18n="work.eyebrow">Selected work</span>
+      <h1 style="margin-top:1.2rem;"><span data-i18n="work.title">Work</span><span class="accent">.</span></h1>
+      <p class="lead" data-i18n="work.lead">A selection of films across TVCs, documentaries, post-production, AI and live events — for brands that want work with impact.</p>
+    </section>
+
+    <div class="toolbar">
+      <div class="shell" style="display:flex;width:var(--shell);margin:0 auto;">
+        <div class="filters" aria-label="Filter work"></div>
+      </div>
+    </div>
+
+    <section class="shell">
+      <div class="grid" id="grid"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell">
+      <div class="footer-cta">
+        <h2><span data-i18n="footer.cta">Let's make something</span> <span class="accent" data-i18n="footer.ctaAccent">cinematic.</span></h2>
+        <button class="btn btn-solid" type="button" data-contact><span data-i18n="cta.start">Start a project</span></button>
+      </div>
+      <div class="footer-grid">
+        <div class="footer-col footer-brand">
+          <img class="footer-brand-logo" src="../assets/captains/logo-green-web.png" alt="Captains Film" data-logo-en="../assets/captains/logo-green-web.png" data-logo-ar="../assets/captains/logo-ar-green.png">
+          <p class="footer-tag" data-i18n="footer.tag">A cinematic production house in Riyadh.</p>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer.explore">Explore</h4>
+          <a href="index.html" data-i18n="nav.home">Home</a>
+          <a href="projects.html" data-i18n="nav.projects">Work</a>
+          <a href="ai-studio.html" data-i18n="nav.aiStudio">AI Studio</a>
+          <a href="about.html" data-i18n="nav.about">Studio</a>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer.connect">Connect</h4>
+          <a href="mailto:ahoy@captains.film">ahoy@captains.film</a>
+          <a href="tel:+966567614818">+966 56 761 4818</a>
+          <a href="https://wa.me/966567614818" target="_blank" rel="noopener" data-i18n="contact.whatsapp">WhatsApp</a>
+          <p data-i18n="footer.based">Riyadh, Saudi Arabia</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span data-i18n="footer.rights">© 2026 Captains Film.</span>
+        <div class="socials">
+          <a href="https://vimeo.com/user257545587" target="_blank" rel="noopener" data-i18n="social.vimeo">Vimeo</a>
+          <a href="https://www.linkedin.com/company/121454007" target="_blank" rel="noopener" data-i18n="social.linkedin">LinkedIn</a>
+          <a href="https://www.instagram.com/captains_film/" target="_blank" rel="noopener" data-i18n="social.instagram">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <aside class="modal" id="contactModal" aria-hidden="true" aria-modal="true" role="dialog">
+    <div class="modal-panel">
+      <button class="modal-close" type="button" data-close data-i18n="common.close">Close</button>
+      <h2 data-i18n="contact.title">Start a project</h2>
+      <p data-i18n="contact.copy">Bring the idea, the deadline, or the challenge.</p>
+      <div class="contact-block">
+        <div class="row"><strong data-i18n="contact.email">Email</strong><br><a href="mailto:ahoy@captains.film">ahoy@captains.film</a></div>
+        <div class="row"><strong data-i18n="contact.phone">Phone</strong><br><a href="tel:+966567614818">+966 56 761 4818</a> · <a href="tel:+966558432482">+966 55 843 2482</a></div>
+        <div class="row"><strong data-i18n="contact.addressLabel">Studio</strong><br><span data-i18n="contact.address">Riyadh, Saudi Arabia</span></div>
+      </div>
+      <div class="contact-actions">
+        <a class="btn btn-solid" href="https://wa.me/966567614818" target="_blank" rel="noopener"><span data-i18n="contact.whatsapp">WhatsApp</span></a>
+      </div>
+      <div class="contact-note">
+        <p data-i18n="contact.talentTitle">Join the talent network</p>
+        <a class="ghost-link" href="https://docs.google.com/forms/d/e/1FAIpQLSeVdHrW7VywTzEHe75qHfmorvghPwpk85tNjOECUtvwsH7pIw/viewform?usp=header" target="_blank" rel="noopener"><span data-i18n="contact.talentCta">Open form</span> <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </aside>
+
+  <aside class="modal" id="projectModal" aria-hidden="true" aria-modal="true" role="dialog">
+    <div class="modal-panel">
+      <button class="modal-close" type="button" data-close data-i18n="common.close">Close</button>
+      <h2 data-pm-title></h2>
+      <div class="modal-player" data-pm-player></div>
+      <p data-pm-desc></p>
+      <div class="facts">
+        <div><small data-i18n="common.client">Client</small><strong data-pm-client></strong></div>
+        <div><small data-i18n="common.tags">Tags</small><strong data-pm-tags></strong></div>
+        <div><small data-i18n="common.year">Year</small><strong data-pm-year></strong></div>
+      </div>
+    </div>
+  </aside>
+
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/projects.js"></script>
+</body>
+</html>
