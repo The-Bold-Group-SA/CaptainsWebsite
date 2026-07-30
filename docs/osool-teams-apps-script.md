@@ -13,55 +13,71 @@ A **brand new, standalone** Apps Script project — not an edit to the crew form
 script. It writes into a tab of whichever spreadsheet you point it at, so you can
 have either outcome:
 
-- **Same spreadsheet, new tab** — put the crew sheet's id in `SHEET_ID`.
+- **Same spreadsheet, new tab** — put the crew sheet's id in `sheetId`.
 - **A separate spreadsheet** — make a new sheet and use its id instead.
 
 Either way the crew script is never opened, so crew registration cannot break.
 
 ## 1. Create the project
 
-Go to <https://script.google.com> → **New project**. Delete the sample
-`function myFunction() {}` and paste this in full:
+Go to <https://script.google.com> → **New project**.
+
+**The project must contain this and nothing else.** Every `.gs` file in an Apps
+Script project shares one global scope, so a leftover file declaring the same
+name produces `Identifier '...' has already been declared` — and a syntax error
+in *any* file takes down the whole deployment, including `doGet`. Delete the
+sample `myFunction`, delete any other `.gs` files in the left sidebar, then paste
+this in full:
 
 ```js
 /**
  * Osool National Day — فريق أصول / فريق بولد registration endpoint.
  * Standalone: independent of the crew form's Apps Script.
+ *
+ * Everything is function-scoped and prefixed on purpose. Top-level `const`
+ * declarations share a global namespace with every other file in the project,
+ * so they collide easily; only doPost and doGet have to be global, because
+ * Apps Script calls them by exact name.
  */
 
-// From your sheet's URL:
-// https://docs.google.com/spreadsheets/d/THIS_LONG_PART_HERE/edit
-const SHEET_ID = 'PASTE_YOUR_SPREADSHEET_ID_HERE';
+function osoolConfig_() {
+  return {
+    // From your sheet's URL:
+    // https://docs.google.com/spreadsheets/d/THIS_LONG_PART_HERE/edit
+    sheetId: 'PASTE_YOUR_SPREADSHEET_ID_HERE',
 
-// Created automatically on the first submission if it doesn't exist.
-const TAB_NAME = 'Guests';
+    // Created automatically on the first submission if it doesn't exist.
+    tabName: 'Guests',
 
-// Column order, fixed here so the sheet stays stable and readable.
-const COLUMNS = [
-  'submitted_at', 'visitor_type', 'full_name', 'id_number', 'mobile', 'email',
-  'arrival', 'pickup_location', 'plate_number', 'car_type',
-  'drink', 'food', 'special_requests', 'source'
-];
+    // Column order, fixed here so the sheet stays stable and readable.
+    columns: [
+      'submitted_at', 'visitor_type', 'full_name', 'id_number', 'mobile',
+      'email', 'arrival', 'pickup_location', 'plate_number', 'car_type',
+      'drink', 'food', 'special_requests', 'source'
+    ],
 
-const HEADERS = [
-  'وقت الإرسال', 'الصفة', 'الاسم الكامل', 'رقم الهوية', 'الجوال', 'البريد',
-  'طريقة الوصول', 'موقع الاستلام', 'رقم اللوحة', 'نوع السيارة',
-  'المشروب', 'الأكل', 'ملاحظات', 'المصدر'
-];
+    headers: [
+      'وقت الإرسال', 'الصفة', 'الاسم الكامل', 'رقم الهوية', 'الجوال', 'البريد',
+      'طريقة الوصول', 'موقع الاستلام', 'رقم اللوحة', 'نوع السيارة',
+      'المشروب', 'الأكل', 'ملاحظات', 'المصدر'
+    ]
+  };
+}
 
 function doPost(e) {
   // Serialise concurrent submissions so two people saving at once can't
   // overwrite each other's row.
-  const lock = LockService.getScriptLock();
+  var lock = LockService.getScriptLock();
   try {
     lock.waitLock(20000);
-    const data = JSON.parse(e.postData.contents);
-    getSheet_().appendRow(COLUMNS.map(function (k) {
-      return data[k] !== undefined ? data[k] : '';
+    var cfg = osoolConfig_();
+    var data = JSON.parse(e.postData.contents);
+    osoolSheet_(cfg).appendRow(cfg.columns.map(function (key) {
+      return data[key] !== undefined ? data[key] : '';
     }));
-    return json_({ ok: true });
+    return osoolJson_({ ok: true });
   } catch (err) {
-    return json_({ ok: false, error: String(err) });
+    return osoolJson_({ ok: false, error: String(err) });
   } finally {
     try { lock.releaseLock(); } catch (ignored) {}
   }
@@ -71,25 +87,26 @@ function doPost(e) {
 // to confirm the deployment is live before wiring up the form.
 function doGet() {
   try {
-    return json_({ ok: true, tab: getSheet_().getName() });
+    var cfg = osoolConfig_();
+    return osoolJson_({ ok: true, tab: osoolSheet_(cfg).getName() });
   } catch (err) {
-    return json_({ ok: false, error: String(err) });
+    return osoolJson_({ ok: false, error: String(err) });
   }
 }
 
-function getSheet_() {
-  const ss = SpreadsheetApp.openById(SHEET_ID);
-  let sheet = ss.getSheetByName(TAB_NAME);
-  if (!sheet) sheet = ss.insertSheet(TAB_NAME);
+function osoolSheet_(cfg) {
+  var ss = SpreadsheetApp.openById(cfg.sheetId);
+  var sheet = ss.getSheetByName(cfg.tabName);
+  if (!sheet) sheet = ss.insertSheet(cfg.tabName);
   if (sheet.getLastRow() === 0) {
-    sheet.appendRow(HEADERS);
-    sheet.getRange(1, 1, 1, HEADERS.length).setFontWeight('bold');
+    sheet.appendRow(cfg.headers);
+    sheet.getRange(1, 1, 1, cfg.headers.length).setFontWeight('bold');
     sheet.setFrozenRows(1);
   }
   return sheet;
 }
 
-function json_(obj) {
+function osoolJson_(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj))
     .setMimeType(ContentService.MimeType.JSON);
 }
@@ -104,7 +121,7 @@ https://docs.google.com/spreadsheets/d/1AbCdEfGhIjKlMnOpQrStUvWxYz/edit#gid=0
                                        └──────── this part ────────┘
 ```
 
-Paste that into `SHEET_ID`, then save (⌘S).
+Paste that into `sheetId`, then save (⌘S).
 
 ## 3. Deploy it
 
@@ -143,4 +160,8 @@ of `osool/teams/teams.js`.
 - **Re-deploy after any edit.** Apps Script serves the version you *deployed*,
   not the version you saved. Use **Deploy → Manage deployments → edit → Version:
   New version**, which keeps the same `/exec` URL.
-- **Renaming the tab** is just `TAB_NAME`; it will be created on next submit.
+- **Renaming the tab** is just `tabName`; it will be created on next submit.
+- **If the URL returns a `خطأ` / error page instead of JSON**, the project
+  failed to compile. Open the editor and check the sidebar for a second `.gs`
+  file — two files declaring the same name is the usual cause, and it disables
+  the whole deployment, not just the duplicated part.

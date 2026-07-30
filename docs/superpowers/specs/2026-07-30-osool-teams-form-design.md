@@ -126,7 +126,7 @@ URL, pointed at whichever spreadsheet id it is given, creating and owning its ow
 tab. The crew script is never opened, so crew registration cannot regress. The
 page no longer sends `sheet_tab` — the destination belongs to the script.
 
-The payload's keys are exactly the script's `COLUMNS` list, so column order is
+The payload's keys are exactly the script's `columns` list, so column order is
 fixed in one place and the sheet gets readable Arabic headers.
 
 **Open dependency:** creating the web app requires signing in as the sheet owner,
