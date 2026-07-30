@@ -15,3 +15,14 @@
   ! Content-Security-Policy
   Content-Security-Policy: default-src 'self'; script-src 'self' https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com wss://*.firebaseio.com https://*.firebasestorage.app https://securetoken.google.com https://api.open-meteo.com https://api.sunrise-sunset.org https://quickchart.io; frame-src 'self' https://gen-lang-client-0672192430.firebaseapp.com https://accounts.google.com; worker-src 'self' blob:; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self';
   X-Robots-Tag: noindex, nofollow
+
+# Unlisted crew registration form (Osool National Day). Its only extra need is
+# to POST to the Google Apps Script web app, which redirects to
+# script.googleusercontent.com — both hops must be in connect-src. The page
+# collects ID numbers and ID scans, so script-src stays strict: the form's JS
+# was moved out of an inline <script> into form.js precisely to avoid
+# 'unsafe-inline' here.
+/osool/*
+  ! Content-Security-Policy
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://script.google.com https://script.googleusercontent.com; frame-src 'none'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self';
+  X-Robots-Tag: noindex, nofollow
