@@ -2,6 +2,7 @@
 .gitignore
 .DS_Store
 .claude
+.wrangler
 node_modules
 screenshots
 about-full-page.png

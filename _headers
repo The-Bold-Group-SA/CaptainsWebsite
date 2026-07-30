@@ -1,4 +1,17 @@
+# NOTE: when several rules match a path, Cloudflare sends *every* matching
+# header, and two Content-Security-Policy headers are enforced as their
+# intersection. To give a path its own CSP it must come AFTER the /* rule and
+# unset the inherited one first ("! Content-Security-Policy"). Order matters.
+
 /*
   Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://player.vimeo.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self';
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
+
+# Unlisted internal tool (Captains Agency OS). Needs Firebase Auth + Firestore,
+# Google Fonts and a couple of read-only data APIs, so it gets a wider CSP than
+# the marketing pages.
+/ratecard/*
+  ! Content-Security-Policy
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com wss://*.firebaseio.com https://*.firebasestorage.app https://securetoken.google.com https://api.open-meteo.com https://api.sunrise-sunset.org https://quickchart.io; frame-src 'self' https://gen-lang-client-0672192430.firebaseapp.com https://accounts.google.com; worker-src 'self' blob:; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self';
+  X-Robots-Tag: noindex, nofollow

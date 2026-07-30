@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 260" role="img" aria-labelledby="title">
+  <title id="title">Captains Film logo</title>
+  <rect width="760" height="260" fill="#fff"/>
+  <g fill="#000" font-family="Arial Black, Arial, Helvetica, sans-serif" font-weight="900">
+    <text x="-10" y="146" font-size="116" letter-spacing="-8">captains</text>
+    <circle cx="414" cy="42" r="20"/>
+    <text x="452" y="218" font-size="58" letter-spacing="-1">FILM</text>
+  </g>
+</svg>
