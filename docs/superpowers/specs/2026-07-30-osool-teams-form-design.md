@@ -1,7 +1,7 @@
 # Osool National Day — teams registration form
 
 **Date:** 2026-07-30
-**URL:** `captains.film/osool/teams` (unlisted, noindexed)
+**URL:** `captains.film/osool/Guests` (unlisted, noindexed)
 **Source:** `~/Documents/osool_national_day_guest_package/index.html`
 
 ## Goal
@@ -16,7 +16,7 @@ site.
 |---|---|
 | Where data goes | Its own separate spreadsheet, via a bound Apps Script web app — see "Submission" below for why the original plan was dropped |
 | Page structure | Single scrolling page (brief → crew → form → thanks), matching `/osool` |
-| URL | `/osool/teams`, nested so it inherits the existing `/osool/*` header rules |
+| URL | `/osool/Guests`, nested so it inherits the existing `/osool/*` header rules |
 | Project brief | Kept in full, including dates, both locations and all crew names |
 | Palette & type | Live-site mint `#3EFFA3` on `#0C0705` + Montserrat for Latin; IBM Plex Sans Arabic for Arabic body |
 
@@ -43,9 +43,9 @@ tracking scoped to `.latin` elements only.
 ## Files
 
 ```
-osool/teams/index.html    # page + styles
-osool/teams/teams.js      # behaviour (CSP forbids inline script)
-docs/osool-teams-apps-script.md
+osool/Guests/index.html    # page + styles
+osool/Guests/guests.js      # behaviour (CSP forbids inline script)
+docs/osool-guests-apps-script.md
 ```
 
 The logo is referenced at `/osool/captains-logo-ar-white.png` — absolute, reusing
@@ -58,10 +58,10 @@ the file already shipped for the crew form, so no binary is duplicated and no
 `sitemap.xml`, `robots.txt`, `osool/index.html`, `osool/form.js`.
 
 `_headers` needed **no** change: the existing `/osool/*` rule already matches
-nested paths. Verified against `wrangler dev` — `/osool/teams/` and
-`/osool/teams/teams.js` each return exactly one `content-security-policy` header
+nested paths. Verified against `wrangler dev` — `/osool/Guests/` and
+`/osool/Guests/guests.js` each return exactly one `content-security-policy` header
 plus `x-robots-tag: noindex, nofollow`. That inherited policy happens to be
-exactly right: `script-src 'self'` (hence the external `teams.js`) and
+exactly right: `script-src 'self'` (hence the external `guests.js`) and
 `connect-src` already allowing `script.google.com` and
 `script.googleusercontent.com` for the Apps Script POST.
 
@@ -107,7 +107,7 @@ single stable value.
 
 ## Submission
 
-`teams.js` builds a flat object and POSTs JSON to an Apps Script `/exec` URL,
+`guests.js` builds a flat object and POSTs JSON to an Apps Script `/exec` URL,
 expecting `{ok: true}`. Errors surface in Arabic in a message strip. Untaken
 branch fields are sent as empty strings so sheet columns stay stable. Each row
 carries `source: "Osool National Day Teams Form"`.
@@ -140,13 +140,15 @@ binding to its own sheet removes the id-copying step entirely.
 The payload's keys are exactly the script's `columns` list, so column order is
 fixed in one place and the sheet gets readable Arabic headers.
 
-**Open dependency:** creating the spreadsheet and deploying the web app requires
-signing in as its owner, so neither can be done from the repo. Full script and
-steps in `docs/osool-teams-apps-script.md`. Until that `/exec` URL replaces the
-placeholder at the top of `teams.js`, the form still posts to the crew endpoint —
-nothing is lost, but nothing is separated either. Pointing it at an endpoint
-before verifying the endpoint answers JSON would be worse than the status quo:
-submissions would error and the data would be gone.
+Creating the spreadsheet and deploying the web app required signing in as its
+owner, so that step was done by hand rather than from the repo; the script and
+instructions live in `docs/osool-guests-apps-script.md`. The resulting `/exec`
+URL is now wired into `guests.js` and verified end to end from the live page.
+
+Note for future testing: `curl` cannot exercise this endpoint. Apps Script
+answers a POST with a 302 to `script.googleusercontent.com`, and following it
+either downgrades the request to GET or 404s on the single-use echo URL. Use a
+real browser, or hit the `/exec` URL directly for the `doGet` health check.
 
 ## Verification
 

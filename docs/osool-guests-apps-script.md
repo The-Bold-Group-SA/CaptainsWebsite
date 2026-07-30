@@ -1,6 +1,6 @@
 # Giving the teams form its own spreadsheet
 
-The form at `/osool/teams` is a static page. It cannot write to Google Sheets by
+The form at `/osool/Guests` is a static page. It cannot write to Google Sheets by
 itself — something inside the Google account has to receive the POST, and that is
 what an Apps Script web app is. Creating one requires signing in as the sheet's
 owner, so this is the one step that cannot be done from the repo.
@@ -54,7 +54,7 @@ function osoolConfig_() {
     tabName: 'Guests',
 
     // Column order, fixed here so the sheet stays stable and readable.
-    // These keys must match what osool/teams/teams.js sends.
+    // These keys must match what osool/Guests/guests.js sends.
     columns: [
       'submitted_at', 'visitor_type', 'full_name', 'id_number', 'mobile',
       'email', 'arrival', 'pickup_location', 'plate_number', 'car_type',
@@ -156,7 +156,7 @@ Paste the `/exec` URL into a browser tab. You should see:
 
 and the spreadsheet's tab should now be named **Guests** with bold Arabic
 headers. Send that URL over and the form gets pointed at it — a one-line change
-to `SHEET_WEB_APP_URL` at the top of `osool/teams/teams.js`.
+to `SHEET_WEB_APP_URL` at the top of `osool/Guests/guests.js`.
 
 ## Notes
 

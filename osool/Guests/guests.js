@@ -6,7 +6,7 @@
 // This form's own Apps Script web app, bound to its own spreadsheet — separate
 // from the crew form's endpoint and sheet. The destination tab ("Guests") is
 // chosen by that script, not by this page. The keys sent below must stay in
-// step with its `columns` list; see docs/osool-teams-apps-script.md.
+// step with its `columns` list; see docs/osool-guests-apps-script.md.
 const SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx8eTafPdFh1fTrOOGrzhMSMQ3nuTyQLNtNlle3zVIIlMnr2WwOCaUxVp-KmttPzW1M/exec";
 
 const form = document.getElementById('teamsForm');
