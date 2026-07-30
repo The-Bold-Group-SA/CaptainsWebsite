@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Unlisted form, shared by link only: keep it out of search indexes. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <title>كابتنز | فريق أصول وفريق بولد – اليوم الوطني 2026</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Montserrat:wght@500;700;800;900&display=swap');
+
+    /* Palette lifted from the live site (index.html / v2/assets/css/main.css).
+       Arabic body text uses IBM Plex Sans Arabic rather than the site's
+       --arabic stack: DIN Next LT Arabic is never actually served, so that
+       stack resolves to Tahoma on virtually every device. */
+    :root{
+      --mint:#3EFFA3;
+      --mint-dim:rgba(62,255,163,.55);
+      --mint-glow:rgba(62,255,163,.35);
+      --black:#0C0705;
+      --black-pure:#050302;
+      --white:#fff;
+      --soft:rgba(232,255,244,.82);
+      --muted:rgba(194,255,224,.52);
+      --faint:rgba(194,255,224,.30);
+      --line:rgba(62,255,163,.16);
+      --line-soft:rgba(255,255,255,.08);
+      --panel:rgba(10,14,12,.72);
+      --field:rgba(5,3,2,.72);
+      --danger:#ff6f61;
+      --danger-soft:#ff9a90;
+      --ease:cubic-bezier(.19,1,.22,1);
+      --shadow:0 24px 70px rgba(0,0,0,.5);
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family:'IBM Plex Sans Arabic',Tahoma,Arial,sans-serif;
+      /* Arabic is cursive: any tracking breaks glyph joining. */
+      letter-spacing:0;
+      background:
+        radial-gradient(circle at 6% -4%, rgba(62,255,163,.13), transparent 32%),
+        linear-gradient(180deg,#0C0705 0%,#0a0f0c 55%,#0C0705 100%);
+      background-attachment:fixed;
+      color:var(--soft);
+      line-height:1.8;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    /* Latin runs get the site's Montserrat treatment. Scoped, so tracking and
+       uppercase never touch Arabic. */
+    .latin{
+      font-family:'Montserrat','Helvetica Neue',Arial,sans-serif;
+      direction:ltr;
+      unicode-bidi:isolate;
+    }
+
+    .wrap{width:min(1000px,92%);margin:36px auto 48px}
+
+    /* ---------- brand bar ---------- */
+    .brandbar{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:24px}
+    .brand{display:flex;flex-direction:column;gap:10px;min-width:0}
+    .logo-image{display:block;width:min(320px,72vw);height:auto}
+    .brandtag{
+      margin:0;color:var(--muted);font-size:11px;font-weight:700;
+      letter-spacing:.18em;text-transform:uppercase
+    }
+    .status{
+      display:flex;align-items:center;gap:9px;color:var(--muted);
+      font-size:13px;white-space:nowrap;padding-top:8px
+    }
+    .status .dot{
+      width:8px;height:8px;border-radius:50%;background:var(--mint);
+      box-shadow:0 0 16px var(--mint-glow);flex:none
+    }
+
+    /* ---------- shared panel ---------- */
+    .panel{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:12px;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+      padding:30px;
+    }
+
+    .eyebrow{
+      margin:0 0 14px;color:var(--mint);font-size:11px;font-weight:700;
+      letter-spacing:.18em;text-transform:uppercase
+    }
+
+    h1{
+      margin:0 0 12px;color:var(--mint);
+      font-size:clamp(28px,4vw,50px);font-weight:700;
+      /* Arabic needs room for marks — no .92 line-height, no negative tracking. */
+      line-height:1.25;letter-spacing:0
+    }
+
+    .subtitle{margin:0;color:var(--soft);max-width:780px;font-size:16px}
+    .subtitle strong{color:var(--white);font-weight:700}
+
+    /* ---------- project facts ---------- */
+    .facts{
+      display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;margin:26px 0 24px
+    }
+    .fact{
+      background:var(--black-pure);border:1px solid var(--line);
+      border-radius:10px;padding:16px 18px
+    }
+    .fact-kicker{
+      display:block;margin-bottom:4px;color:var(--mint);
+      font-size:11px;font-weight:700;letter-spacing:0
+    }
+    .fact-value{color:var(--white);font-size:16px;font-weight:700;line-height:1.5}
+
+    .brief{
+      background:linear-gradient(145deg,rgba(62,255,163,.10),rgba(255,255,255,.02));
+      border:1px solid rgba(62,255,163,.28);
+      border-radius:12px;padding:22px 24px
+    }
+    .brief h3{margin:0 0 8px;color:var(--mint);font-size:16px;font-weight:700}
+    .brief p{margin:0;color:var(--soft)}
+
+    /* ---------- crew ---------- */
+    .section-title{
+      margin:0 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line);
+      color:var(--white);font-size:18px;font-weight:700
+    }
+    .section-title.latin{letter-spacing:.08em;text-transform:uppercase;font-size:15px}
+
+    .crew-block{margin-top:18px}
+    .crew-block + .crew-block{margin-top:26px}
+    .crew-grid{display:grid;gap:14px}
+    .crew-grid.captains{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .crew-grid.key{grid-template-columns:repeat(3,minmax(0,1fr))}
+
+    .crew-card{
+      background:var(--black-pure);border:1px solid var(--line);
+      border-radius:10px;padding:18px;position:relative;overflow:hidden
+    }
+    .crew-card.featured{
+      background:linear-gradient(145deg,rgba(62,255,163,.12),rgba(255,255,255,.02));
+      border-color:rgba(62,255,163,.32)
+    }
+    .crew-card.featured:before{
+      content:"";position:absolute;width:88px;height:88px;
+      border:1px solid rgba(62,255,163,.20);border-radius:50%;
+      inset-inline-start:-30px;top:-30px
+    }
+    .crew-index{
+      display:inline-grid;place-items:center;width:28px;height:28px;
+      margin-bottom:12px;border-radius:50%;
+      background:rgba(62,255,163,.10);border:1px solid rgba(62,255,163,.28);
+      color:var(--mint);font-size:11px;font-weight:700;
+      font-family:'Montserrat',Arial,sans-serif
+    }
+    .crew-label{margin-bottom:3px;color:var(--mint);font-size:12px;line-height:1.5}
+    .crew-name{color:var(--white);font-size:17px;font-weight:700;line-height:1.5}
+
+    /* ---------- form ---------- */
+    form{margin-top:22px}
+    .form-lead{margin:0 0 22px;color:var(--muted);font-size:14.5px;max-width:780px}
+
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+    .field{display:flex;flex-direction:column;gap:7px}
+    .full{grid-column:1/-1}
+    label{color:var(--white);font-size:15px;font-weight:700}
+    .req{color:var(--danger)}
+    .hint{color:var(--muted);font-size:12.5px;line-height:1.6}
+
+    input,select,textarea{
+      width:100%;padding:12px 14px;
+      border:1px solid var(--line);border-radius:6px;
+      background:var(--field);color:var(--white);
+      font:inherit;letter-spacing:0;outline:none;
+      transition:border-color .2s ease,box-shadow .2s ease
+    }
+    input::placeholder,textarea::placeholder{color:var(--faint)}
+    input:focus,select:focus,textarea:focus{
+      border-color:var(--mint);box-shadow:0 0 0 3px rgba(62,255,163,.18)
+    }
+    textarea{min-height:110px;resize:vertical}
+    select{appearance:none;background-image:none}
+
+    /* radio pills */
+    .choices{display:flex;flex-wrap:wrap;gap:10px;padding-top:2px}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:9px 15px;border:1px solid rgba(62,255,163,.26);border-radius:999px;
+      background:var(--black-pure);color:var(--soft);
+      font-size:14.5px;font-weight:400;cursor:pointer;
+      transition:border-color .2s ease,background .2s ease,color .2s ease
+    }
+    .pill:hover{border-color:var(--mint-dim);color:var(--white)}
+    .pill input{width:auto;padding:0;accent-color:var(--mint);cursor:pointer}
+    .pill:has(input:checked){
+      border-color:var(--mint);background:rgba(62,255,163,.12);color:var(--white)
+    }
+    .pill:focus-within{box-shadow:0 0 0 3px rgba(62,255,163,.18)}
+
+    .hidden{display:none !important}
+
+    /* ---------- buttons ---------- */
+    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+    button{
+      min-height:46px;padding:12px 22px;border-radius:6px;
+      font:inherit;font-weight:700;letter-spacing:0;cursor:pointer;
+      transition:background .25s ease,color .25s ease,transform .25s var(--ease),box-shadow .25s ease
+    }
+    .primary{
+      border:1px solid var(--mint);background:var(--mint);color:var(--black)
+    }
+    .primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 10px 30px var(--mint-glow)}
+    .primary:disabled{opacity:.55;cursor:progress}
+    .secondary{
+      border:1px solid var(--mint);background:transparent;color:var(--mint)
+    }
+    .secondary:hover{background:var(--mint);color:var(--black);transform:translateY(-2px)}
+
+    /* ---------- messages ---------- */
+    .message{display:none;margin-top:18px;padding:13px 16px;border-radius:8px;font-weight:700;font-size:14.5px}
+    .message.ok{display:block;background:rgba(62,255,163,.10);border:1px solid rgba(62,255,163,.35);color:var(--mint)}
+    .message.error{display:block;background:rgba(255,111,97,.10);border:1px solid rgba(255,111,97,.38);color:var(--danger-soft)}
+
+    /* ---------- thanks ---------- */
+    .thanks{display:none;text-align:center;position:relative;overflow:hidden;padding:46px 34px}
+    .thanks.show{display:block;animation:rise .45s ease both}
+    .thanks:before{content:"";position:absolute;inset:0 auto auto 0;width:200px;height:5px;background:var(--mint)}
+    @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+    .thanks-mark{
+      width:74px;height:74px;margin:6px auto 20px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      background:var(--mint);color:var(--black);font-size:36px;font-weight:800;line-height:1;
+      box-shadow:0 0 44px var(--mint-glow)
+    }
+    .thanks h2{margin:0 0 12px;color:var(--mint);font-size:clamp(24px,3.4vw,32px);font-weight:700;line-height:1.3}
+    .thanks-lead{margin:0 auto 8px;max-width:540px;color:var(--white);font-size:17px}
+    .thanks-note{margin:0 auto;max-width:540px;color:var(--muted);font-size:14px}
+    .thanks-social{
+      margin:30px auto 0;padding:22px 18px;max-width:520px;
+      border:1px solid var(--line);border-radius:12px;background:var(--black-pure)
+    }
+    .thanks-social p{margin:0 0 14px;color:var(--soft);font-weight:700;font-size:15px}
+    .ig-link{
+      display:inline-flex;align-items:center;gap:9px;padding:11px 22px;border-radius:999px;
+      border:1px solid var(--mint);background:transparent;color:var(--mint);
+      text-decoration:none;font-weight:700;font-size:14.5px;direction:ltr;
+      transition:background .25s ease,color .25s ease,transform .25s var(--ease)
+    }
+    .ig-link:hover{background:var(--mint);color:var(--black);transform:translateY(-2px)}
+    .ig-link svg{width:18px;height:18px;flex:none}
+    .thanks .again{margin-top:26px}
+
+    .footer{margin-top:18px;text-align:center;color:var(--faint);font-size:13px}
+
+    @media(max-width:820px){
+      .crew-grid.key{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+    @media(max-width:700px){
+      .wrap{margin-top:22px}
+      .brandbar{flex-direction:column;align-items:flex-start}
+      .status{white-space:normal;padding-top:0}
+      .panel{padding:22px}
+      .facts,.grid,.crew-grid.captains,.crew-grid.key{grid-template-columns:1fr}
+      .full{grid-column:auto}
+      .logo-image{width:min(270px,80vw)}
+      .thanks{padding:34px 22px}
+      .actions button{flex:1 1 100%}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="brandbar">
+      <div class="brand">
+        <!-- Absolute path: reuses the logo already shipped for the crew form. -->
+        <img class="logo-image" src="/osool/captains-logo-ar-white.png" alt="كابتنز" />
+        <p class="brandtag latin">Team Registration</p>
+      </div>
+      <div class="status"><span class="dot"></span><span>تسجيل فرق العمل</span></div>
+    </header>
+
+    <main id="formView">
+      <section class="panel hero">
+        <p class="eyebrow latin">Osool &times; Bold Brands &times; Captains</p>
+        <h1>أصول اليوم الوطني 2026</h1>
+        <p class="subtitle">في مشروع اليوم الوطني 2026، نجتمع مع شركاء النجاح <strong>Bold Brands</strong> و<strong>أصول العقارية</strong> لصناعة فيلم وطني بروح سعودية معاصرة، يحمل معنى واضحًا وصورة تترك أثر.</p>
+
+        <div class="facts">
+          <div class="fact">
+            <span class="fact-kicker">موعد التصوير</span>
+            <div class="fact-value">8 أغسطس 2026</div>
+          </div>
+          <div class="fact">
+            <span class="fact-kicker">الموقع الأول</span>
+            <div class="fact-value">فندق هيلتون غرناطة</div>
+          </div>
+          <div class="fact">
+            <span class="fact-kicker">الموقع الثاني</span>
+            <div class="fact-value">مجمع إشبيلية السكني</div>
+          </div>
+        </div>
+
+        <div class="brief">
+          <h3>عن المشروع</h3>
+          <p>رح نصوّر في موقعين، وكل موقع يعطي الفيلم طابع مختلف: فندق هيلتون غرناطة بمشهده الراقي، ومجمع إشبيلية السكني بروحه المجتمعية. التصوير بيكون يوم 8 أغسطس 2026 ضمن خطة إنتاج واضحة ومتكاملة.</p>
+        </div>
+      </section>
+
+      <section class="panel crew-block" style="margin-top:18px">
+        <h2 class="section-title">كباتن المشروع</h2>
+        <div class="crew-grid captains">
+          <div class="crew-card featured">
+            <div class="crew-index latin">01</div>
+            <div class="crew-label">الكابتن الإنتاجي</div>
+            <div class="crew-name">عزيزة السميري</div>
+          </div>
+          <div class="crew-card featured">
+            <div class="crew-index latin">02</div>
+            <div class="crew-label">الكابتن الإخراجي</div>
+            <div class="crew-name">وهاب الشهري</div>
+          </div>
+          <div class="crew-card">
+            <div class="crew-index latin">03</div>
+            <div class="crew-label">الكابتن الإنتاجي</div>
+            <div class="crew-name">عمر نور</div>
+          </div>
+          <div class="crew-card">
+            <div class="crew-index latin">04</div>
+            <div class="crew-label">الكابتن الإنتاجي</div>
+            <div class="crew-name">العنود</div>
+          </div>
+        </div>
+
+        <h2 class="section-title latin" style="margin-top:28px">Key Crew</h2>
+        <div class="crew-grid key">
+          <div class="crew-card">
+            <div class="crew-index latin">01</div>
+            <div class="crew-label">مدير التصوير</div>
+            <div class="crew-name">عمرو عماري</div>
+          </div>
+          <div class="crew-card">
+            <div class="crew-index latin">02</div>
+            <div class="crew-label">مدير الإنتاج</div>
+            <div class="crew-name">محمد جمال</div>
+          </div>
+          <div class="crew-card">
+            <div class="crew-index latin">03</div>
+            <div class="crew-label">مسؤولة قسم الديكور</div>
+            <div class="crew-name">أماني وهبة</div>
+          </div>
+          <div class="crew-card">
+            <div class="crew-index latin">04</div>
+            <div class="crew-label">مسؤولة قسم الملابس</div>
+            <div class="crew-name">إسراء فكري</div>
+          </div>
+          <div class="crew-card">
+            <div class="crew-index latin">05</div>
+            <div class="crew-label">مسؤول قسم التمثيل</div>
+            <div class="crew-name">مؤمن جودة</div>
+          </div>
+        </div>
+      </section>
+
+      <form class="panel" id="teamsForm">
+        <h2 class="section-title">بيانات فريق أصول وفريق بولد</h2>
+        <p class="form-lead">عشان نجهّز لك تجربة مرتبة من لحظة الوصول، نحتاج منك تعبئة المعلومات الخاصة بالدخول، الاستقبال، النقل والضيافة. يرجى تعبئة نموذج مستقل لكل شخص.</p>
+
+        <div class="grid">
+          <div class="field">
+            <label for="visitorType">صفتك معنا <span class="req">*</span></label>
+            <select id="visitorType" name="visitor_type" required>
+              <option value="">اختر الخيار المناسب</option>
+              <option>فريق أصول</option>
+              <option>فريق بولد</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="fullName">الاسم الكامل <span class="req">*</span></label>
+            <input id="fullName" name="full_name" autocomplete="name" required />
+          </div>
+
+          <div class="field">
+            <label for="idNumber">رقم الهوية أو جواز السفر <span class="req">*</span></label>
+            <input id="idNumber" name="id_number" required />
+            <span class="hint">كما هو مكتوب في الوثيقة الرسمية، لأنه يُستخدم في تصاريح الدخول.</span>
+          </div>
+
+          <div class="field">
+            <label for="mobile">رقم الجوال <span class="req">*</span></label>
+            <input id="mobile" name="mobile" type="tel" inputmode="tel" autocomplete="tel" required />
+          </div>
+
+          <div class="field full">
+            <label for="email">البريد الإلكتروني</label>
+            <input id="email" name="email" type="email" autocomplete="email" />
+          </div>
+
+          <div class="field full">
+            <label>كيف ناوي توصل؟ <span class="req">*</span></label>
+            <div class="choices">
+              <label class="pill"><input type="radio" name="arrival" value="Pick-up" required /><span class="latin">Pick-up</span></label>
+              <label class="pill"><input type="radio" name="arrival" value="بسيارتي" /><span>بسيارتي</span></label>
+            </div>
+          </div>
+
+          <div class="field full hidden" id="pickupLocationField">
+            <label for="pickupLocation">موقع الاستلام / <span class="latin">Location Link</span> <span class="req">*</span></label>
+            <input id="pickupLocation" name="pickup_location" placeholder="حط رابط الموقع أو اكتب العنوان بشكل واضح" />
+          </div>
+
+          <div class="field hidden" id="plateField">
+            <label for="plateNumber">رقم اللوحة <span class="req">*</span></label>
+            <input id="plateNumber" name="plate_number" />
+          </div>
+
+          <div class="field hidden" id="carTypeField">
+            <label for="carType">نوع السيارة <span class="req">*</span></label>
+            <input id="carType" name="car_type" placeholder="مثال: SUV، سيدان" />
+          </div>
+
+          <div class="field full">
+            <label>وش مشروبك المفضل؟ <span class="req">*</span></label>
+            <div class="choices">
+              <label class="pill"><input type="radio" name="drink" value="قهوة" required /><span>قهوة</span></label>
+              <label class="pill"><input type="radio" name="drink" value="شاي" /><span>شاي</span></label>
+              <label class="pill"><input type="radio" name="drink" value="مرن مع كل الخيارات" /><span>مرن مع كل الخيارات</span></label>
+              <label class="pill"><input type="radio" name="drink" value="منزوع الكافيين" /><span>منزوع الكافيين</span></label>
+            </div>
+          </div>
+
+          <div class="field full">
+            <label>وش يناسبك بالأكل؟ <span class="req">*</span></label>
+            <div class="choices">
+              <label class="pill"><input type="radio" name="food" value="دايت" required /><span>دايت</span></label>
+              <label class="pill"><input type="radio" name="food" value="عادي" /><span>عادي</span></label>
+              <label class="pill"><input type="radio" name="food" value="Vegetarian" /><span class="latin">Vegetarian</span></label>
+              <label class="pill"><input type="radio" name="food" value="Vegan" /><span class="latin">Vegan</span></label>
+            </div>
+          </div>
+
+          <div class="field full">
+            <label for="specialRequests">فيه أي ملاحظات أو طلبات خاصة بالموقع؟</label>
+            <textarea id="specialRequests" name="special_requests" placeholder="مثلاً: حساسية غذائية، متطلبات دخول، ترتيبات خاصة أو أي ملاحظة تهمنا"></textarea>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="primary" id="submitButton" type="submit">إرسال المعلومات</button>
+          <button class="secondary" type="reset">مسح النموذج</button>
+        </div>
+
+        <div id="formMessage" class="message" role="status" aria-live="polite"></div>
+      </form>
+    </main>
+
+    <section class="panel thanks" id="thankYou" role="status" aria-live="polite" tabindex="-1">
+      <div class="thanks-mark" aria-hidden="true">✓</div>
+      <h2>يعطيك العافية</h2>
+      <p class="thanks-lead">استلمنا كافة معلوماتك بنجاح.</p>
+      <p class="thanks-note">بنزوّدك بأوقات العمل وتفاصيل السائق في حال اخترت خدمة الـ<span class="latin">Pick-up</span>.</p>
+
+      <div class="thanks-social">
+        <p>تابعنا على انستقرام</p>
+        <a class="ig-link" href="https://www.instagram.com/captains_film/" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+          <span>@captains_film</span>
+        </a>
+      </div>
+
+      <div class="again">
+        <button class="secondary" type="button" id="newEntryButton">تسجيل شخص آخر</button>
+      </div>
+    </section>
+
+    <p class="footer">نموذج داخلي خاص بكابتنز - مشروع أصول لليوم الوطني</p>
+  </div>
+
+  <script src="./teams.js"></script>
+</body>
+</html>

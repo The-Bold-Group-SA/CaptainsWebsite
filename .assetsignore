@@ -5,6 +5,7 @@
 .wrangler
 node_modules
 screenshots
+docs
 about-full-page.png
 vercel.json
 wrangler.jsonc

@@ -1,0 +1,125 @@
+# Osool National Day — teams registration form
+
+**Date:** 2026-07-30
+**URL:** `captains.film/osool/teams` (unlisted, noindexed)
+**Source:** `~/Documents/osool_national_day_guest_package/index.html`
+
+## Goal
+
+Rebuild the standalone Osool guest form in the Captains brand, relabel its two
+audience options, and publish it at its own URL without altering the existing
+site.
+
+## Decisions
+
+| Question | Decision |
+|---|---|
+| Where data goes | Same Apps Script web app as the crew form, routed to a separate `Guests` tab of the same spreadsheet |
+| Page structure | Single scrolling page (brief → crew → form → thanks), matching `/osool` |
+| URL | `/osool/teams`, nested so it inherits the existing `/osool/*` header rules |
+| Project brief | Kept in full, including dates, both locations and all crew names |
+| Palette & type | Live-site mint `#3EFFA3` on `#0C0705` + Montserrat for Latin; IBM Plex Sans Arabic for Arabic body |
+
+### On the palette
+
+The live site (`index.html`, `v2/assets/css/main.css`) and the existing crew form
+disagree. The site is mint `#3EFFA3` on `#0C0705`; the crew form is lime
+`#d8ff3e` on `#050505` with IBM Plex Sans Arabic. The site is the brand; the crew
+form is an outlier.
+
+Typography splits the difference deliberately. The site's `--arabic` stack leads
+with *DIN Next LT Arabic*, which is **never served** — there are no `@font-face`
+rules and no font files in the repo — so it resolves to Tahoma for anyone without
+DIN installed locally. For a page that is almost entirely Arabic that is a poor
+result, so Arabic body text uses IBM Plex Sans Arabic (Google-hosted, and already
+permitted by the `/osool/*` CSP), while Latin runs use Montserrat as on the site.
+
+Two site-wide `h1` treatments are deliberately **not** carried over:
+`letter-spacing: -.025em` and `line-height: .92`. Both are Latin display tricks.
+Negative tracking breaks the cursive joining of Arabic glyphs, and `.92` clips
+diacritics. Arabic keeps `letter-spacing: 0` and generous line-height, with
+tracking scoped to `.latin` elements only.
+
+## Files
+
+```
+osool/teams/index.html    # page + styles
+osool/teams/teams.js      # behaviour (CSP forbids inline script)
+docs/osool-teams-apps-script.md
+```
+
+The logo is referenced at `/osool/captains-logo-ar-white.png` — absolute, reusing
+the file already shipped for the crew form, so no binary is duplicated and no
+`<base>` tag is needed.
+
+### Not modified
+
+`index.html`, `about.html`, `projects.html`, `ai-studio.html`, `v2/`,
+`sitemap.xml`, `robots.txt`, `osool/index.html`, `osool/form.js`.
+
+`_headers` needed **no** change: the existing `/osool/*` rule already matches
+nested paths. Verified against `wrangler dev` — `/osool/teams/` and
+`/osool/teams/teams.js` each return exactly one `content-security-policy` header
+plus `x-robots-tag: noindex, nofollow`. That inherited policy happens to be
+exactly right: `script-src 'self'` (hence the external `teams.js`) and
+`connect-src` already allowing `script.google.com` and
+`script.googleusercontent.com` for the Apps Script POST.
+
+`.assetsignore` gains one line (`docs`) so the specs directory is never served.
+This excludes new files only; no existing path changes behaviour.
+
+## Copy changes
+
+The requested relabel, plus the surrounding copy it invalidates:
+
+| Where | Before | After |
+|---|---|---|
+| `visitor_type` option | عميل | **فريق أصول** |
+| `visitor_type` option | ضيف | **فريق بولد** |
+| `<title>` | …تسجيل العميل والزوار | كابتنز \| فريق أصول وفريق بولد – اليوم الوطني 2026 |
+| Form heading | بيانات العميل أو الضيف | بيانات فريق أصول وفريق بولد |
+| Footer | بوابة ضيوف وعملاء… | نموذج داخلي خاص بكابتنز - مشروع أصول لليوم الوطني |
+
+Two source typos are also corrected: `المعلومات نكملة` → `المعلومات`, and
+`Production` → `إنتاج` in the brief.
+
+## Fields
+
+`visitor_type*`, `full_name*`, `id_number*`, `mobile*`, `email`, `arrival*`,
+`drink*`, `food*`, `special_requests`.
+
+Conditional on `arrival`:
+
+- `Pick-up` → `pickup_location*`
+- `بسيارتي` → `plate_number*`, `car_type*`
+
+Hidden branches have `required` cleared in JS, otherwise the form refuses to
+submit with no visible invalid control to focus.
+
+### Bug fixed from the source
+
+The source's Pick-up radio submits `بيك أب` while its validation compares against
+the literal string `Pick-up`, so the "location is required" check could never
+fire and pick-up could be submitted with no address. The rebuild matches on a
+single stable value.
+
+## Submission
+
+`teams.js` builds a flat object and POSTs JSON to the crew form's `/exec` URL,
+expecting `{ok: true}`. Errors surface in Arabic in a message strip. Untaken
+branch fields are sent as empty strings so sheet columns stay stable. Each row
+carries `sheet_tab: "Guests"` and `source: "Osool National Day Teams Form"`.
+
+**Open dependency:** tab routing is decided by the Apps Script, which lives in the
+owner's Google account. Until it reads `sheet_tab`, these rows will not land in
+their own tab. See `docs/osool-teams-apps-script.md` for the drop-in change,
+which leaves the crew branch untouched.
+
+## Verification
+
+- Both arrival branches toggle visibility and `required` correctly.
+- Select offers exactly `فريق أصول` / `فريق بولد`; no `عميل`/`ضيف`/`زوار` remains
+  anywhere in rendered text.
+- Payload shape confirmed via an intercepted `fetch`; whitespace trimmed.
+- Success state hides the form and reveals the thanks panel.
+- No console errors; no horizontal overflow at 1280px or 375px.
