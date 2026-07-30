@@ -3,14 +3,11 @@
 // This file exists as an external script (rather than inline) because the
 // /osool/* CSP in _headers is script-src 'self' with no 'unsafe-inline'.
 //
-// TODO — swap this for the teams form's own Apps Script /exec URL.
-// It currently points at the CREW form's endpoint, which has no idea what these
-// fields are, so guest rows land in the crew sheet with misaligned columns.
-// Setting up a dedicated endpoint takes about five minutes and cannot break the
-// crew form; the steps and the full script are in
-// docs/osool-teams-apps-script.md. Replacing this one line is the only change
-// needed here — the destination tab is chosen by that script, not by the page.
-const SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyTuUZo0m9_w40oQPmJkapcM8Scob4HH3GeJcwV18q_hjBS0qWTQxaOOb6s2sePK8GBYg/exec";
+// This form's own Apps Script web app, bound to its own spreadsheet — separate
+// from the crew form's endpoint and sheet. The destination tab ("Guests") is
+// chosen by that script, not by this page. The keys sent below must stay in
+// step with its `columns` list; see docs/osool-teams-apps-script.md.
+const SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx8eTafPdFh1fTrOOGrzhMSMQ3nuTyQLNtNlle3zVIIlMnr2WwOCaUxVp-KmttPzW1M/exec";
 
 const form = document.getElementById('teamsForm');
 const formView = document.getElementById('formView');
