@@ -14,7 +14,7 @@ site.
 
 | Question | Decision |
 |---|---|
-| Where data goes | Its own standalone Apps Script web app writing to a `Guests` tab — see "Submission" below for why the original plan was dropped |
+| Where data goes | Its own separate spreadsheet, via a bound Apps Script web app — see "Submission" below for why the original plan was dropped |
 | Page structure | Single scrolling page (brief → crew → form → thanks), matching `/osool` |
 | URL | `/osool/teams`, nested so it inherits the existing `/osool/*` header rules |
 | Project brief | Kept in full, including dates, both locations and all crew names |
@@ -121,19 +121,32 @@ accepted but landed in its default sheet with columns misaligned against the cre
 headers. Routing them properly would have meant editing the script that crew
 registration depends on.
 
-Replaced by a **standalone** Apps Script: a separate project, its own `/exec`
-URL, pointed at whichever spreadsheet id it is given, creating and owning its own
-tab. The crew script is never opened, so crew registration cannot regress. The
-page no longer sends `sheet_tab` — the destination belongs to the script.
+Replaced by a **separate spreadsheet** with its own bound Apps Script, created
+via *Extensions → Apps Script* from inside that sheet. The crew script and sheet
+are never opened, so crew registration cannot regress. The page no longer sends
+`sheet_tab` — the destination belongs to the script.
+
+Two earlier variants were discarded after failing in practice. Routing by a
+`sheet_tab` key on the crew endpoint failed because that script ignores unknown
+keys while still answering `{ok: true}`. A standalone script taking a
+spreadsheet id then failed to compile with
+`Identifier 'HEADERS' has already been declared` — every `.gs` file in a project
+shares one global scope, and a syntax error anywhere disables the whole
+deployment including `doGet`, which surfaces as an HTML error page rather than
+JSON. The current version therefore keeps all configuration inside
+`osoolConfig_()` with prefixed helpers, leaving only `doPost`/`doGet` global, and
+binding to its own sheet removes the id-copying step entirely.
 
 The payload's keys are exactly the script's `columns` list, so column order is
 fixed in one place and the sheet gets readable Arabic headers.
 
-**Open dependency:** creating the web app requires signing in as the sheet owner,
-so it cannot be done from the repo. Full script and steps in
-`docs/osool-teams-apps-script.md`. Until the new `/exec` URL replaces the
+**Open dependency:** creating the spreadsheet and deploying the web app requires
+signing in as its owner, so neither can be done from the repo. Full script and
+steps in `docs/osool-teams-apps-script.md`. Until that `/exec` URL replaces the
 placeholder at the top of `teams.js`, the form still posts to the crew endpoint —
-nothing is lost, but nothing is separated either.
+nothing is lost, but nothing is separated either. Pointing it at an endpoint
+before verifying the endpoint answers JSON would be worse than the status quo:
+submissions would error and the data would be gone.
 
 ## Verification
 

@@ -1,38 +1,47 @@
-# Giving the teams form its own sheet
+# Giving the teams form its own spreadsheet
 
 The form at `/osool/teams` is a static page. It cannot write to Google Sheets by
-itself — something inside the Google account has to receive the POST. That is
-what an Apps Script web app is, and creating one requires signing in as the
-sheet's owner, so this is the one step that cannot be done from the repo.
+itself — something inside the Google account has to receive the POST, and that is
+what an Apps Script web app is. Creating one requires signing in as the sheet's
+owner, so this is the one step that cannot be done from the repo.
 
 Everything below is copy-paste. Budget five minutes.
 
 ## Approach
 
-A **brand new, standalone** Apps Script project — not an edit to the crew form's
-script. It writes into a tab of whichever spreadsheet you point it at, so you can
-have either outcome:
+A **brand new spreadsheet**, with the script created *from inside it* so the two
+are bound together. This avoids both of the things that can go wrong:
 
-- **Same spreadsheet, new tab** — put the crew sheet's id in `sheetId`.
-- **A separate spreadsheet** — make a new sheet and use its id instead.
+- **No spreadsheet id to copy.** A bound script already knows its own sheet.
+- **No name collisions.** A script created this way starts empty, so it cannot
+  clash with leftover code. (Every `.gs` file in a project shares one global
+  scope, and a duplicate declaration is a syntax error that disables the entire
+  deployment — including `doGet`, which is why a broken project serves an error
+  page rather than JSON.)
 
-Either way the crew script is never opened, so crew registration cannot break.
+The crew form's script and spreadsheet are never opened, so crew registration
+cannot regress.
 
-## 1. Create the project
+## 1. Create the spreadsheet
 
-Go to <https://script.google.com> → **New project**.
+Go to <https://sheets.new>. Name it something like
+**Osool National Day — Guests**. Leave the empty tab alone; the script renames
+and fills it on the first submission.
 
-**The project must contain this and nothing else.** Every `.gs` file in an Apps
-Script project shares one global scope, so a leftover file declaring the same
-name produces `Identifier '...' has already been declared` — and a syntax error
-in *any* file takes down the whole deployment, including `doGet`. Delete the
-sample `myFunction`, delete any other `.gs` files in the left sidebar, then paste
-this in full:
+## 2. Open its script editor
+
+In that spreadsheet: **Extensions → Apps Script**.
+
+This must be done from inside the new sheet — that is what binds them. Delete the
+sample `function myFunction() {}` and paste this in full:
 
 ```js
 /**
  * Osool National Day — فريق أصول / فريق بولد registration endpoint.
- * Standalone: independent of the crew form's Apps Script.
+ *
+ * Bound to its own spreadsheet: created via Extensions > Apps Script from the
+ * sheet it writes to, so it needs no spreadsheet id and is fully independent of
+ * the crew form's script.
  *
  * Everything is function-scoped and prefixed on purpose. Top-level `const`
  * declarations share a global namespace with every other file in the project,
@@ -42,14 +51,10 @@ this in full:
 
 function osoolConfig_() {
   return {
-    // From your sheet's URL:
-    // https://docs.google.com/spreadsheets/d/THIS_LONG_PART_HERE/edit
-    sheetId: 'PASTE_YOUR_SPREADSHEET_ID_HERE',
-
-    // Created automatically on the first submission if it doesn't exist.
     tabName: 'Guests',
 
     // Column order, fixed here so the sheet stays stable and readable.
+    // These keys must match what osool/teams/teams.js sends.
     columns: [
       'submitted_at', 'visitor_type', 'full_name', 'id_number', 'mobile',
       'email', 'arrival', 'pickup_location', 'plate_number', 'car_type',
@@ -95,13 +100,25 @@ function doGet() {
 }
 
 function osoolSheet_(cfg) {
-  var ss = SpreadsheetApp.openById(cfg.sheetId);
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = ss.getSheetByName(cfg.tabName);
-  if (!sheet) sheet = ss.insertSheet(cfg.tabName);
+
+  if (!sheet) {
+    var sheets = ss.getSheets();
+    // On a fresh spreadsheet, rename the default empty tab instead of leaving
+    // a stray "Sheet1" sitting next to the real one.
+    if (sheets.length === 1 && sheets[0].getLastRow() === 0) {
+      sheet = sheets[0].setName(cfg.tabName);
+    } else {
+      sheet = ss.insertSheet(cfg.tabName);
+    }
+  }
+
   if (sheet.getLastRow() === 0) {
     sheet.appendRow(cfg.headers);
     sheet.getRange(1, 1, 1, cfg.headers.length).setFontWeight('bold');
     sheet.setFrozenRows(1);
+    sheet.setRightToLeft(true);
   }
   return sheet;
 }
@@ -112,16 +129,7 @@ function osoolJson_(obj) {
 }
 ```
 
-## 2. Set the spreadsheet id
-
-Open the target sheet. Its URL looks like:
-
-```
-https://docs.google.com/spreadsheets/d/1AbCdEfGhIjKlMnOpQrStUvWxYz/edit#gid=0
-                                       └──────── this part ────────┘
-```
-
-Paste that into `sheetId`, then save (⌘S).
+Save (⌘S).
 
 ## 3. Deploy it
 
@@ -146,22 +154,20 @@ Paste the `/exec` URL into a browser tab. You should see:
 {"ok":true,"tab":"Guests"}
 ```
 
-and the `Guests` tab should now exist in the sheet. Send me that URL and I'll
-point the form at it — it is a one-line change to `SHEET_WEB_APP_URL` at the top
-of `osool/teams/teams.js`.
+and the spreadsheet's tab should now be named **Guests** with bold Arabic
+headers. Send that URL over and the form gets pointed at it — a one-line change
+to `SHEET_WEB_APP_URL` at the top of `osool/teams/teams.js`.
 
 ## Notes
 
 - **"Anyone" is required.** The form posts from a visitor's browser with no
-  Google login, so the endpoint must accept anonymous requests. This means
-  anyone holding the URL can append rows to that tab — inherent to this pattern,
-  and already true of the crew form's endpoint. It grants no read access to the
-  spreadsheet.
+  Google login, so the endpoint must accept anonymous requests. Anyone holding
+  the URL can append rows to that sheet — inherent to this pattern, and already
+  true of the crew form's endpoint. It grants no read access to the spreadsheet.
 - **Re-deploy after any edit.** Apps Script serves the version you *deployed*,
-  not the version you saved. Use **Deploy → Manage deployments → edit → Version:
-  New version**, which keeps the same `/exec` URL.
-- **Renaming the tab** is just `tabName`; it will be created on next submit.
-- **If the URL returns a `خطأ` / error page instead of JSON**, the project
-  failed to compile. Open the editor and check the sidebar for a second `.gs`
-  file — two files declaring the same name is the usual cause, and it disables
-  the whole deployment, not just the duplicated part.
+  not the version you saved. **Deploy → Manage deployments → edit → Version: New
+  version** keeps the same `/exec` URL; a brand new deployment gives a new one.
+- **If the URL returns a `خطأ` / error page instead of JSON**, the project failed
+  to compile. Check the sidebar for a second `.gs` file — a duplicate
+  declaration disables the whole deployment, not just the duplicated part.
+- **Renaming the tab** is just `tabName`.
