@@ -1,15 +1,16 @@
 // Osool National Day — فريق أصول / فريق بولد registration.
 //
-// Posts to the same Apps Script web app as the crew form at /osool, but tags
-// every row with sheet_tab so the script can route these into their own tab of
-// the same spreadsheet instead of mixing them in with crew rows. The script
-// must read that key — see docs/osool-teams-apps-script.md.
-//
 // This file exists as an external script (rather than inline) because the
 // /osool/* CSP in _headers is script-src 'self' with no 'unsafe-inline'.
-
+//
+// TODO — swap this for the teams form's own Apps Script /exec URL.
+// It currently points at the CREW form's endpoint, which has no idea what these
+// fields are, so guest rows land in the crew sheet with misaligned columns.
+// Setting up a dedicated endpoint takes about five minutes and cannot break the
+// crew form; the steps and the full script are in
+// docs/osool-teams-apps-script.md. Replacing this one line is the only change
+// needed here — the destination tab is chosen by that script, not by the page.
 const SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyTuUZo0m9_w40oQPmJkapcM8Scob4HH3GeJcwV18q_hjBS0qWTQxaOOb6s2sePK8GBYg/exec";
-const SHEET_TAB = "Guests";
 
 const form = document.getElementById('teamsForm');
 const formView = document.getElementById('formView');
@@ -68,7 +69,6 @@ function collectData(){
   data.email = data.email || '';
   data.special_requests = data.special_requests || '';
 
-  data.sheet_tab = SHEET_TAB;
   data.submitted_at = new Date().toISOString();
   data.source = 'Osool National Day Teams Form';
   return data;

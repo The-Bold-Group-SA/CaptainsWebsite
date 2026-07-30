@@ -14,7 +14,7 @@ site.
 
 | Question | Decision |
 |---|---|
-| Where data goes | Same Apps Script web app as the crew form, routed to a separate `Guests` tab of the same spreadsheet |
+| Where data goes | Its own standalone Apps Script web app writing to a `Guests` tab — see "Submission" below for why the original plan was dropped |
 | Page structure | Single scrolling page (brief → crew → form → thanks), matching `/osool` |
 | URL | `/osool/teams`, nested so it inherits the existing `/osool/*` header rules |
 | Project brief | Kept in full, including dates, both locations and all crew names |
@@ -79,6 +79,8 @@ The requested relabel, plus the surrounding copy it invalidates:
 | `<title>` | …تسجيل العميل والزوار | كابتنز \| فريق أصول وفريق بولد – اليوم الوطني 2026 |
 | Form heading | بيانات العميل أو الضيف | بيانات فريق أصول وفريق بولد |
 | Footer | بوابة ضيوف وعملاء… | نموذج داخلي خاص بكابتنز - مشروع أصول لليوم الوطني |
+| Partner name | Bold Brands | **Bold** |
+| Partner name | أصول العقارية | **أصول** |
 
 Two source typos are also corrected: `المعلومات نكملة` → `المعلومات`, and
 `Production` → `إنتاج` in the brief.
@@ -105,15 +107,33 @@ single stable value.
 
 ## Submission
 
-`teams.js` builds a flat object and POSTs JSON to the crew form's `/exec` URL,
+`teams.js` builds a flat object and POSTs JSON to an Apps Script `/exec` URL,
 expecting `{ok: true}`. Errors surface in Arabic in a message strip. Untaken
 branch fields are sent as empty strings so sheet columns stay stable. Each row
-carries `sheet_tab: "Guests"` and `source: "Osool National Day Teams Form"`.
+carries `source: "Osool National Day Teams Form"`.
 
-**Open dependency:** tab routing is decided by the Apps Script, which lives in the
-owner's Google account. Until it reads `sheet_tab`, these rows will not land in
-their own tab. See `docs/osool-teams-apps-script.md` for the drop-in change,
-which leaves the crew branch untouched.
+### Why the shared endpoint was abandoned
+
+The first plan reused the crew form's Apps Script, tagging rows with
+`sheet_tab: "Guests"` for it to route on. A live test showed the script returns
+`{ok: true}` for those rows while ignoring the key entirely — so submissions were
+accepted but landed in its default sheet with columns misaligned against the crew
+headers. Routing them properly would have meant editing the script that crew
+registration depends on.
+
+Replaced by a **standalone** Apps Script: a separate project, its own `/exec`
+URL, pointed at whichever spreadsheet id it is given, creating and owning its own
+tab. The crew script is never opened, so crew registration cannot regress. The
+page no longer sends `sheet_tab` — the destination belongs to the script.
+
+The payload's keys are exactly the script's `COLUMNS` list, so column order is
+fixed in one place and the sheet gets readable Arabic headers.
+
+**Open dependency:** creating the web app requires signing in as the sheet owner,
+so it cannot be done from the repo. Full script and steps in
+`docs/osool-teams-apps-script.md`. Until the new `/exec` URL replaces the
+placeholder at the top of `teams.js`, the form still posts to the crew endpoint —
+nothing is lost, but nothing is separated either.
 
 ## Verification
 
